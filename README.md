@@ -1,10 +1,10 @@
-# Muhsin — three worlds, one portfolio
+# Realms — three worlds, one portfolio
 
-A static Astro portfolio with independently art-directed **Medieval**, **Cyberpunk**, and **Metro** experiences. Shared personal content, separate layouts, type systems, illustrations, controls, cursor treatments, and GSAP motion.
+A customizable static Astro portfolio with independently art-directed **Medieval**, **Cyberpunk**, and **Metro** experiences. Shared portfolio content, separate layouts, type systems, illustrations, controls, cursor treatments, and GSAP motion.
 
 ## Goal
 
-Make a memorable, visually rich personal website without making visitors hunt for the essentials: **who Muhsin is, what he does and can do, proof of his work, his résumé, and how to contact him**.
+Make a memorable, visually rich portfolio without making visitors hunt for the essentials: **who the portfolio owner is, what they do and can do, proof of their work, their résumé, and how to contact them**.
 
 Each theme is a complete art direction, not a palette swap. Medieval is a cartographer’s folio; Cyberpunk is an independent signal interface; Metro is a warm underground workshop with an enamel identity plate and horizontal work records. Layout, artwork, SVGs, typography, surfaces, buttons, hover/focus/press behavior, cursors, and animation language can all differ. Future themes should have the same freedom.
 
@@ -28,13 +28,13 @@ npm run check      # Astro/TypeScript diagnostics, build, browser tests
 npm run format:check
 ```
 
-Browser tests use `/usr/bin/chromium` by default on this machine. On another system, set `CHROMIUM_PATH` to your Chromium/Chrome executable before running checks. Set `PREVIEW_PORT=4327` to test alongside an existing dev server without reusing it. For repository-base verification, use `BASE_PATH=/portfolio-one/ PREVIEW_PORT=4327 npm run check`; restore the ordinary root build afterward. Tests include no-JavaScript content, theme switching/persistence, rapid requests, keyboard focus, reduced motion, paused motion, blocked storage, responsive overflow, asset loading, transition coverage, and axe accessibility checks. Chromium checks are not a substitute for Safari/Firefox or real-device testing.
+Browser tests use `/usr/bin/chromium` by default on this machine. On another system, set `CHROMIUM_PATH` to your Chromium/Chrome executable before running checks. Set `PREVIEW_PORT=4327` to test alongside an existing dev server without reusing it. For repository-base verification, use `BASE_PATH=/realms/ PREVIEW_PORT=4327 npm run check`; restore the ordinary root build afterward. Tests include no-JavaScript content, theme switching/persistence, rapid requests, keyboard focus, reduced motion, paused motion, blocked storage, responsive overflow, asset loading, transition coverage, and axe accessibility checks. Chromium checks are not a substitute for Safari/Firefox or real-device testing.
 
-## Edit your information
+## Customize the portfolio
 
-**`src/data/profile.json` is the single source of personal content.** It contains name, role, location, career start, email, intro/about prose, capabilities, tools, experience summaries, project descriptions/categories, assets, and social links. All three worlds render the same content at build time. The shared intro also supplies the neutral search/social description.
+**`src/data/profile.json` is the single source of portfolio content.** It contains the owner’s name, role, location, career start, email, intro/about prose, capabilities, tools, experience summaries, project descriptions/categories, assets, and social links. All three worlds render the same content at build time. The shared intro also supplies the neutral search/social description.
 
-Edit personal copy once in `profile.json`, not in theme components. Decorative headings, artwork captions, and world labels live in each scene’s markup; they do not replace the shared biography or project descriptions. `npm run check` verifies the original shared wording across all three worlds alongside plain contact, résumé, and motion controls.
+Edit portfolio copy once in `profile.json`, not in theme components. Decorative headings, artwork captions, and world labels live in each scene’s markup; they do not replace the shared biography or project descriptions. `npm run check` verifies the original shared wording across all three worlds alongside plain contact, résumé, and motion controls.
 
 - Keep asset paths relative, without a leading slash: `projects/kadha.png`.
 - Replace `public/resume.pdf` to update the downloadable résumé.
@@ -45,7 +45,7 @@ Edit personal copy once in `profile.json`, not in theme components. Decorative h
 ## How themes work
 
 ```text
-src/data/profile.json             Shared personal content and metadata
+src/data/profile.json             Shared portfolio content and metadata
 src/layouts/Portfolio.astro        Static shell, metadata, switch overlay
 src/themes/medieval/               Folio composition, styles, motion
 src/themes/cyberpunk/              Signal composition, styles, motion
@@ -64,7 +64,7 @@ GSAP owns the coordinated world transition and each theme’s ambient timeline. 
 
 ### Add another art direction
 
-1. Add `src/themes/<name>/Scene.astro`, `theme.css`, and `motion.ts`. Import shared `profile.json`; render its personal content unchanged in an independent composition rather than reskinning an existing scene.
+1. Add `src/themes/<name>/Scene.astro`, `theme.css`, and `motion.ts`. Import shared `profile.json`; render its portfolio content unchanged in an independent composition rather than reskinning an existing scene.
 2. Give the scene `data-scene="<name>"`, `data-world-name`, `data-world-title`, and `data-world-transition` attributes. Pass its theme name into `ThemeSwitcher`. Use unique heading/anchor IDs and the same three semantic content regions (introduction, capabilities/experience, work), which preserve reading position during switches.
 3. Add original artwork under `public/themes/<name>/`. Use `data-lazy-src` for inactive images, and `loading="lazy"` for below-the-fold images. Resolve paths through `import.meta.env.BASE_URL`.
 4. Export `ambient(scene)` and `enter(scene)` GSAP timelines. Mark entrance targets `data-reveal` and ambient targets `data-ambient`. Keep essential content visible without animations.
@@ -73,21 +73,21 @@ GSAP owns the coordinated world transition and each theme’s ambient timeline. 
 
 The registry is deliberately small and explicit, not a plugin system. Existing theme presentations do not need rewriting to add a world.
 
-Scenes retain their own markup while reading the same personal content. World titles and transition text are emitted as scene data attributes for the controller. The shared switcher and controller use plain “Motion on/off” labels; each theme styles those controls independently.
+Scenes retain their own markup while reading the same portfolio content. World titles and transition text are emitted as scene data attributes for the controller. The shared switcher and controller use plain “Motion on/off” labels; each theme styles those controls independently.
 
 ## GitHub Pages
 
 No backend is needed. Deploy the contents of **`dist/`**, not the source tree.
 
-For the eventual custom domain `muhsi.in`, `astro.config.mjs` already has the correct `site` and root base. Configure the domain separately in GitHub Pages; this project does not modify DNS or deploy anything automatically.
+Before deploying, set `site` in `astro.config.mjs` to the portfolio’s public origin. Configure custom domains separately in GitHub Pages; this project does not modify DNS or deploy anything automatically.
 
-For a repository URL such as `https://<user>.github.io/portfolio-one/`:
+For a repository URL such as `https://<user>.github.io/realms/`:
 
 1. Set `site` in `astro.config.mjs` to `https://<user>.github.io`.
 2. Build with the repository path (including its trailing slash):
 
    ```sh
-   BASE_PATH=/portfolio-one/ npm run build
+   BASE_PATH=/realms/ npm run build
    ```
 
 3. Use GitHub Pages Actions to install dependencies (`npm ci`), build, and upload `dist` as the Pages artifact, or publish that directory using your existing deployment process. `public/.nojekyll` is copied into the build for branch-based hosting.
@@ -98,7 +98,7 @@ No workflow, push, deployment, or custom-domain change has been performed.
 
 See [`AGENTS.md`](AGENTS.md) for contributor and coding-agent guidance, architectural constraints, and the verification checklist.
 
-- Share personal content and necessary behavior, not a universal visual design. Keep presentation scoped to its theme.
+- Share portfolio content and necessary behavior, not a universal visual design. Keep presentation scoped to its theme.
 - Keep changes focused; add packages or abstractions only for a demonstrated need.
 - Write a failing regression test before changing behavior, then run `npm run check` and `npm run format:check`.
 - Inspect all three themes visually after presentation changes, including mobile layouts, keyboard focus, reduced motion, and all six directed transitions between them. Passing tests alone does not establish visual quality.
@@ -108,6 +108,6 @@ See [`AGENTS.md`](AGENTS.md) for contributor and coding-agent guidance, architec
 ## Assets and licenses
 
 - The folio island, transmission-city, and underground workshop SVGs were created for this portfolio. Metro’s workshop and grain texture are original illustrations, not franchise artwork.
-- Kadha screenshot and résumé were retrieved from the existing `muhsi.in` website. World's on Fire preview was captured from its live site at desktop dimensions.
+- The Kadha screenshot and résumé are project-specific assets retained from the original portfolio. The World's on Fire preview was captured from its live site at desktop dimensions.
 - Cormorant Garamond, DM Sans, Barlow Condensed, IBM Plex Mono, and Russo One are provided by Fontsource. Russo One’s Latin WOFF2 is vendored under `public/fonts/` from `@fontsource/russo-one` 5.3.0; the other fonts use npm packages. Their license notices are included in `public/licenses/`.
 - GSAP and other packages retain their respective licenses in their distributions.

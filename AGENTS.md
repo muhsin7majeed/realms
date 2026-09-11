@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This is Muhsin’s personal portfolio: memorable, eye-catching, and easy to understand. Visitors must be able to find who he is, what he does, what he can do, proof of his work, his résumé, and contact details without learning an unusual navigation system.
+Realms is a general, customizable multi-theme portfolio: memorable, eye-catching, and easy to understand. Visitors must be able to find who the portfolio owner is, what they do, what they can do, proof of their work, their résumé, and contact details without learning an unusual navigation system.
 
-**The central requirement is complete art-style changes, not color themes.** Medieval, Cyberpunk, and Metro are independently designed websites sharing personal content. Preserve their different layouts, imagery, SVGs, typography (including sizes and weights), surfaces, borders, controls, hover/focus/press effects, cursors, and entrance/idle/exit motion. Future themes should have equal freedom.
+**The central requirement is complete art-style changes, not color themes.** Medieval, Cyberpunk, and Metro are independently designed websites sharing portfolio content. Preserve their different layouts, imagery, SVGs, typography (including sizes and weights), surfaces, borders, controls, hover/focus/press effects, cursors, and entrance/idle/exit motion. Future themes should have equal freedom.
 
 ## Start here
 
@@ -13,7 +13,7 @@ Read `README.md`, the relevant source files, and any active plan in `.scratch/pl
 ## Architecture
 
 - **Astro static output**, TypeScript, custom CSS/SVG, GSAP. No React runtime or backend is required.
-- `src/data/profile.json` is the single source of personal facts, intro/about prose, capabilities, experience summaries, project descriptions/categories, assets, and links. All themes render the same personal content; do not duplicate or rewrite it in theme components. The shared intro also supplies neutral search/social descriptions.
+- `src/data/profile.json` is the single source of portfolio-owner facts, intro/about prose, capabilities, experience summaries, project descriptions/categories, assets, and links. All themes render the same portfolio content; do not duplicate or rewrite it in theme components. The shared intro also supplies neutral search/social descriptions.
 - `src/themes/<world>/Scene.astro`, `theme.css`, and `motion.ts` own each world’s presentation and animation. Decorative headings, artwork captions, and world labels may remain in scene markup. Scene data attributes carry world names/titles/transition captions for the controller.
 - `src/scripts/themes.ts` handles theme preparation, selection/persistence, focus/reading position, and animation lifecycle.
 - `src/components/ThemeSwitcher.astro` shares accessible controls; each theme owns their visual treatment.
@@ -30,7 +30,7 @@ See the README’s theme-addition checklist when introducing another world. Keep
 - Share facts and useful semantics, not mandatory component geometry. A little theme-specific markup is better than an abstraction that makes all worlds look alike.
 - A grayscale comparison with the switcher hidden should still reveal clearly different typography, composition, shapes, and artwork.
 - Keep the selector recognizable and easy to find. Keep essential labels understandable: “Get in touch”, résumé links, and “Motion on/off” should retain their plain purpose. Keep real job titles, names and dates literal.
-- Change art direction, not personal narrative. Update shared responsibilities and project descriptions once in `profile.json`; preserve each theme’s independent composition.
+- Change art direction, not the portfolio narrative. Update shared responsibilities and project descriptions once in `profile.json`; preserve each theme’s independent composition.
 - Preserve a compact page. Allow normal scrolling on short and narrow screens; do not force all content into `100vh`, lock scrolling, or hide essentials behind dialogs, games, or terminal commands.
 - Project screenshots must remain truthful. Theme their presentation, not the actual product UI shown as evidence.
 - Self-host fonts and assets; retain license notices. Do not add tracking, external runtime services, or a backend without an explicit requirement.
@@ -65,7 +65,7 @@ For visual or motion changes, additionally inspect:
 - Grayscale screenshots and interaction recordings when changing art direction. Static screenshots cannot prove smooth animation.
 - No-JavaScript content, deferred assets, and hidden-scene accessibility when changing rendering or loading.
 
-Use `import.meta.env.BASE_URL` for local asset paths; JSON asset paths stay relative without a leading slash. When changing routing or asset loading, verify both `/` and a repository base such as `/portfolio-one/`, including résumé, images, scripts, and theme switching. Restore the ordinary root build afterward.
+Use `import.meta.env.BASE_URL` for local asset paths; JSON asset paths stay relative without a leading slash. When changing routing or asset loading, verify both `/` and a repository base such as `/realms/`, including résumé, images, scripts, and theme switching. Restore the ordinary root build afterward.
 
 Report checks actually run, exact failures or blockers, and untested browsers/devices. Do not claim cross-device smoothness from local headless Chromium measurements.
 
