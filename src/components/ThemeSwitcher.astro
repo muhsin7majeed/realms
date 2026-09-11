@@ -1,15 +1,15 @@
 ---
+import type { ThemeCopy } from '../data/theme-copy';
 interface Props {
   theme: 'medieval' | 'cyberpunk';
+  copy: ThemeCopy['controls'];
 }
-const { theme } = Astro.props;
+const { theme, copy } = Astro.props;
 ---
 
 <div class:list={['world-controls', `${theme}-controls`]}>
   <fieldset class="world-picker" aria-label="Choose a visual world">
-    <legend>
-      {theme === 'medieval' ? 'Turn the page' : 'Switch frequency'}
-    </legend>
+    <legend>{copy.legend}</legend>
     <button
       type="button"
       data-theme-choice="medieval"
@@ -29,10 +29,12 @@ const { theme } = Astro.props;
     type="button"
     class="motion-toggle"
     data-motion-toggle
-    aria-label="Pause ambient motion"
+    aria-label={`${copy.motion.running} — pause ambient motion`}
+    data-motion-running={copy.motion.running}
+    data-motion-paused={copy.motion.paused}
     aria-pressed="false"
   >
     <span aria-hidden="true">Ⅱ</span>
-    <span class="motion-label">Motion on</span>
+    <span class="motion-label">{copy.motion.running}</span>
   </button>
 </div>

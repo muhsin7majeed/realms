@@ -22,6 +22,13 @@ for (const theme of ['medieval', 'cyberpunk']) {
     ).toBeVisible();
     for (const width of [360, 390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: width < 768 ? 844 : 900 });
+      // Chromium can report the new width before updating viewport media queries.
+      await page.evaluate(
+        () =>
+          new Promise<void>((resolve) =>
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+          ),
+      );
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
@@ -81,7 +88,7 @@ test('switch preserves facts, keyboard focus and chosen theme across reload', as
     page.getByRole('heading', { name: 'Springworks', exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole('link', { name: 'Explore Kadha', exact: true }),
+    page.getByRole('link', { name: 'Open project — Kadha', exact: true }),
   ).toBeVisible();
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'cyberpunk');

@@ -5,7 +5,6 @@ import * as cyberpunk from '../themes/cyberpunk/motion';
 const worlds = {
   medieval: {
     ...medieval,
-    label: 'The cartographer’s folio',
     fonts: [
       '500 32px "Cormorant Garamond"',
       '400 20px "Cormorant Garamond"',
@@ -14,7 +13,6 @@ const worlds = {
   },
   cyberpunk: {
     ...cyberpunk,
-    label: 'The independent signal',
     fonts: [
       '700 32px "Barlow Condensed"',
       '600 24px "Barlow Condensed"',
@@ -74,17 +72,16 @@ function updateMotion() {
         'aria-pressed',
         String(userPaused || reducedMotion.matches),
       );
-      button.setAttribute(
-        'aria-label',
-        reducedMotion.matches
-          ? 'Ambient motion disabled by reduced-motion preference'
-          : userPaused
-            ? 'Resume ambient motion'
-            : 'Pause ambient motion',
-      );
-      button.querySelector('.motion-label')!.textContent = paused
-        ? 'Motion off'
-        : 'Motion on';
+      const label = paused
+        ? button.dataset.motionPaused!
+        : button.dataset.motionRunning!;
+      const purpose = reducedMotion.matches
+        ? 'Ambient motion disabled by reduced-motion preference'
+        : userPaused
+          ? 'Resume ambient motion'
+          : 'Pause ambient motion';
+      button.setAttribute('aria-label', `${label} — ${purpose}`);
+      button.querySelector('.motion-label')!.textContent = label;
       button.querySelector('span')!.textContent = paused ? '▷' : 'Ⅱ';
     });
 }
@@ -178,7 +175,7 @@ function activate(next: World) {
   }
   if (location.hash.endsWith('-home'))
     history.replaceState(null, '', `#${next}-home`);
-  status.textContent = `${next === 'medieval' ? 'Medieval' : 'Cyberpunk'} world selected.`;
+  status.textContent = `${scenes[next].dataset.worldName} world selected.`;
 }
 
 async function switchWorld(next: World) {
@@ -201,7 +198,9 @@ async function switchWorld(next: World) {
   }
   overlay.dataset.destination = next;
   overlay.querySelector('[data-world-label]')!.textContent =
-    worlds[next].label.toUpperCase();
+    scenes[next].dataset.worldTitle!;
+  overlay.querySelector('[data-world-caption]')!.textContent =
+    scenes[next].dataset.worldTransition!;
   const circles = overlay.querySelectorAll('[data-transition-orbit]');
   const traces = overlay.querySelectorAll('[data-transition-trace]');
   gsap.set(overlay, { autoAlpha: 1 });

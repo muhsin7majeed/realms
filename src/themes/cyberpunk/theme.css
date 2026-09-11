@@ -12,6 +12,22 @@
   background-image: linear-gradient(90deg, #17272d22 1px, transparent 1px);
   background-size: 80px 100%;
 }
+.signal-manifesto,
+.signal-work-heading h2,
+.signal-art-tag,
+.signal-art figcaption,
+.signal-tools > span:first-child,
+.signal-hero-index,
+.signal-work-count,
+.signal-section-label,
+.signal-record-label > span,
+.signal-experiments > span,
+.signal-footer > span,
+.signal-footer > a,
+.signal-project-meta a,
+.signal-image-action {
+  text-transform: uppercase;
+}
 .signal-shell {
   max-width: 1460px;
   margin: auto;
@@ -564,6 +580,7 @@
   margin: 0;
 }
 .signal-work-heading h2 span {
+  display: inline-block;
   color: var(--acid);
   margin-left: 9px;
 }

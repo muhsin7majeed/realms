@@ -135,6 +135,7 @@ html[data-js] .world-controls {
     monospace;
   letter-spacing: 0.22em;
   white-space: nowrap;
+  text-transform: uppercase;
 }
 .world-transition-label span {
   display: block;

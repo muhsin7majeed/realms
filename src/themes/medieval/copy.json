@@ -1,0 +1,78 @@
+{
+  "world": {
+    "name": "Medieval",
+    "title": "The maker’s chronicle",
+    "transition": "Another road. The same craft."
+  },
+  "controls": {
+    "legend": "Choose a path",
+    "motion": { "running": "World awake", "paused": "World at rest" }
+  },
+  "header": { "edition": "A maker’s chronicle", "since": "Since" },
+  "hero": {
+    "eyebrow": "Maker by trade. Steady by practice.",
+    "intro": "Interfaces forged with care. Old code put to rights. Work that holds when the easy fixes fail.",
+    "locationPrefix": "From",
+    "margin": "Good work outlasts good fortune."
+  },
+  "art": {
+    "label": "An illustrated island, stone observatory and celestial chart",
+    "alt": "An engraved island with a stone observatory, winding river and celestial compass.",
+    "figure": "Fig. I",
+    "caption": "A quiet outpost. Plenty left to build."
+  },
+  "about": {
+    "label": "Tools of the trade",
+    "heading": { "lead": "Built with care.", "accent": "Made to hold." },
+    "body": "I’ve tended long-lived React codebases and raised products from bare ground. I trace the trouble, mend what’s brittle, and leave the next engineer a clearer path.",
+    "toolsLabel": "The kit I carry"
+  },
+  "capabilities": {
+    "interfaces": "Forging product interfaces",
+    "architecture": "Restoring frontend foundations",
+    "experiments": "Exploring unmarked paths"
+  },
+  "experienceHeading": "Contracts & company",
+  "experience": {
+    "springworks": {
+      "summary": "Tending product frontends, renewing old code, and guiding newer hands. React, TypeScript, and tests that stand watch."
+    },
+    "techwarelab": {
+      "summary": "Built web and mobile interfaces from the ground up. React, Angular, and Ionic were the tools of the trade."
+    }
+  },
+  "work": {
+    "kicker": "Things made. Not merely promised.",
+    "heading": { "lead": "Proof of", "accent": "the craft." },
+    "volume": "Vol. I — IV",
+    "plate": "Plate",
+    "experiments": "Off the beaten path"
+  },
+  "projects": {
+    "kadha": {
+      "category": "Independent work",
+      "description": "A ledger for your films and shows. Yours to keep, beyond the reach of prying eyes."
+    },
+    "worlds": {
+      "category": "An arcade diversion",
+      "description": "An arcade shooter for restless hands. Hold your ground, dodge the fire, and see how long you last."
+    },
+    "ascii": {
+      "category": "A browser curiosity",
+      "description": "A looking glass that draws in characters. Your webcam, turned to ASCII."
+    },
+    "genre": {
+      "category": "A trail through music",
+      "description": "Find the genre behind a tune. No toll at the gate."
+    }
+  },
+  "actions": {
+    "contact": "Send word",
+    "resume": "My résumé",
+    "explore": "View the work",
+    "source": "Read source",
+    "email": "Send word",
+    "backToTop": "Back to the beginning"
+  },
+  "footer": { "lead": "A steady hand.", "accent": "An unfinished road." }
+}

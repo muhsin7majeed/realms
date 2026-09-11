@@ -1,5 +1,8 @@
 ---
 import profile from '../../data/profile.json';
+import type { ThemeCopy } from '../../data/theme-copy';
+import content from './copy.json';
+const copy: typeof content & ThemeCopy = content;
 import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
 import './theme.css';
 const base = import.meta.env.BASE_URL;
@@ -9,7 +12,10 @@ const asset = (path: string) => `${base}${path}`;
 <article
   data-scene="medieval"
   class="folio"
-  aria-label="The cartographer’s folio"
+  aria-label={copy.world.title}
+  data-world-name={copy.world.name}
+  data-world-title={copy.world.title}
+  data-world-transition={copy.world.transition}
 >
   <div class="folio-frame">
     <header class="folio-header">
@@ -22,17 +28,16 @@ const asset = (path: string) => `${base}${path}`;
         <span aria-hidden="true">.</span>
       </a>
       <span class="folio-edition">
-        A personal folio <span aria-hidden="true">·</span> Est.{' '}
-        {profile.careerStart}
+        {copy.header.edition} <span aria-hidden="true">·</span>{' '}
+        {copy.header.since} {profile.careerStart}
       </span>
-      <ThemeSwitcher theme="medieval" />
+      <ThemeSwitcher theme="medieval" copy={copy.controls} />
     </header>
     <main id="medieval-home">
       <section class="folio-hero" aria-labelledby="medieval-name">
         <div class="folio-intro">
           <div class="folio-eyebrow" data-reveal>
-            <span aria-hidden="true">✦</span> Engineer by trade. Curious by
-            nature.
+            <span aria-hidden="true">✦</span> {copy.hero.eyebrow}
           </div>
           <h1 id="medieval-name" data-reveal>
             {profile.name}
@@ -42,14 +47,18 @@ const asset = (path: string) => `${base}${path}`;
             {profile.role}
           </p>
           <p class="folio-lede" data-reveal>
-            {profile.intro}
+            {copy.hero.intro}
           </p>
           <div class="folio-actions" data-reveal>
-            <a class="ink-button" href={`mailto:${profile.email}`}>
-              Get in touch <span aria-hidden="true">↗</span>
+            <a
+              class="ink-button"
+              href={`mailto:${profile.email}`}
+              aria-label={`${copy.actions.contact} — get in touch`}
+            >
+              {copy.actions.contact} <span aria-hidden="true">↗</span>
             </a>
             <a class="folio-resume" href={asset(profile.resume)}>
-              The résumé <span aria-hidden="true">↓</span>
+              {copy.actions.resume} <span aria-hidden="true">↓</span>
             </a>
           </div>
           <div class="folio-location" data-reveal>
@@ -57,16 +66,13 @@ const asset = (path: string) => `${base}${path}`;
               <path d="M10 17s6-6 6-10A6 6 0 0 0 4 7c0 4 6 10 6 10Z" />
               <circle cx="10" cy="7" r="2" />
             </svg>
-            Rooted in {profile.location}{' '}
+            {copy.hero.locationPrefix} {profile.location}{' '}
             <span class="location-flourish" aria-hidden="true">
               —
             </span>
           </div>
         </div>
-        <figure
-          class="folio-art"
-          aria-label="An original illustration of a cartographer’s island, tower and celestial chart"
-        >
+        <figure class="folio-art" aria-label={copy.art.label}>
           <div
             class="folio-art-orbit"
             data-ambient="orbit"
@@ -76,40 +82,40 @@ const asset = (path: string) => `${base}${path}`;
             src={asset('themes/medieval/island.svg')}
             width="680"
             height="640"
-            alt="An engraved island with a stone observatory, winding river and celestial compass."
+            alt={copy.art.alt}
             fetchpriority="high"
           />
           <span class="folio-art-star" data-ambient="star" aria-hidden="true">
             ✧
           </span>
           <figcaption>
-            <span>Fig. I</span> A small corner of the internet.
+            <span>{copy.art.figure}</span> {copy.art.caption}
           </figcaption>
         </figure>
         <span class="folio-side-note" aria-hidden="true">
-          Always making. Always exploring.
+          {copy.hero.margin}
         </span>
       </section>
       <section class="folio-practice" aria-label="Capabilities and experience">
         <div class="folio-craft">
-          <p class="folio-section-label">The craft</p>
+          <p class="folio-section-label">{copy.about.label}</p>
           <h2>
-            Thoughtful by design.
+            {copy.about.heading.lead}
             <br />
-            <em>Dependable by nature.</em>
+            <em>{copy.about.heading.accent}</em>
           </h2>
-          <p>{profile.about}</p>
+          <p>{copy.about.body}</p>
           <ul>
             {profile.capabilities.map((capability) => (
-              <li>{capability}</li>
+              <li>{copy.capabilities[capability.id]}</li>
             ))}
           </ul>
           <p class="folio-tool-note">
-            Working with {profile.tools.join(' · ')}
+            {copy.about.toolsLabel} {profile.tools.join(' · ')}
           </p>
         </div>
         <div class="folio-experience">
-          <p class="folio-section-label">Along the way</p>
+          <p class="folio-section-label">{copy.experienceHeading}</p>
           {profile.experience.map((job) => (
             <div class="folio-job">
               <span class="folio-job-mark" aria-hidden="true">
@@ -118,7 +124,9 @@ const asset = (path: string) => `${base}${path}`;
               <div>
                 <h3>{job.company}</h3>
                 <p>{job.role}</p>
-                <p class="folio-job-summary">{job.summary}</p>
+                <p class="folio-job-summary">
+                  {copy.experience[job.id].summary}
+                </p>
               </div>
               <span class="folio-job-period">{job.period}</span>
             </div>
@@ -128,15 +136,13 @@ const asset = (path: string) => `${base}${path}`;
       <section class="folio-work" aria-labelledby="medieval-work">
         <div class="folio-work-heading">
           <div>
-            <p class="folio-section-label">
-              A few things I’ve put into the world
-            </p>
+            <p class="folio-section-label">{copy.work.kicker}</p>
             <h2 id="medieval-work">
-              Selected <em>works.</em>
+              {copy.work.heading.lead} <em>{copy.work.heading.accent}</em>
             </h2>
           </div>
           <span class="folio-volume" aria-hidden="true">
-            Vol. I — IV
+            {copy.work.volume}
           </span>
         </div>
         <div class="folio-projects">
@@ -147,10 +153,10 @@ const asset = (path: string) => `${base}${path}`;
                 <a
                   href={project.url}
                   class="folio-project-image"
-                  aria-label={`Explore ${project.name}`}
+                  aria-label={`${copy.actions.explore} — ${project.name}`}
                 >
                   <span class="folio-plate">
-                    Plate {index === 0 ? 'I' : 'II'}
+                    {copy.work.plate} {index === 0 ? 'I' : 'II'}
                   </span>
                   <img
                     src={asset(project.image!)}
@@ -160,23 +166,23 @@ const asset = (path: string) => `${base}${path}`;
                     loading="lazy"
                   />
                   <span class="folio-image-action" aria-hidden="true">
-                    Explore the work ↗
+                    {copy.actions.explore} ↗
                   </span>
                 </a>
                 <div class="folio-project-title">
                   <h3>
                     <a href={project.url}>{project.name}</a>
                   </h3>
-                  <span>{project.category}</span>
+                  <span>{copy.projects[project.id].category}</span>
                 </div>
-                <p>{project.description}</p>
+                <p>{copy.projects[project.id].description}</p>
                 <div class="folio-project-meta">
                   <span>{project.stack}</span>
                   <a
                     href={project.source}
-                    aria-label={`${project.name} source code`}
+                    aria-label={`${copy.actions.source} — ${project.name} source code`}
                   >
-                    Source <span aria-hidden="true">↗</span>
+                    {copy.actions.source} <span aria-hidden="true">↗</span>
                   </a>
                 </div>
               </article>
@@ -184,7 +190,7 @@ const asset = (path: string) => `${base}${path}`;
         </div>
         <div class="folio-experiments">
           <span class="folio-experiments-label">
-            Other curiosities <span aria-hidden="true">↳</span>
+            {copy.work.experiments} <span aria-hidden="true">↳</span>
           </span>
           {profile.projects
             .filter((project) => !project.featured)
@@ -193,7 +199,7 @@ const asset = (path: string) => `${base}${path}`;
                 <span>
                   {project.name} <span aria-hidden="true">↗</span>
                 </span>
-                <small>{project.description}</small>
+                <small>{copy.projects[project.id].description}</small>
               </a>
             ))}
         </div>
@@ -201,16 +207,25 @@ const asset = (path: string) => `${base}${path}`;
     </main>
     <footer class="folio-footer">
       <p>
-        Made with care <span aria-hidden="true">✦</span> Built to be explored.
+        {copy.footer.lead} <span aria-hidden="true">✦</span>{' '}
+        {copy.footer.accent}
       </p>
       <nav aria-label="Social links">
         {profile.socials.map((social) => (
           <a href={social.url}>{social.name} ↗</a>
         ))}
-        <a href={`mailto:${profile.email}`}>Email ↗</a>
+        <a
+          href={`mailto:${profile.email}`}
+          aria-label={`${copy.actions.email} — email`}
+        >
+          {copy.actions.email} ↗
+        </a>
       </nav>
-      <a href="#medieval-home" aria-label="Back to top">
-        Back to the beginning ↑
+      <a
+        href="#medieval-home"
+        aria-label={`${copy.actions.backToTop} — back to top`}
+      >
+        {copy.actions.backToTop} ↑
       </a>
     </footer>
   </div>

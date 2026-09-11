@@ -13,7 +13,7 @@ const canonical = new URL(base, Astro.site);
     <title>{profile.fullName} — {profile.role}</title>
     <meta
       name="description"
-      content={`${profile.role} from ${profile.location}. ${profile.intro}`}
+      content={`${profile.role} from ${profile.location}. ${profile.metadataDescription}`}
     />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
@@ -23,7 +23,7 @@ const canonical = new URL(base, Astro.site);
       property="og:title"
       content={`${profile.fullName} — ${profile.role}`}
     />
-    <meta property="og:description" content={profile.intro} />
+    <meta property="og:description" content={profile.metadataDescription} />
     <meta property="og:url" content={canonical} />
     <meta
       property="og:image"
@@ -69,7 +69,7 @@ const canonical = new URL(base, Astro.site);
         </g>
       </svg>
       <div class="world-transition-label">
-        <span>ENTERING ANOTHER WORLD</span>
+        <span data-world-caption></span>
         <strong data-world-label></strong>
       </div>
     </div>
