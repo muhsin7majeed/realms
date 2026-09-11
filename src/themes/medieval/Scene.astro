@@ -1,0 +1,217 @@
+---
+import profile from '../../data/profile.json';
+import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
+import './theme.css';
+const base = import.meta.env.BASE_URL;
+const asset = (path: string) => `${base}${path}`;
+---
+
+<article
+  data-scene="medieval"
+  class="folio"
+  aria-label="The cartographer’s folio"
+>
+  <div class="folio-frame">
+    <header class="folio-header">
+      <a
+        class="folio-monogram"
+        href="#medieval-home"
+        aria-label={`${profile.name}, home`}
+      >
+        {profile.name[0].toLowerCase()}
+        <span aria-hidden="true">.</span>
+      </a>
+      <span class="folio-edition">
+        A personal folio <span aria-hidden="true">·</span> Est.{' '}
+        {profile.careerStart}
+      </span>
+      <ThemeSwitcher theme="medieval" />
+    </header>
+    <main id="medieval-home">
+      <section class="folio-hero" aria-labelledby="medieval-name">
+        <div class="folio-intro">
+          <div class="folio-eyebrow" data-reveal>
+            <span aria-hidden="true">✦</span> Engineer by trade. Curious by
+            nature.
+          </div>
+          <h1 id="medieval-name" data-reveal>
+            {profile.name}
+            <span class="folio-period">.</span>
+          </h1>
+          <p class="folio-role" data-reveal>
+            {profile.role}
+          </p>
+          <p class="folio-lede" data-reveal>
+            {profile.intro}
+          </p>
+          <div class="folio-actions" data-reveal>
+            <a class="ink-button" href={`mailto:${profile.email}`}>
+              Get in touch <span aria-hidden="true">↗</span>
+            </a>
+            <a class="folio-resume" href={asset(profile.resume)}>
+              The résumé <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+          <div class="folio-location" data-reveal>
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 17s6-6 6-10A6 6 0 0 0 4 7c0 4 6 10 6 10Z" />
+              <circle cx="10" cy="7" r="2" />
+            </svg>
+            Rooted in {profile.location}{' '}
+            <span class="location-flourish" aria-hidden="true">
+              —
+            </span>
+          </div>
+        </div>
+        <figure
+          class="folio-art"
+          aria-label="An original illustration of a cartographer’s island, tower and celestial chart"
+        >
+          <div
+            class="folio-art-orbit"
+            data-ambient="orbit"
+            aria-hidden="true"
+          ></div>
+          <img
+            src={asset('themes/medieval/island.svg')}
+            width="680"
+            height="640"
+            alt="An engraved island with a stone observatory, winding river and celestial compass."
+            fetchpriority="high"
+          />
+          <span class="folio-art-star" data-ambient="star" aria-hidden="true">
+            ✧
+          </span>
+          <figcaption>
+            <span>Fig. I</span> A small corner of the internet.
+          </figcaption>
+        </figure>
+        <span class="folio-side-note" aria-hidden="true">
+          Always making. Always exploring.
+        </span>
+      </section>
+      <section class="folio-practice" aria-label="Capabilities and experience">
+        <div class="folio-craft">
+          <p class="folio-section-label">The craft</p>
+          <h2>
+            Thoughtful by design.
+            <br />
+            <em>Dependable by nature.</em>
+          </h2>
+          <p>{profile.about}</p>
+          <ul>
+            {profile.capabilities.map((capability) => (
+              <li>{capability}</li>
+            ))}
+          </ul>
+          <p class="folio-tool-note">
+            Working with {profile.tools.join(' · ')}
+          </p>
+        </div>
+        <div class="folio-experience">
+          <p class="folio-section-label">Along the way</p>
+          {profile.experience.map((job) => (
+            <div class="folio-job">
+              <span class="folio-job-mark" aria-hidden="true">
+                ✧
+              </span>
+              <div>
+                <h3>{job.company}</h3>
+                <p>{job.role}</p>
+                <p class="folio-job-summary">{job.summary}</p>
+              </div>
+              <span class="folio-job-period">{job.period}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section class="folio-work" aria-labelledby="medieval-work">
+        <div class="folio-work-heading">
+          <div>
+            <p class="folio-section-label">
+              A few things I’ve put into the world
+            </p>
+            <h2 id="medieval-work">
+              Selected <em>works.</em>
+            </h2>
+          </div>
+          <span class="folio-volume" aria-hidden="true">
+            Vol. I — IV
+          </span>
+        </div>
+        <div class="folio-projects">
+          {profile.projects
+            .filter((project) => project.featured)
+            .map((project, index) => (
+              <article class="folio-project">
+                <a
+                  href={project.url}
+                  class="folio-project-image"
+                  aria-label={`Explore ${project.name}`}
+                >
+                  <span class="folio-plate">
+                    Plate {index === 0 ? 'I' : 'II'}
+                  </span>
+                  <img
+                    src={asset(project.image!)}
+                    alt={`${project.name} website preview`}
+                    width="800"
+                    height="450"
+                    loading="lazy"
+                  />
+                  <span class="folio-image-action" aria-hidden="true">
+                    Explore the work ↗
+                  </span>
+                </a>
+                <div class="folio-project-title">
+                  <h3>
+                    <a href={project.url}>{project.name}</a>
+                  </h3>
+                  <span>{project.category}</span>
+                </div>
+                <p>{project.description}</p>
+                <div class="folio-project-meta">
+                  <span>{project.stack}</span>
+                  <a
+                    href={project.source}
+                    aria-label={`${project.name} source code`}
+                  >
+                    Source <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+            ))}
+        </div>
+        <div class="folio-experiments">
+          <span class="folio-experiments-label">
+            Other curiosities <span aria-hidden="true">↳</span>
+          </span>
+          {profile.projects
+            .filter((project) => !project.featured)
+            .map((project) => (
+              <a href={project.url}>
+                <span>
+                  {project.name} <span aria-hidden="true">↗</span>
+                </span>
+                <small>{project.description}</small>
+              </a>
+            ))}
+        </div>
+      </section>
+    </main>
+    <footer class="folio-footer">
+      <p>
+        Made with care <span aria-hidden="true">✦</span> Built to be explored.
+      </p>
+      <nav aria-label="Social links">
+        {profile.socials.map((social) => (
+          <a href={social.url}>{social.name} ↗</a>
+        ))}
+        <a href={`mailto:${profile.email}`}>Email ↗</a>
+      </nav>
+      <a href="#medieval-home" aria-label="Back to top">
+        Back to the beginning ↑
+      </a>
+    </footer>
+  </div>
+</article>

@@ -1,0 +1,9 @@
+dist/
+node_modules/
+.astro/
+.scratch/
+.pi/
+package-lock.json
+public/
+test-results/
+playwright-report/

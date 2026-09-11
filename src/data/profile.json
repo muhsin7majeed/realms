@@ -1,0 +1,79 @@
+{
+  "name": "Muhsin",
+  "fullName": "Muhsin A",
+  "role": "Frontend engineer",
+  "location": "Kerala, India",
+  "careerStart": "2019",
+  "email": "me@muhsi.in",
+  "intro": "I build thoughtful interfaces, dependable products, and the occasional little experiment.",
+  "about": "From owning long-lived React applications to building independent products from scratch. I care about how things work, how they feel, and the details in between.",
+  "capabilities": [
+    "Product interfaces",
+    "Frontend architecture",
+    "Creative development"
+  ],
+  "tools": ["React", "TypeScript", "JavaScript", "Node.js"],
+  "resume": "resume.pdf",
+  "socials": [
+    { "name": "GitHub", "url": "https://github.com/muhsin7majeed" },
+    { "name": "LinkedIn", "url": "https://www.linkedin.com/in/muhsin7majeed/" }
+  ],
+  "experience": [
+    {
+      "company": "Springworks",
+      "role": "Software Engineer",
+      "period": "2021 — Present",
+      "summary": "Building and modernizing product frontends. React, TypeScript, testing, and mentoring."
+    },
+    {
+      "company": "Techwarelab",
+      "role": "Frontend Engineer",
+      "period": "2019 — 2021",
+      "summary": "Web and mobile interfaces, built from the ground up. React, Angular, and Ionic."
+    }
+  ],
+  "projects": [
+    {
+      "id": "kadha",
+      "name": "Kadha",
+      "category": "Independent product",
+      "description": "Your films. Your shows. Your data. A privacy-first movie and TV tracker, built end to end.",
+      "stack": "React · Node.js · SQLite",
+      "url": "https://kadha.org/",
+      "source": "https://github.com/muhsin7majeed/kadha",
+      "image": "projects/kadha.png",
+      "featured": true
+    },
+    {
+      "id": "worlds",
+      "name": "World’s on Fire",
+      "category": "Creative experiment",
+      "description": "A little chaos, a lot of pixels. An arcade shooter exploring the playful side of the web.",
+      "stack": "React · TypeScript · PixiJS",
+      "url": "https://wof.muhsi.in/",
+      "source": "https://github.com/muhsin7majeed/worlds-on-fire",
+      "image": "projects/worlds.png",
+      "featured": true
+    },
+    {
+      "id": "ascii",
+      "name": "Camera to ASCII",
+      "category": "Browser experiment",
+      "description": "A webcam, reimagined in characters.",
+      "stack": "JavaScript · Canvas",
+      "url": "https://live-ascii.muhsi.in/",
+      "source": "https://github.com/muhsin7majeed/live-cam-ascii",
+      "featured": false
+    },
+    {
+      "id": "genre",
+      "name": "Genre.live",
+      "category": "Music discovery",
+      "description": "Find your genre. No noise attached.",
+      "stack": "JavaScript · Music API",
+      "url": "https://gl.muhsi.in/",
+      "source": "https://github.com/muhsin7majeed/genre.live",
+      "featured": false
+    }
+  ]
+}

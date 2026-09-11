@@ -1,0 +1,922 @@
+.folio {
+  --ink: #303c2e;
+  --faded-ink: #65664f;
+  --rule: #b9b397;
+  --paper: #eee7d6;
+  background-color: var(--paper);
+  color: var(--ink);
+  padding: 25px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23857852' opacity='.11' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+.folio-frame {
+  max-width: 1550px;
+  margin: auto;
+  border: 1px solid var(--rule);
+  padding: 0 54px;
+  position: relative;
+}
+.folio-frame::before,
+.folio-frame::after {
+  content: '✦';
+  position: absolute;
+  font-size: 21px;
+  color: #8b794c;
+  top: -15px;
+  background: var(--paper);
+  padding: 0 5px;
+}
+.folio-frame::before {
+  left: -12px;
+}
+.folio-frame::after {
+  right: -12px;
+}
+.folio a {
+  text-decoration: none;
+}
+.folio ::selection {
+  background: #a35840;
+  color: #fff7e4;
+}
+.folio a:focus-visible,
+.folio button:focus-visible {
+  outline: 2px solid #914c39;
+  outline-offset: 5px;
+  border-radius: 1px;
+}
+.folio-header {
+  height: 103px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+  gap: 20px;
+}
+.folio-monogram {
+  font-size: 55px;
+  font-style: italic;
+  line-height: 1;
+  letter-spacing: -6px;
+  padding-right: 8px;
+  margin-top: -9px;
+}
+.folio-monogram span {
+  color: #98523b;
+}
+.folio-edition {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-left: 18px;
+  color: var(--faded-ink);
+}
+.folio-edition span {
+  padding: 0 9px;
+}
+.medieval-controls {
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+.medieval-controls .world-picker {
+  display: flex;
+  border: 1px solid var(--rule);
+  position: relative;
+  padding: 4px;
+  gap: 3px;
+}
+.medieval-controls legend {
+  position: absolute;
+  top: -12px;
+  left: 13px;
+  padding: 0 7px;
+  background: var(--paper);
+  font-style: italic;
+  font-size: 13px;
+}
+.medieval-controls .world-picker button {
+  border: none;
+  padding: 8px 14px;
+  font-size: 15px;
+  color: var(--faded-ink);
+  background: transparent;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+.medieval-controls .world-picker button span {
+  margin-right: 5px;
+}
+.medieval-controls .world-picker button[aria-pressed='true'] {
+  background: var(--ink);
+  color: #f0e8d4;
+  box-shadow:
+    inset 0 0 0 3px var(--ink),
+    inset 0 0 0 4px #77816b;
+}
+.medieval-controls .world-picker button:not([aria-pressed='true']):hover {
+  background: #dbd3bd;
+  color: var(--ink);
+}
+.medieval-controls .motion-toggle {
+  border: 0;
+  background: transparent;
+  color: var(--faded-ink);
+  padding: 10px;
+  font-size: 14px;
+}
+.medieval-controls .motion-label {
+  display: none;
+}
+.folio-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  padding: 37px 0 48px;
+  min-height: 615px;
+}
+.folio-intro {
+  z-index: 1;
+  padding: 22px 0 0;
+}
+.folio-eyebrow {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+}
+.folio-eyebrow span {
+  color: #9e6844;
+  font-size: 21px;
+  vertical-align: -2px;
+  margin-right: 10px;
+}
+.folio h1 {
+  font-size: clamp(110px, 10.8vw, 168px);
+  line-height: 0.99;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+  margin: 10px 0 8px -7px;
+}
+.folio-period {
+  color: #9c543c;
+}
+.folio-role {
+  font-size: 31px;
+  font-style: italic;
+  margin: 0 0 24px;
+}
+.folio-lede {
+  font-size: 22px;
+  line-height: 1.5;
+  max-width: 380px;
+  color: #535943;
+  margin: 0 0 29px;
+}
+.folio-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.ink-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  background: var(--ink);
+  color: #f4ebd5;
+  padding: 15px 23px;
+  box-shadow:
+    inset 0 0 0 4px var(--ink),
+    inset 0 0 0 5px #869077;
+  font-size: 18px;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s,
+    background 0.3s;
+}
+.ink-button span {
+  transition: transform 0.3s;
+}
+.ink-button:hover,
+.ink-button:focus-visible {
+  transform: translateY(-3px) rotate(-1deg);
+  background: #424f3b;
+  box-shadow:
+    inset 0 0 0 4px #424f3b,
+    inset 0 0 0 5px #a6ad92,
+    3px 5px 0 #c9bea1;
+}
+.ink-button:hover span {
+  transform: translate(2px, -2px);
+}
+.ink-button:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+.folio-resume {
+  font-size: 18px;
+  padding: 7px 0;
+  position: relative;
+}
+.folio-resume::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--faded-ink);
+  transform-origin: left;
+  transition: transform 0.4s;
+  transform: scaleX(0.35);
+}
+.folio-resume:hover::after,
+.folio-resume:focus-visible::after {
+  transform: scaleX(1);
+}
+.folio-resume span {
+  padding-left: 7px;
+}
+.folio-location {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 37px;
+  font-size: 14px;
+  color: var(--faded-ink);
+  font-style: italic;
+}
+.folio-location svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+}
+.location-flourish {
+  margin-left: 12px;
+  width: 52px;
+  overflow: hidden;
+  font-size: 30px;
+  line-height: 10px;
+}
+.folio-art {
+  position: relative;
+  margin: 0 -10px 0 -20px;
+  align-self: center;
+  width: calc(100% + 20px);
+  max-width: 570px;
+  min-width: 0;
+}
+.folio-art img {
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+.folio-art figcaption {
+  text-align: center;
+  font-size: 14px;
+  font-style: italic;
+  margin-top: -8px;
+  color: var(--faded-ink);
+}
+.folio-art figcaption span {
+  font-style: normal;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 14px;
+}
+.folio-art-orbit {
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1;
+  top: 8%;
+  left: 16%;
+  border: 1px dashed #9b8c6266;
+  border-radius: 50%;
+}
+.folio-art-orbit::before {
+  content: '';
+  position: absolute;
+  top: 13%;
+  left: 14%;
+  width: 6px;
+  height: 6px;
+  background: #9c543c;
+  transform: rotate(45deg);
+}
+.folio-art-star {
+  position: absolute;
+  top: 20%;
+  right: 4%;
+  font-size: 46px;
+  color: #9c854e;
+}
+.folio-side-note {
+  position: absolute;
+  right: -35px;
+  writing-mode: vertical-rl;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--faded-ink);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.folio-section-label {
+  font-size: 11px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  margin: 0 0 15px;
+  color: #67664e;
+  font-family: 'DM Sans', sans-serif;
+}
+.folio-practice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 58px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 31px 0;
+}
+.folio-craft {
+  padding-right: 28px;
+  border-right: 1px solid var(--rule);
+}
+.folio-craft h2 {
+  font-size: 29px;
+  line-height: 1.12;
+  font-weight: 500;
+  margin: 0 0 15px;
+}
+.folio-craft h2 em {
+  font-weight: 400;
+}
+.folio-craft > p:not(.folio-section-label) {
+  max-width: 445px;
+  font-size: 17px;
+  line-height: 1.55;
+  margin: 0;
+  color: #555b46;
+}
+.folio-craft ul {
+  list-style: none;
+  padding: 0;
+  margin: 17px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 15px;
+  font-size: 13px;
+  font-style: italic;
+  color: #555b46;
+}
+.folio-craft li::before {
+  content: '✦';
+  font-style: normal;
+  font-size: 8px;
+  margin-right: 7px;
+  color: #977344;
+}
+.folio-experience {
+  padding-top: 0;
+}
+.folio-job {
+  display: grid;
+  grid-template-columns: 15px 1fr auto;
+  gap: 12px;
+  margin-top: 19px;
+}
+.folio-job + .folio-job {
+  border-top: 1px solid #c9c1a9;
+  padding-top: 16px;
+}
+.folio-job-mark {
+  color: #9b7145;
+  font-size: 21px;
+}
+.folio-job h3 {
+  font-size: 23px;
+  font-weight: 500;
+  margin: 0 0 1px;
+}
+.folio-job p {
+  margin: 0;
+  font-size: 14px;
+  color: #62674f;
+}
+.folio-job .folio-job-summary {
+  max-width: 300px;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-top: 5px;
+}
+.folio-job-period {
+  font-size: 12px;
+  color: #696a52;
+  white-space: nowrap;
+  padding-top: 6px;
+}
+.folio-work {
+  padding: 45px 0 0;
+}
+.folio-work-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 27px;
+}
+.folio-work-heading .folio-section-label {
+  margin-bottom: 7px;
+}
+.folio-work h2 {
+  font-size: 57px;
+  line-height: 1;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: -0.035em;
+}
+.folio-work h2 em {
+  font-weight: 400;
+}
+.folio-volume {
+  font-size: 14px;
+  font-style: italic;
+  color: #777359;
+  padding-bottom: 3px;
+}
+.folio-projects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 37px;
+}
+.folio-project {
+  min-width: 0;
+}
+.folio-project-image {
+  display: block;
+  padding: 15px;
+  border: 1px solid #a8a58d;
+  position: relative;
+  background: #e1d9c4;
+  transition:
+    transform 0.45s,
+    box-shadow 0.45s;
+}
+.folio-project-image::before,
+.folio-project-image::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #8a8c70;
+  background: var(--paper);
+  z-index: 2;
+  pointer-events: none;
+}
+.folio-project-image::before {
+  top: -4px;
+  left: -4px;
+  border-bottom: 0;
+  border-right: 0;
+}
+.folio-project-image::after {
+  bottom: -4px;
+  right: -4px;
+  border-top: 0;
+  border-left: 0;
+}
+.folio-project-image img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/8.5;
+  object-fit: cover;
+  object-position: top;
+  filter: saturate(0.6) sepia(0.12);
+  transition: filter 0.5s;
+  border: 1px solid #b5ad96;
+}
+.folio-project-image img[src$='worlds.png'] {
+  object-fit: contain;
+  background: #090b08;
+}
+.folio-plate {
+  position: absolute;
+  z-index: 2;
+  top: 5px;
+  left: 30px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  font-style: italic;
+  background: var(--paper);
+  padding: 2px 10px;
+}
+.folio-image-action {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  padding: 9px 15px;
+  color: #f2e9d1;
+  background: var(--ink);
+  transform: translateY(6px);
+  opacity: 0;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+  font-size: 16px;
+}
+.folio-project-image:hover,
+.folio-project-image:focus-visible {
+  transform: translateY(-4px) rotate(-0.4deg);
+  box-shadow: 5px 7px 0 #d5ccb4;
+}
+.folio-project-image:hover img,
+.folio-project-image:focus-visible img {
+  filter: none;
+}
+.folio-project-image:hover .folio-image-action,
+.folio-project-image:focus-visible .folio-image-action {
+  opacity: 1;
+  transform: translateY(0);
+}
+.folio-project-title {
+  display: flex;
+  gap: 15px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+.folio-project h3 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+}
+.folio-project h3 a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+.folio-project-title > span {
+  font-style: italic;
+  font-size: 13px;
+  color: #666950;
+}
+.folio-project > p {
+  font-size: 17px;
+  line-height: 1.5;
+  color: #555d47;
+  max-width: 400px;
+  margin: 7px 0 15px;
+}
+.folio-project-meta {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #686b54;
+}
+.folio-project-meta a {
+  border-bottom: 1px solid #a8a48b;
+  padding-bottom: 2px;
+}
+.folio-experiments {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-top: 30px;
+  padding: 22px 0;
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+.folio-experiments-label {
+  font-size: 20px;
+  font-style: italic;
+}
+.folio-experiments-label > span {
+  padding-left: 15px;
+  color: #986743;
+}
+.folio-experiments > a {
+  display: grid;
+  gap: 3px;
+  font-size: 19px;
+}
+.folio-experiments small {
+  font-size: 13px;
+  color: #646a50;
+}
+.folio-experiments a > span > span {
+  display: inline-block;
+  transition: transform 0.3s;
+  font-size: 15px;
+  margin-left: 15px;
+}
+.folio-experiments a:hover > span > span {
+  transform: translate(3px, -3px);
+}
+.folio-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 84px;
+  font-size: 13px;
+  color: #62644e;
+}
+.folio-footer p {
+  margin: 0;
+  font-style: italic;
+}
+.folio-footer p span {
+  margin: 0 10px;
+  color: #9b7750;
+}
+.folio-footer nav {
+  display: flex;
+  gap: 22px;
+}
+.folio-footer a:hover {
+  color: #914c39;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (pointer: fine) {
+  .folio {
+    cursor:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 24 8 9 24 3l-6 16Z' fill='%23eee7d6' stroke='%23303c2e' stroke-width='1.5'/%3E%3Cpath d='m3 24 12-12' stroke='%23303c2e'/%3E%3Ccircle cx='15' cy='12' r='2' fill='%239c543c'/%3E%3C/svg%3E")
+        3 24,
+      auto;
+  }
+  .folio a,
+  .folio button {
+    cursor: pointer;
+  }
+  .folio p,
+  .folio h1,
+  .folio h2,
+  .folio h3 {
+    cursor: text;
+  }
+}
+.folio-craft > p.folio-tool-note {
+  font-size: 12px;
+  margin-top: 13px;
+  letter-spacing: 0.015em;
+}
+@media (min-width: 1650px) {
+  .folio-hero {
+    min-height: 660px;
+  }
+}
+@media (max-width: 1100px) {
+  .folio {
+    padding: 18px;
+  }
+  .folio-frame {
+    padding: 0 32px;
+  }
+  .folio-edition {
+    margin-left: 5px;
+    font-size: 10px;
+  }
+  .folio-header {
+    gap: 13px;
+  }
+  .folio-hero {
+    min-height: 560px;
+  }
+  .folio-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .folio-art {
+    margin-left: -40px;
+  }
+  .folio-side-note {
+    right: -24px;
+  }
+  .folio-practice {
+    gap: 30px;
+  }
+  .folio-job {
+    grid-template-columns: 12px 1fr;
+  }
+  .folio-job-period {
+    grid-column: 2;
+    padding: 0;
+  }
+  .folio-project-title {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .folio-footer {
+    padding: 22px 0;
+  }
+  .folio-footer > a {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .folio {
+    padding: 11px;
+  }
+  .folio-frame {
+    padding: 0 23px;
+  }
+  .folio-header {
+    height: 87px;
+    gap: 10px;
+  }
+  .folio-monogram {
+    font-size: 47px;
+  }
+  .folio-edition {
+    display: none;
+  }
+  .medieval-controls {
+    gap: 2px;
+  }
+  .medieval-controls .world-picker button {
+    padding: 7px 9px;
+    font-size: 13px;
+  }
+  .medieval-controls .world-picker button span {
+    margin-right: 3px;
+  }
+  .medieval-controls .motion-toggle {
+    padding: 7px;
+  }
+  .medieval-controls legend {
+    font-size: 12px;
+  }
+  .folio-hero {
+    grid-template-columns: 1fr;
+    padding: 30px 0 28px;
+    min-height: 0;
+  }
+  .folio-intro {
+    padding-top: 5px;
+  }
+  .folio h1 {
+    font-size: clamp(99px, 23vw, 150px);
+    margin-left: -4px;
+    margin-top: 10px;
+  }
+  .folio-role {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  .folio-lede {
+    font-size: 21px;
+    max-width: 410px;
+    margin-bottom: 23px;
+  }
+  .folio-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+  .folio-eyebrow span {
+    margin-right: 6px;
+  }
+  .folio-actions {
+    gap: 22px;
+  }
+  .ink-button {
+    padding: 14px 20px;
+    font-size: 17px;
+    gap: 20px;
+  }
+  .folio-resume {
+    font-size: 17px;
+  }
+  .folio-location {
+    margin-top: 23px;
+    font-size: 13px;
+  }
+  .folio-art {
+    margin: 10px -9px 0;
+    max-width: 460px;
+    justify-self: center;
+    width: 100%;
+  }
+  .folio-art figcaption {
+    margin-top: -7px;
+    font-size: 13px;
+  }
+  .folio-side-note {
+    display: none;
+  }
+  .folio-practice {
+    grid-template-columns: 1fr;
+    gap: 27px;
+    padding: 29px 0;
+  }
+  .folio-craft {
+    border-right: 0;
+    padding-right: 0;
+  }
+  .folio-craft h2 {
+    font-size: 31px;
+  }
+  .folio-craft > p:not(.folio-section-label) {
+    font-size: 18px;
+  }
+  .folio-craft ul {
+    font-size: 14px;
+  }
+  .folio-experience {
+    border-top: 1px solid var(--rule);
+    padding-top: 25px;
+  }
+  .folio-job {
+    grid-template-columns: 12px 1fr auto;
+    gap: 9px;
+  }
+  .folio-job-period {
+    grid-column: auto;
+    font-size: 11px;
+    padding-top: 6px;
+  }
+  .folio-job .folio-job-summary {
+    max-width: 260px;
+  }
+  .folio-work {
+    padding-top: 32px;
+  }
+  .folio-work h2 {
+    font-size: 47px;
+  }
+  .folio-section-label {
+    font-size: 10px;
+  }
+  .folio-volume {
+    display: none;
+  }
+  .folio-projects {
+    grid-template-columns: 1fr;
+    gap: 31px;
+  }
+  .folio-project-title {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .folio-project-title > span {
+    font-size: 12px;
+  }
+  .folio-project h3 {
+    font-size: 27px;
+  }
+  .folio-project > p {
+    font-size: 18px;
+  }
+  .folio-project-meta {
+    font-size: 12px;
+  }
+  .folio-experiments {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .folio-experiments > a {
+    border-top: 1px solid #c8c0a8;
+    padding-top: 15px;
+    grid-template-columns: 1fr;
+  }
+  .folio-experiments small {
+    font-size: 14px;
+  }
+  .folio-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 13px;
+  }
+  .folio-footer nav {
+    gap: 26px;
+  }
+}
+@media (max-width: 390px) {
+  .folio-frame {
+    padding: 0 17px;
+  }
+  .folio-monogram {
+    font-size: 40px;
+  }
+  .medieval-controls .world-picker button {
+    padding: 7px;
+  }
+  .folio-job {
+    grid-template-columns: 12px 1fr;
+  }
+  .folio-job-period {
+    grid-column: 2;
+    padding-top: 0;
+  }
+  .folio-project-title {
+    flex-direction: column;
+    gap: 1px;
+  }
+}

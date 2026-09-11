@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 760" fill="none">
+<defs>
+ <linearGradient id="sky" x1="360" y1="0" x2="360" y2="760" gradientUnits="userSpaceOnUse"><stop stop-color="#0a151a" stop-opacity="0"/><stop offset=".56" stop-color="#16343c"/><stop offset="1" stop-color="#101b20"/></linearGradient>
+ <linearGradient id="tower" x1="301" y1="300" x2="395" y2="330" gradientUnits="userSpaceOnUse"><stop stop-color="#182c32"/><stop offset=".5" stop-color="#35555b"/><stop offset=".51" stop-color="#13242d"/><stop offset="1" stop-color="#08171d"/></linearGradient>
+ <linearGradient id="street" x1="330" y1="555" x2="500" y2="760" gradientUnits="userSpaceOnUse"><stop stop-color="#22bbbd" stop-opacity=".5"/><stop offset="1" stop-color="#0a171b" stop-opacity="0"/></linearGradient>
+ <linearGradient id="beam" x1="390" y1="0" x2="390" y2="620" gradientUnits="userSpaceOnUse"><stop stop-color="#c8f14e" stop-opacity="0"/><stop offset=".5" stop-color="#c8f14e" stop-opacity=".25"/><stop offset="1" stop-color="#c8f14e" stop-opacity="0"/></linearGradient>
+ <pattern id="windows" width="17" height="20" patternUnits="userSpaceOnUse"><path d="M4 5h5v3H4Z" fill="#42606a"/><path d="M4 13h5v2H4Z" fill="#2c4850"/></pattern>
+ <pattern id="lights" width="16" height="23" patternUnits="userSpaceOnUse"><path d="M3 5h3v9H3Z" fill="#65c7c5" opacity=".55"/></pattern>
+ <pattern id="grid" width="45" height="45" patternUnits="userSpaceOnUse"><path d="M45 0H0v45" stroke="#35606b" stroke-width=".5" opacity=".3"/></pattern>
+</defs>
+<path d="M0 0h720v760H0Z" fill="url(#sky)"/>
+<path d="M0 0h720v760H0Z" fill="url(#grid)"/>
+<circle cx="400" cy="225" r="150" stroke="#2b4b50" stroke-width="1"/>
+<circle cx="400" cy="225" r="162" stroke="#28464c" stroke-dasharray="1 12" stroke-width="4"/>
+<path d="M400 45v30m0 300v31M220 225h30m300 0h30" stroke="#73a4a6"/>
+<path d="M316 0h167l-34 627H350Z" fill="url(#beam)"/>
+<!-- far skyline -->
+<g fill="#12252c" stroke="#26414b"><path d="M11 598V405h32v-44h24v32h39v205Zm96 0V316h26v-51h20v51h20v282Zm74 0V383h30v-21h40v236Zm51 0V298h22v-52h34v52h15v300Zm261 0V267h21v-24h23v33h33v322Zm58 0V374h46v-72h16v-17h18v89h19v224Zm97 0V391h33v-46h27v253Z"/></g>
+<g stroke="#37555f" stroke-width="1"><path d="M125 311v-64m132 31v-59m265 23v-39m81 98v-59m-70 74h24m-346 85h33m-220 40h19m614-6h16"/><path d="M11 405h32v-44h24m40-45h26v-51h20m-46 86h66m319-55h70m47 78h52"/></g>
+<!-- ground perspective -->
+<path d="m353 557-290 203h638L397 557Z" fill="url(#street)"/>
+<g stroke="#31606b" stroke-width=".8"><path d="M367 550 49 760m327-211L196 760m187-211 22 211m-14-211 167 211m-158-211 320 211M257 632h260M197 672h380M128 718h518"/><path d="m359 600-64 160m100-160 89 160" stroke="#4ea3a6"/></g>
+<!-- central tower silhouette -->
+<path d="M309 569V308l19-29V190l19-20v-58l26-31 25 31v58l17 20v89l21 29v261Z" fill="url(#tower)" stroke="#58838a" stroke-width="1.2"/>
+<path d="m373 81 25 31v58l17 20v89l21 29v261h-63Z" fill="#0c1e25"/>
+<path d="M373 12v69m-6-42h12m-6 11h19m-19 11h-17" stroke="#bde552" stroke-width="1.5"/>
+<path d="m349 117 24-28 21 27m-65 75 44-26 40 25m-85 23h86m-85 24h86m-85 25h86m-104 52h123m-123 23h123m-123 25h123m-123 26h123m-123 26h123m-123 26h123m-123 26h123m-123 27h123m-123 27h123m-123 26h123" stroke="#3d656d" stroke-width="1"/>
+<path d="M344 202v75m13-83v83m-34 48v231m14-241v241m17-241v241" stroke="#63b1b2" stroke-width="2" opacity=".65"/>
+<path d="M388 204v71m14-71v71m-14 45v243m17-243v243m17-235v235" stroke="#2a414c" stroke-width="3"/>
+<path d="M365 184v-69l8-13 8 13v69l-8-4Z" fill="#cbef57"/><path d="M372 189v365" stroke="#cef257" stroke-width="2"/>
+<!-- satellite decks -->
+<path d="m280 293 47-17h89l47 17-46 25h-91Z" fill="#1b363d" stroke="#557c82"/>
+<path d="m280 293 46 15h91l46-15v10l-46 25h-91l-46-25Z" fill="#0f2029" stroke="#43636d"/>
+<path d="m284 301 43 17h88l42-17" stroke="#c4ef4b" stroke-width="3"/>
+<path d="m286 435 25-11h125l24 11-25 14H311Z" fill="#36525a" stroke="#63868a"/><path d="m286 435 25 14h124l25-14v9l-25 13H311l-25-13Z" fill="#14282f" stroke="#4d7d82"/>
+<path d="M294 446h28m82 0h44" stroke="#67e1da" stroke-width="3"/>
+<!-- orbiting signal array -->
+<ellipse cx="375" cy="228" rx="176" ry="42" transform="rotate(-16 375 228)" stroke="#658a57" stroke-width="1"/>
+<path d="M213 273c19 22 108 13 192-12s141-60 130-80" stroke="#c9ef53" stroke-width="4"/>
+<path d="M217 260c-8-20 55-54 141-79s162-28 174-8" stroke="#8dba47" stroke-width="1" stroke-dasharray="5 9"/>
+<path d="m200 265 13-4 10 7-13 4Z" fill="#c9ef53"/><circle cx="533" cy="186" r="5" fill="#bde94c"/>
+<!-- left midrise -->
+<path d="M90 648V427l79-32 68 32v221Z" fill="#142930" stroke="#365861"/>
+<path d="m90 427 79-32v253H90Z" fill="#243c44"/><path d="m169 395 68 32v221h-68Z" fill="#11242c"/>
+<path d="M101 441h57v176h-57Z" fill="url(#lights)"/><path d="M180 443h45v181h-45Z" fill="url(#windows)"/>
+<path d="m89 429 79-33 69 33m-149 33 81-30 68 30m-148 70 80-24 68 24m-148 70 80-18 68 18" stroke="#49737a"/>
+<path d="M169 398v247" stroke="#6ac8c7" stroke-width="2"/>
+<path d="M112 414v-24l52-23 51 23v26" stroke="#60848a" fill="#10272e"/>
+<path d="M155 372v-52h8v49" stroke="#51838a"/>
+<!-- right midrise -->
+<path d="M473 649V375l64-27 95 42v259Z" fill="#203840" stroke="#486771"/>
+<path d="m537 348 95 42v259h-95Z" fill="#14272e"/>
+<path d="M486 388h39v225h-39Z" fill="url(#windows)"/><path d="M549 408h68v221h-68Z" fill="url(#lights)" opacity=".5"/>
+<path d="m472 377 64-28 97 42m-161 60 64-19 97 34m-161 65 64-15 97 25m-97-188v292" stroke="#53727b"/>
+<path d="M549 385h56v84h-56Z" fill="#cae950"/><g fill="#263a2b"><path d="M559 397h7v59h-7Zm14 0h7v25h-7Zm14 0h7v59h-7Zm-14 34h7v25h-7Z"/></g>
+<path d="m633 446 21 10v62l-21-9Z" fill="#e98067"/>
+<path d="M644 466v30" stroke="#4d3437" stroke-width="3"/>
+<!-- front blocks -->
+<path d="M0 760V579l58-21 50 28v174Z" fill="#0b1c24" stroke="#33525e"/><path d="m0 579 58-21v202H0Z" fill="#20373f"/><path d="M9 590h39v156H9Z" fill="url(#windows)"/>
+<path d="M204 760V602l61-36 53 33v161Z" fill="#10242c" stroke="#375961"/><path d="m204 602 61-36v194h-61Z" fill="#29404a"/><path d="M218 609h34v132h-34Z" fill="url(#lights)"/><path d="m206 602 59-34 53 31" stroke="#65a0a3"/>
+<path d="M460 760V622l57-27 62 26v139Z" fill="#0f232b" stroke="#3f6069"/><path d="m460 622 57-27v165h-57Z" fill="#283f48"/><path d="M471 631h34v114h-34Z" fill="url(#windows)"/>
+<path d="M610 760V546l57-27 53 22v219Z" fill="#13272f" stroke="#3c5964"/><path d="m610 546 57-27v241h-57Z" fill="#2c414a"/><path d="M623 560h34v184h-34Z" fill="url(#lights)"/><path d="m611 549 56-28 53 22m-110 57 57-18 53 17m-110 58 57-14 53 12m-110 61 57-10 53 8" stroke="#46666d"/>
+<!-- signs and sky traffic -->
+<path d="M118 478h34v92h-34Z" fill="#102229" stroke="#c7e957"/><g stroke="#c7e957" stroke-width="2"><path d="M126 489h18m-14 8v12m9-12v12m-13 12h18m-18 9h18m-18 10h18m-14 8v12m9-12v12"/></g>
+<path d="m285 622-19 9v59l19-7Z" fill="#73d2c9"/><path d="m276 638-3 2v30l3-2Z" fill="#153b3f"/>
+<g stroke="#75c9c8"><path d="m553 143 35-9 14 5-32 8Zm-360 36 30-8 10 4-30 8Z" fill="#315d62"/><path d="m564 155-52 14m-292 10-38 11m357-38-40 10" stroke-dasharray="3 6"/></g>
+<!-- technical callouts -->
+<g stroke="#789790" stroke-width=".8"><path d="M434 123h92l20-20h54m-303 207h-45l-22 22h-52M410 542h37l28 27h35"/><circle cx="434" cy="123" r="3"/><circle cx="297" cy="310" r="3"/></g>
+<g fill="#91b2ad" font-family="monospace" font-size="9" letter-spacing="2"><text x="549" y="95">UPLINK_01</text><text x="68" y="328">NEURAL DISTRICT</text><text x="527" y="582">SECTOR / 07</text></g>
+<g stroke="#d1ed68"><path d="M55 110v-12h12m538 558v12h-12M620 70h16v16M80 678H64v-16"/></g>
+<g fill="#70aaa9"><circle cx="174" cy="91" r="1.5"/><circle cx="570" cy="62" r="1"/><circle cx="250" cy="142" r="1"/><circle cx="613" cy="236" r="1.5"/><circle cx="85" cy="254" r="1"/><circle cx="280" cy="55" r="1"/></g>
+</svg>

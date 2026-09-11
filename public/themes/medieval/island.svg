@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 640" fill="none">
+<defs>
+ <linearGradient id="land" x1="200" y1="210" x2="470" y2="580" gradientUnits="userSpaceOnUse"><stop stop-color="#e5d9b8"/><stop offset="1" stop-color="#cdbb8f"/></linearGradient>
+ <linearGradient id="water" x1="200" y1="400" x2="480" y2="500"><stop stop-color="#829889"/><stop offset="1" stop-color="#b0b7a0"/></linearGradient>
+ <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-25)"><path d="M0 0V7" stroke="#7a735a" stroke-width=".6" opacity=".4"/></pattern>
+ <symbol id="pine" viewBox="0 0 24 54"><path d="M12 0 4 19h5L1 33h7L0 44h24l-8-11h7l-8-14h5Z" fill="#65705a" stroke="#46513f" stroke-width=".7"/><path d="M12 5v49m0-20L6 27m6-4 5-6m-5 24 7-7" stroke="#c4c2a1" stroke-width=".8"/></symbol>
+ <symbol id="bush" viewBox="0 0 30 22"><path d="M2 19C-2 10 5 7 9 9 7 0 20-1 21 8c8-1 12 9 5 12Z" fill="#778068" stroke="#4f5843" stroke-width=".8"/><path d="m8 20 5-11m1 10 7-7" stroke="#c3bfa0"/></symbol>
+ <symbol id="star" viewBox="0 0 20 20"><path d="m10 0 2 8 8 2-8 2-2 8-2-8-8-2 8-2Z" fill="#a88a4d"/></symbol>
+</defs>
+<!-- Celestial chart -->
+<g stroke="#a89972" stroke-width=".7" opacity=".65"><circle cx="345" cy="283" r="229"/><circle cx="345" cy="283" r="222" stroke-dasharray="1 9"/><circle cx="345" cy="283" r="200"/><ellipse cx="345" cy="283" rx="247" ry="90" transform="rotate(-24 345 283)"/><path d="M345 32v41m0 420v39M93 283h42m420 0h42M171 109l25 25m297 297 26 26M167 461l28-28m300-300 25-25"/><path d="m168 222 80-85 118 48 99-60 67 151-73 82" stroke-dasharray="3 5"/><circle cx="248" cy="137" r="4"/><circle cx="366" cy="185" r="3"/><circle cx="465" cy="125" r="4"/></g>
+<g fill="#8e7951" font-family="Georgia,serif" font-size="11" letter-spacing="3"><text x="339" y="26">N</text><text x="606" y="288">E</text><text x="69" y="288">W</text></g>
+<g stroke="#867655" stroke-width=".8"><path d="m345 45 7 19-7-4-7 4Z" fill="#8d7347"/><path d="m591 283-16 6 3-6-3-6Z"/></g>
+<use href="#star" x="173" y="107" width="21" height="21"/><use href="#star" x="501" y="166" width="14" height="14"/><use href="#star" x="127" y="340" width="13" height="13"/>
+<!-- Floating island coastline and contours -->
+<path d="m120 416 24-35 57-23 14-42 36-17 20-54 32 13 26-38 36 20 31 51 37 15 35 30 50 9 23 28 37 18 12 39-28 30-22 33-46 12-36 31-59-8-28 10-55-25-49-10-23-31-38-9-20-35Z" fill="url(#land)" stroke="#716949" stroke-width="1.4"/>
+<path d="m120 416 8 43 32 45 44 13 19 30 56 10 50 25 31-9 58 6 39-31 49-14 29-45 28-34 16-35-28 30-22 33-46 12-36 31-59-8-28 10-55-25-49-10-23-31-38-9Z" fill="#b9a77c" stroke="#716949" stroke-width="1.1"/>
+<path d="m120 416 8 43 32 45 44 13 19 30 56 10 50 25 31-9 58 6 39-31 49-14 29-45 28-34 16-35-28 30-22 33-46 12-36 31-59-8-28 10-55-25-49-10-23-31-38-9Z" fill="url(#hatch)"/>
+<g stroke="#766a4e" stroke-width=".8" opacity=".7"><path d="m152 477 12 19 43 11 22 31 51 11 49 24 30-9 57 8 42-31 40-12 36-50m-355 21 41 16 19 26 51 12m49 20 23-8 57 5 44-29 32-9"/><path d="m159 473 1 31m41-23 3 36m47-23-3 50m46-35-2 24m35-7 2 56m31-63v45m34-40 4 43m42-60-1 46m37-77 1 36m31-53 4 31m-266-68 19 8 22-4m259-10 13-18"/></g>
+<!-- River -->
+<path d="M337 314c-12 35 44 25 33 58-6 19-73 12-82 41-9 25 46 29 51 47 7 25-54 30-55 59l44 16c-2-31 56-27 54-65-2-33-65-37-57-53 9-19 69-14 68-45-1-32-48-33-41-59Z" fill="url(#water)" stroke="#6e7f6a" stroke-width="1"/>
+<g stroke="#d4d2ae" stroke-width="1"><path d="M347 332c-1 14 30 24 31 37s-9 19-31 23m-29 12c-42 20 31 35 38 55s-12 30-33 39m44-63c-20-11-41-18-29-26m-31 99-8 7m62-150 6 7"/></g>
+<!-- Mountain ridge -->
+<path d="m181 353 63-89 29 30 57-100 65 119 34-36 52 82-72-22-29 19-43-20-60 20-35-18Z" fill="#d6cba8" stroke="#746c50" stroke-width="1.3"/>
+<path d="m330 194 7 142 43 20 29-19-32-16-16-53Zm-86 70 8 74 25 18-15-46Zm185 13-6 59 58 23Z" fill="#b1ac88"/>
+<path d="m330 194-20 36 15-5 8 13 5-10 13 10Zm-86 70-13 19 11-3 8 7 4-8Z" fill="#f1e8cc"/>
+<g stroke="#80775b" stroke-width=".8"><path d="m338 246 25 67-12-8m-23-57-12 35m21-16 13 52m16-30 9 22m-75-16-14 31m-37-24 7 23m179-30 17 33-15-8m-28 14 8-26m-173 24-14 18"/></g>
+<!-- Observatory hill -->
+<path d="m390 423 19-65 43-26 54 14 40 60-35 17-32-8-48 19Z" fill="#b5b08b" stroke="#797452"/>
+<path d="m413 382 21-20 38-8 33 14m-108 47 43-18 54 3 35 7m-121-12 34-15 49 6m-58-20 37-1" stroke="#8d8b66"/>
+<!-- Tower architecture -->
+<path d="M443 373V245h48v132l-24 9Z" fill="#ded1aa" stroke="#605b44" stroke-width="1.3"/>
+<path d="m473 245 18-4v136l-18 6Z" fill="#b3a77e" stroke="#605b44"/>
+<path d="M436 246v-14h64v14l-9 7h-48Z" fill="#d3c598" stroke="#605b44" stroke-width="1.2"/>
+<path d="M439 232v-11h10v9h12v-9h11v9h12v-9h12v11" fill="#d8cba4" stroke="#605b44"/>
+<path d="M444 220v-22a24 24 0 0 1 48 0v22Z" fill="#c7b783" stroke="#605b44" stroke-width="1.2"/>
+<path d="M439 199q29-51 58 0Z" fill="#737c66" stroke="#485340" stroke-width="1.3"/>
+<path d="M468 171v-22m0 0 25 5-25 9" stroke="#635c41"/><path d="m469 150 23 4-23 8Z" fill="#9c513d"/>
+<path d="M464 211v-9a4 4 0 0 1 8 0v9m-20 75v-13a5 5 0 0 1 10 0v13Zm1 47v-13a5 5 0 0 1 10 0v13Zm25-24v-12a4 4 0 0 1 7 0v12Z" fill="#655f48" stroke="#655f48"/>
+<path d="M455 379v-25q8-14 16 0v30Z" fill="#5f634b" stroke="#575540"/>
+<g stroke="#9e936e" stroke-width=".8"><path d="M444 260h46m-46 35h47m-47 44h48m-49-69h7m13 0h9m-29 43h9m13 0h8m-27 40h7m-8-24h15m-2-69v9m10 25v11m-28 1v8m21 24v10m-20 0v9m28-12v9m6-24h12m-12-42h12"/></g>
+<!-- small annex -->
+<path d="M402 378v-41h36v41l-17 9Z" fill="#d6c69b" stroke="#665f45"/><path d="m398 337 21-23 23 22Z" fill="#7a8066" stroke="#555b43"/><path d="M413 377v-17q5-8 10 0v23m8-34v8" stroke="#665f45" fill="#7c7859"/>
+<!-- Bridge and path -->
+<path d="m405 382-25 13-15 17-21 5m112-33-2 15-16 10-8 23-36 17" stroke="#f2e6c3" stroke-width="6"/>
+<path d="M316 430q25-27 51-8l2 10q-26-14-48 7Z" fill="#bbaa7c" stroke="#756847"/><path d="M315 428q26-24 54-8m-49 3 3 13m6-18 3 13m6-17 2 13m7-13 1 13m8-12v13m8-10v11" stroke="#756847"/>
+<!-- Woodland -->
+<g><use href="#pine" x="208" y="344" width="26" height="59"/><use href="#pine" x="185" y="362" width="25" height="56"/><use href="#pine" x="232" y="358" width="28" height="65"/><use href="#pine" x="212" y="378" width="30" height="69"/><use href="#pine" x="162" y="388" width="23" height="52"/><use href="#pine" x="254" y="337" width="22" height="50"/><use href="#pine" x="267" y="361" width="23" height="53"/><use href="#pine" x="183" y="415" width="26" height="59"/><use href="#pine" x="239" y="437" width="27" height="62"/><use href="#pine" x="213" y="430" width="24" height="54"/><use href="#pine" x="390" y="461" width="28" height="64"/><use href="#pine" x="417" y="443" width="24" height="56"/><use href="#pine" x="441" y="458" width="26" height="60"/><use href="#pine" x="466" y="430" width="24" height="55"/><use href="#pine" x="502" y="410" width="21" height="48"/><use href="#pine" x="489" y="450" width="25" height="56"/></g>
+<g><use href="#bush" x="266" y="458" width="28" height="21"/><use href="#bush" x="345" y="487" width="26" height="20"/><use href="#bush" x="443" y="414" width="26" height="20"/><use href="#bush" x="156" y="441" width="27" height="20"/></g>
+<!-- Cartographic details -->
+<g stroke="#8c7d58" stroke-width=".9"><path d="M130 504c-37 5-45 19-16 27m22-20c-25 5-24 13-10 16m407-28c39-6 48 4 29 16m-30-24c47-8 58 11 31 29M268 584c25 20 117 26 161 1m-142 9c31 13 84 14 113 6"/><path d="M128 234q9-9 18 0 9-9 18 0m365-17q7-7 14 0 7-7 14 0m-365-40q5-5 10 0 5-5 10 0"/></g>
+<g transform="translate(104 553)" stroke="#8d744a"><circle r="29" stroke-width=".7"/><circle r="24" stroke-width=".5"/><path d="m0-36 6 30 30 6-30 6-6 30-6-30-30-6 30-6Z" fill="#d7c69d"/><path d="M0-36V0H-36m36 0v36m0-36h36"/><path d="m0-36 6 30L0 0Z" fill="#8d744a"/><path d="m0 0 30 6L0 6Z" fill="#8d744a"/></g>
+<path d="M510 554h68m-68-4v8m17-8v8m17-8v8m17-8v8m17-8v8" stroke="#8c7954"/>
+<text x="516" y="573" fill="#8b7953" font-family="Georgia,serif" font-size="9" letter-spacing="2">TERRA INCOGNITA</text>
+</svg>

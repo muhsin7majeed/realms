@@ -1,0 +1,83 @@
+---
+import profile from '../data/profile.json';
+import '../styles/global.css';
+const base = import.meta.env.BASE_URL;
+const canonical = new URL(base, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-theme="medieval">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{profile.fullName} — {profile.role}</title>
+    <meta
+      name="description"
+      content={`${profile.role} from ${profile.location}. ${profile.intro}`}
+    />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <meta name="theme-color" content="#eee7d6" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content={`${profile.fullName} — ${profile.role}`}
+    />
+    <meta property="og:description" content={profile.intro} />
+    <meta property="og:url" content={canonical} />
+    <meta
+      property="og:image"
+      content={new URL(`${base}social-preview.png`, Astro.site)}
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem('portfolio-world');
+        if (theme === 'cyberpunk' || theme === 'medieval')
+          document.documentElement.dataset.theme = theme;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#medieval-home">
+      Skip to content
+    </a>
+    <slot />
+    <div class="world-transition" aria-hidden="true">
+      <div class="world-transition-shutter"></div>
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+        <g fill="none" stroke="currentColor" stroke-width="1" opacity=".35">
+          <circle data-transition-orbit cx="720" cy="450" r="180" />
+          <circle
+            data-transition-orbit
+            cx="720"
+            cy="450"
+            r="220"
+            stroke-dasharray="2 12"
+          />
+          <path
+            data-transition-trace
+            d="M0 450H370L470 350H630M1440 450H1070L970 550H810M720 0V200M720 700V900"
+          />
+          <path
+            data-transition-trace
+            d="M0 480H350L470 600H580M1440 420H1090L970 300H860"
+          />
+          <path d="M710 210h20m-20 480h20M480 440v20m480-20v20" />
+        </g>
+      </svg>
+      <div class="world-transition-label">
+        <span>ENTERING ANOTHER WORLD</span>
+        <strong data-world-label></strong>
+      </div>
+    </div>
+    <div
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      data-theme-status
+    ></div>
+  </body>
+</html>
