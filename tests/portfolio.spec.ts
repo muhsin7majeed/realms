@@ -3,10 +3,11 @@ import profile from '../src/data/profile.json' with { type: 'json' };
 
 test('static portfolio exposes identity, proof, experience and contact without JavaScript', async ({
   browser,
+  baseURL,
 }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:4321');
+  await page.goto(baseURL!);
   const scene = page.locator('[data-scene="medieval"]');
   await expect(scene.getByRole('heading', { level: 1 })).toContainText(
     profile.name,
@@ -29,5 +30,7 @@ test('static portfolio exposes identity, proof, experience and contact without J
     scene.getByRole('link', { name: /get in touch/i }),
   ).toHaveAttribute('href', `mailto:${profile.email}`);
   await expect(page.locator('[data-scene="cyberpunk"]')).not.toBeVisible();
+  await expect(page.locator('[data-scene="metro"]')).not.toBeVisible();
+  await expect(scene.locator('.world-controls')).not.toBeVisible();
   await context.close();
 });

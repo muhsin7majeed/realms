@@ -35,7 +35,7 @@ const canonical = new URL(base, Astro.site);
     <script is:inline>
       try {
         const theme = localStorage.getItem('portfolio-world');
-        if (theme === 'cyberpunk' || theme === 'medieval')
+        if (theme === 'cyberpunk' || theme === 'medieval' || theme === 'metro')
           document.documentElement.dataset.theme = theme;
       } catch {}
     </script>
@@ -47,6 +47,10 @@ const canonical = new URL(base, Astro.site);
     <slot />
     <div class="world-transition" aria-hidden="true">
       <div class="world-transition-shutter"></div>
+      <div class="world-transition-bulkhead">
+        <div></div>
+        <div></div>
+      </div>
       <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
         <g fill="none" stroke="currentColor" stroke-width="1" opacity=".35">
           <circle data-transition-orbit cx="720" cy="450" r="180" />

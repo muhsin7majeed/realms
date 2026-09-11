@@ -920,3 +920,25 @@
     gap: 1px;
   }
 }
+@media (max-width: 760px) {
+  .folio-header {
+    height: auto;
+    min-height: 87px;
+    flex-wrap: wrap;
+    padding-block: 16px;
+    row-gap: 22px;
+  }
+  .medieval-controls {
+    width: 100%;
+    margin-left: 0;
+  }
+  .medieval-controls .world-picker {
+    flex: 1;
+  }
+  .medieval-controls .world-picker button {
+    flex: 1;
+  }
+  .medieval-controls .world-picker button span {
+    display: none;
+  }
+}

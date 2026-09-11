@@ -1,11 +1,15 @@
 import { defineConfig } from '@playwright/test';
 
+const port = process.env.PREVIEW_PORT || '4321';
+const base = process.env.BASE_PATH || '/';
+const url = `http://127.0.0.1:${port}${base}`;
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   workers: 2,
   use: {
-    baseURL: 'http://127.0.0.1:4321',
+    baseURL: url,
     launchOptions: {
       executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium',
     },
@@ -13,8 +17,8 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'npm run preview -- --port 4321',
-    url: 'http://127.0.0.1:4321',
+    command: `npm run preview -- --port ${port}`,
+    url,
     reuseExistingServer: !process.env.CI,
   },
 });

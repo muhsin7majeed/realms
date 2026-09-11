@@ -4,10 +4,10 @@ import AxeBuilder from '@axe-core/playwright';
 const currentScene = (page: import('@playwright/test').Page) =>
   page.locator('[data-scene]:visible');
 
-for (const theme of ['medieval', 'cyberpunk']) {
+for (const theme of ['medieval', 'cyberpunk', 'metro']) {
   test(`${theme}: responsive, accessible, and complete`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/');
+    await page.goto('./');
     await currentScene(page)
       .getByRole('button', { name: new RegExp(theme, 'i') })
       .click();
@@ -41,6 +41,9 @@ for (const theme of ['medieval', 'cyberpunk']) {
       await expect(
         currentScene(page).getByRole('button', { name: /cyberpunk/i }),
       ).toBeInViewport();
+      await expect(
+        currentScene(page).getByRole('button', { name: /metro/i }),
+      ).toBeInViewport();
     }
     await page.evaluate(() => document.fonts.ready);
     const audit = await new AxeBuilder({ page })
@@ -73,7 +76,7 @@ for (const theme of ['medieval', 'cyberpunk']) {
 test('switch preserves facts, keyboard focus and chosen theme across reload', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('./');
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   const cyber = currentScene(page).getByRole('button', { name: /cyberpunk/i });
@@ -102,7 +105,7 @@ test('switch preserves facts, keyboard focus and chosen theme across reload', as
 test('rapid switches settle to the latest request and leave no overlay or stuck styles', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('./');
   await page.evaluate(() => {
     document
       .querySelector<HTMLButtonElement>(
@@ -145,7 +148,7 @@ test('reduced motion and pause preference survive switches and reloads', async (
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
+  await page.goto('./');
   await expect(page.locator('html')).toHaveAttribute('data-motion', 'paused');
   await currentScene(page)
     .getByRole('button', { name: /cyberpunk/i })
@@ -175,7 +178,7 @@ test('default world does not request inactive scene imagery', async ({
   page.on('request', (request) => {
     if (request.resourceType() === 'image') images.push(request.url());
   });
-  await page.goto('/');
+  await page.goto('./');
   await page.waitForLoadState('networkidle');
   expect(images.some((url) => url.includes('/cyberpunk/city.svg'))).toBeFalsy();
   await currentScene(page)
@@ -190,7 +193,7 @@ test('default world does not request inactive scene imagery', async ({
 test('transition shutter covers the viewport when the scenes swap', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('./');
   const coverage = await page.evaluate(
     () =>
       new Promise<{ left: number; right: number; width: number }>((resolve) => {
@@ -225,7 +228,7 @@ test('selecting the initial world while fonts load still starts ambient motion',
     await new Promise((resolve) => setTimeout(resolve, 800));
     await route.continue();
   });
-  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await page.goto('./', { waitUntil: 'domcontentloaded' });
   await currentScene(page)
     .getByRole('button', { name: /medieval/i })
     .click();
@@ -241,7 +244,7 @@ test('selecting the initial world while fonts load still starts ambient motion',
 test('ambient animation pauses while the document is hidden', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('./');
   const orbit = currentScene(page).locator('[data-ambient="orbit"]');
   await expect
     .poll(() => orbit.evaluate((el) => getComputedStyle(el).transform))
@@ -278,7 +281,7 @@ test('selected cyberpunk control paints a focus indicator inside its clipped sha
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
+  await page.goto('./');
   await currentScene(page)
     .getByRole('button', { name: /cyberpunk/i })
     .click();
@@ -308,7 +311,7 @@ test('rapid requests still wait for in-flight scene artwork', async ({
     await route.continue();
   });
   try {
-    await page.goto('/');
+    await page.goto('./');
     await page.evaluate(() =>
       Promise.all(
         [
@@ -358,7 +361,7 @@ test('storage failure does not prevent changing worlds', async ({ page }) => {
       throw new Error('Storage blocked');
     };
   });
-  await page.goto('/');
+  await page.goto('./');
   await currentScene(page)
     .getByRole('button', { name: /cyberpunk/i })
     .click();

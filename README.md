@@ -1,12 +1,12 @@
-# Muhsin — two worlds, one portfolio
+# Muhsin — three worlds, one portfolio
 
-A static Astro portfolio with independently art-directed **Medieval** and **Cyberpunk** experiences. Shared personal facts, theme-owned narrative copy, and separate layouts, type systems, illustrations, controls, cursor treatments, and GSAP motion.
+A static Astro portfolio with independently art-directed **Medieval**, **Cyberpunk**, and **Metro** experiences. Shared personal facts, theme-owned narrative copy, and separate layouts, type systems, illustrations, controls, cursor treatments, and GSAP motion.
 
 ## Goal
 
 Make a memorable, visually rich personal website without making visitors hunt for the essentials: **who Muhsin is, what he does and can do, proof of his work, his résumé, and how to contact him**.
 
-Each theme is a complete art direction, not a palette swap. Medieval is a cartographer’s folio; Cyberpunk is an independent signal interface. Layout, artwork, SVGs, typography, surfaces, buttons, hover/focus/press behavior, cursors, and animation language can all differ. Future themes should have the same freedom.
+Each theme is a complete art direction, not a palette swap. Medieval is a cartographer’s folio; Cyberpunk is an independent signal interface; Metro is a warm underground workshop with an enamel identity plate and horizontal work records. Layout, artwork, SVGs, typography, surfaces, buttons, hover/focus/press behavior, cursors, and animation language can all differ. Future themes should have the same freedom.
 
 The site stays compact and naturally scrollable, with readable content before JavaScript, tasteful motion, and static GitHub Pages hosting. No backend or immersive navigation is required to access professional information.
 
@@ -28,7 +28,7 @@ npm run check      # Astro/TypeScript diagnostics, build, browser tests
 npm run format:check
 ```
 
-Browser tests use `/usr/bin/chromium` by default on this machine. On another system, set `CHROMIUM_PATH` to your Chromium/Chrome executable before running checks. Tests include no-JavaScript content, theme switching/persistence, rapid requests, keyboard focus, reduced motion, paused motion, blocked storage, responsive overflow, asset loading, transition coverage, and axe accessibility checks. Chromium checks are not a substitute for Safari/Firefox or real-device testing.
+Browser tests use `/usr/bin/chromium` by default on this machine. On another system, set `CHROMIUM_PATH` to your Chromium/Chrome executable before running checks. Set `PREVIEW_PORT=4327` to test alongside an existing dev server without reusing it. For repository-base verification, use `BASE_PATH=/portfolio-one/ PREVIEW_PORT=4327 npm run check`; restore the ordinary root build afterward. Tests include no-JavaScript content, theme switching/persistence, rapid requests, keyboard focus, reduced motion, paused motion, blocked storage, responsive overflow, asset loading, transition coverage, and axe accessibility checks. Chromium checks are not a substitute for Safari/Firefox or real-device testing.
 
 ## Edit your information
 
@@ -37,7 +37,7 @@ Content has two layers, both rendered at build time:
 - **`src/data/profile.json` owns shared facts:** identity, contact details, capabilities, employers, dates, project names, technologies, assets, and links. Its `metadataDescription` is the neutral search/social description, independent of the selected world.
 - **`src/themes/<world>/copy.json` owns that theme’s voice:** introductions, capability wording, employment narratives, project descriptions/categories, headings, button labels, captions, footer, motion labels, and transition text.
 
-Medieval uses original, grounded Witcher-inspired language: craft, contracts, roads, and hard-earned reliability. Cyberpunk uses a concise independent-engineer voice: signals, systems, and builds. Names, job titles, dates, and destinations stay factual; accessibility messages retain recognizable contact/résumé/motion purposes.
+Medieval uses original, grounded Witcher-inspired language: craft, contracts, roads, and hard-earned reliability. Cyberpunk uses a concise independent-engineer voice: signals, systems, and builds. Metro uses practical workshop language: maintenance, dependable foundations, and useful things. Names, job titles, dates, and destinations stay factual; accessibility messages retain recognizable contact/résumé/motion purposes.
 
 To rewrite a theme, edit its `copy.json`, not its component or the shared profile. Experience, capabilities, and projects are matched through stable IDs. When adding or removing a record in `profile.json`, update its entry in **every** theme’s copy maps. `npm run check` checks complete ID coverage and rendered copy. Changes to factual responsibilities should also be reflected accurately in each narrative; there is no automatic prose generator or silent fallback to another theme.
 
@@ -56,17 +56,18 @@ src/themes/<world>/copy.json      Theme-owned narrative and UI text
 src/layouts/Portfolio.astro        Static shell, metadata, switch overlay
 src/themes/medieval/               Folio composition, styles, motion
 src/themes/cyberpunk/              Signal composition, styles, motion
+src/themes/metro/                  Underground workshop, styles, motion
 src/components/ThemeSwitcher.astro Accessible controls, styled by each theme
 src/scripts/themes.ts             Selection, preparation and animation lifecycle
 src/styles/global.css             Fonts and minimal shared baseline
 public/themes/                    Original theme-specific SVG artwork
 ```
 
-Both compositions are rendered as static HTML. CSS exposes only the selected one visually and to accessibility APIs. The default medieval page is fully readable without JavaScript. Interactive controls appear only when the controller loads. The early preference script selects a remembered world before first paint; local storage failure does not break the page.
+All three compositions are rendered as static HTML. CSS exposes only the selected one visually and to accessibility APIs. The default medieval page is fully readable without JavaScript. Interactive controls appear only when the controller loads. The early preference script selects a remembered world before first paint; local storage failure does not break the page.
 
-Inactive cyberpunk imagery is deferred until requested. Fonts are self-hosted and browser-loaded on use. The small default folio SVG is present in static HTML and may still be fetched on a remembered cyberpunk visit. There are no analytics, external font requests, runtime API calls, or server requirements.
+Inactive Cyberpunk and Metro imagery is deferred until requested. Fonts are self-hosted and browser-loaded on use. The small default folio SVG is present in static HTML and may still be fetched on a remembered Cyberpunk or Metro visit. There are no analytics, external font requests, runtime API calls, or server requirements.
 
-GSAP owns the coordinated world transition and each theme’s ambient timeline. CSS owns hover/focus/press effects. The controller stops the old world's animation on exit, pauses ambient motion when the page is hidden, and respects the visitor's motion preference. The motion button pauses ambient effects and suppresses animated world switches; reduced-motion system settings take precedence. Native image cursors are restricted to fine pointers; text and interactive controls retain familiar cursors.
+GSAP owns the coordinated world transition and each theme’s ambient timeline. Metro opens through a two-part bulkhead rather than the other worlds’ orbit/trace shutter, and its task-light ambient effect stays inside the illustration. CSS owns hover/focus/press effects. The controller stops the old world's animation on exit, pauses ambient motion when the page is hidden, and respects the visitor's motion preference. The motion button pauses ambient effects and suppresses animated world switches; reduced-motion system settings take precedence. Native image cursors are restricted to fine pointers; text and interactive controls retain familiar cursors.
 
 ### Add another art direction
 
@@ -107,13 +108,13 @@ See [`AGENTS.md`](AGENTS.md) for contributor and coding-agent guidance, architec
 - Share facts and necessary behavior, not a universal visual design or a universal voice. Keep prose and presentation scoped to their theme.
 - Keep changes focused; add packages or abstractions only for a demonstrated need.
 - Write a failing regression test before changing behavior, then run `npm run check` and `npm run format:check`.
-- Inspect both themes visually after presentation changes, including mobile layouts, keyboard focus, reduced motion, and the transition between them. Passing tests alone does not establish visual quality.
+- Inspect all three themes visually after presentation changes, including mobile layouts, keyboard focus, reduced motion, and all six directed transitions between them. Passing tests alone does not establish visual quality.
 - Keep `.scratch/`, generated builds, dependencies, and test artifacts out of Git. Commit source, original assets, license notices, and `package-lock.json`.
 - Use focused Conventional Commits. Publishing, pushing, deployment, and DNS changes require explicit approval.
 
 ## Assets and licenses
 
-- The folio island and transmission-city SVGs were created for this portfolio.
+- The folio island, transmission-city, and underground workshop SVGs were created for this portfolio. Metro’s workshop and grain texture are original illustrations, not franchise artwork.
 - Kadha screenshot and résumé were retrieved from the existing `muhsi.in` website. World's on Fire preview was captured from its live site at desktop dimensions.
-- Cormorant Garamond, DM Sans, Barlow Condensed, and IBM Plex Mono are provided by Fontsource. Their license notices are included in `public/licenses/`.
+- Cormorant Garamond, DM Sans, Barlow Condensed, IBM Plex Mono, and Russo One are provided by Fontsource. Russo One’s Latin WOFF2 is vendored under `public/fonts/` from `@fontsource/russo-one` 5.3.0; the other fonts use npm packages. Their license notices are included in `public/licenses/`.
 - GSAP and other packages retain their respective licenses in their distributions.

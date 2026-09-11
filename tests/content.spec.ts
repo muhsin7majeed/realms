@@ -15,7 +15,7 @@ test('worlds have distinct voices while preserving identity and contact', async 
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
+  await page.goto('./');
   await expect(page.locator('.folio-lede')).toHaveText(
     'Interfaces forged with care. Old code put to rights. Work that holds when the easy fixes fail.',
   );
@@ -51,13 +51,13 @@ test('worlds have distinct voices while preserving identity and contact', async 
     ).toBeVisible();
 });
 
-for (const world of ['medieval', 'cyberpunk']) {
+for (const world of ['medieval', 'cyberpunk', 'metro']) {
   test(`${world}: rendered narratives and UI labels come from its copy file`, async ({
     page,
   }) => {
     const copy = readCopy(world);
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/');
+    await page.goto('./');
     await page
       .locator(`[data-scene]:visible [data-theme-choice="${world}"]`)
       .click();
@@ -131,8 +131,8 @@ for (const world of ['medieval', 'cyberpunk']) {
 test('transition copy follows the destination while metadata remains neutral', async ({
   page,
 }) => {
-  await page.goto('/');
-  for (const world of ['cyberpunk', 'medieval']) {
+  await page.goto('./');
+  for (const world of ['cyberpunk', 'metro', 'medieval']) {
     const copy = readCopy(world);
     await page
       .locator(`[data-scene]:visible [data-theme-choice="${world}"]`)
@@ -156,16 +156,20 @@ test('transition copy follows the destination while metadata remains neutral', a
 });
 
 test('project and experience voices do not silently reuse the other world', () => {
-  const medieval = readCopy('medieval');
-  const cyberpunk = readCopy('cyberpunk');
-  expect(medieval.hero.intro).not.toBe(cyberpunk.hero.intro);
-  expect(medieval.about.body).not.toBe(cyberpunk.about.body);
-  for (const project of profile.projects)
-    expect(medieval.projects[project.id].description).not.toBe(
-      cyberpunk.projects[project.id].description,
-    );
-  for (const job of profile.experience)
-    expect(medieval.experience[job.id].summary).not.toBe(
-      cyberpunk.experience[job.id].summary,
-    );
+  const worlds = ['medieval', 'cyberpunk', 'metro'];
+  for (const world of worlds)
+    for (const other of worlds.filter((name) => name !== world)) {
+      const copy = readCopy(world);
+      const comparison = readCopy(other);
+      expect(copy.hero.intro).not.toBe(comparison.hero.intro);
+      expect(copy.about.body).not.toBe(comparison.about.body);
+      for (const project of profile.projects)
+        expect(copy.projects[project.id].description).not.toBe(
+          comparison.projects[project.id].description,
+        );
+      for (const job of profile.experience)
+        expect(copy.experience[job.id].summary).not.toBe(
+          comparison.experience[job.id].summary,
+        );
+    }
 });

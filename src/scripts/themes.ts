@@ -1,10 +1,21 @@
 import { gsap } from 'gsap';
 import * as medieval from '../themes/medieval/motion';
+import * as metro from '../themes/metro/motion';
 import * as cyberpunk from '../themes/cyberpunk/motion';
 
 const worlds = {
+  metro: {
+    ...metro,
+    color: '#151b17',
+    fonts: [
+      '400 32px "Russo One"',
+      '400 16px "DM Sans"',
+      '400 12px "IBM Plex Mono"',
+    ],
+  },
   medieval: {
     ...medieval,
+    color: '#eee7d6',
     fonts: [
       '500 32px "Cormorant Garamond"',
       '400 20px "Cormorant Garamond"',
@@ -13,6 +24,7 @@ const worlds = {
   },
   cyberpunk: {
     ...cyberpunk,
+    color: '#090f13',
     fonts: [
       '700 32px "Barlow Condensed"',
       '600 24px "Barlow Condensed"',
@@ -34,6 +46,9 @@ const overlay = document.querySelector<HTMLElement>('.world-transition')!;
 const shutter = document.querySelector<HTMLElement>(
   '.world-transition-shutter',
 )!;
+const bulkhead = overlay.querySelectorAll<HTMLElement>(
+  '.world-transition-bulkhead > div',
+);
 const status = document.querySelector<HTMLElement>('[data-theme-status]')!;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let userPaused = false;
@@ -117,7 +132,7 @@ function syncControls() {
     `#${active}-home`;
   document
     .querySelector('meta[name="theme-color"]')!
-    .setAttribute('content', active === 'medieval' ? '#eee7d6' : '#090f13');
+    .setAttribute('content', worlds[active].color);
 }
 
 function activate(next: World) {
@@ -184,6 +199,7 @@ async function switchWorld(next: World) {
   transition = undefined;
   gsap.set(overlay, { autoAlpha: 0 });
   gsap.set(shutter, { xPercent: -101 });
+  gsap.set(bulkhead, { yPercent: (index) => (index === 0 ? -101 : 101) });
   clearEntrance();
   if (next === active) {
     ambient ??= worlds[active].ambient(scenes[active]);
@@ -201,6 +217,40 @@ async function switchWorld(next: World) {
     scenes[next].dataset.worldTitle!;
   overlay.querySelector('[data-world-caption]')!.textContent =
     scenes[next].dataset.worldTransition!;
+  if (next === 'metro') {
+    const label = overlay.querySelector('.world-transition-label');
+    gsap.set(overlay, { autoAlpha: 1 });
+    gsap.set(label, { opacity: 0 });
+    transition = gsap.timeline({
+      onComplete: () => {
+        gsap.set(overlay, { autoAlpha: 0 });
+        transition = undefined;
+      },
+    });
+    transition
+      .to(bulkhead, { yPercent: 0, duration: 0.32, ease: 'power2.inOut' }, 0)
+      .to(label, { opacity: 1, duration: 0.12 }, 0.25)
+      .call(() => activate(next), [], 0.36)
+      .to(label, { opacity: 0, duration: 0.12 }, 0.5)
+      .to(
+        bulkhead,
+        {
+          yPercent: (index) => (index === 0 ? -101 : 101),
+          duration: 0.42,
+          ease: 'power2.inOut',
+        },
+        0.6,
+      )
+      .call(
+        () => {
+          if (root.dataset.motion === 'running')
+            entrance = worlds[next].enter(scenes[next]);
+        },
+        [],
+        0.75,
+      );
+    return;
+  }
   const circles = overlay.querySelectorAll('[data-transition-orbit]');
   const traces = overlay.querySelectorAll('[data-transition-trace]');
   gsap.set(overlay, { autoAlpha: 1 });
@@ -263,7 +313,7 @@ async function switchWorld(next: World) {
     .to(shutter, { xPercent: 101, duration: 0.4, ease: 'power3.inOut' }, 0.57)
     .call(
       () => {
-        if (!reducedMotion.matches && !userPaused)
+        if (root.dataset.motion === 'running')
           entrance = worlds[next].enter(scenes[next]);
       },
       [],
@@ -288,6 +338,8 @@ document
     button.addEventListener('click', () => {
       userPaused = !userPaused;
       remember('portfolio-motion', userPaused ? 'paused' : 'running');
+      if (userPaused && transition)
+        void switchWorld(overlay.dataset.destination as World);
       updateMotion();
     });
   });

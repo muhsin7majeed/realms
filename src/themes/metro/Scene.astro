@@ -1,0 +1,236 @@
+---
+import profile from '../../data/profile.json';
+import type { ThemeCopy } from '../../data/theme-copy';
+import content from './copy.json';
+import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
+import './theme.css';
+const copy: typeof content & ThemeCopy = content;
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+---
+
+<article
+  class="metro"
+  data-scene="metro"
+  aria-label={copy.world.title}
+  data-world-name={copy.world.name}
+  data-world-title={copy.world.title}
+  data-world-transition={copy.world.transition}
+>
+  <header class="site-header">
+    <a class="wordmark" href="#metro-home" aria-label={`${profile.name}, home`}>
+      <span class="rail-symbol" aria-hidden="true">
+        <i></i>
+        <i></i>
+      </span>
+      <span>
+        {profile.fullName}
+        <small>{copy.header.identifier}</small>
+      </span>
+    </a>
+    <ThemeSwitcher theme="metro" copy={copy.controls} />
+  </header>
+  <main id="metro-home">
+    <section class="shelter" aria-labelledby="metro-name">
+      <div class="workshop-art">
+        <img
+          data-lazy-src={asset('themes/metro/workshop.svg')}
+          width="1440"
+          height="760"
+          alt={copy.art.alt}
+        />
+        <div
+          class="workshop-light"
+          data-ambient="light"
+          aria-hidden="true"
+        ></div>
+      </div>
+      <div class="shelter-topline">
+        <p class="eyebrow">
+          <span class="small-square" aria-hidden="true"></span>
+          {copy.world.title}
+        </p>
+        <span class="eyebrow shelter-index" aria-hidden="true">
+          {copy.hero.level}
+        </span>
+      </div>
+      <div class="intro">
+        <div class="nameplate" data-reveal>
+          <span class="screw screw-tl" aria-hidden="true"></span>
+          <span class="screw screw-tr" aria-hidden="true"></span>
+          <span class="screw screw-bl" aria-hidden="true"></span>
+          <span class="screw screw-br" aria-hidden="true"></span>
+          <p class="plate-role">{profile.role}</p>
+          <h1 id="metro-name">{profile.name}</h1>
+          <div class="plate-baseline">
+            <span>{profile.location}</span>
+            <span>
+              {copy.hero.since} {profile.careerStart}
+            </span>
+          </div>
+        </div>
+        <h2 class="hero-statement" data-reveal>
+          {copy.hero.heading[0]}
+          <br />
+          {copy.hero.heading[1]}
+        </h2>
+        <p class="intro-copy" data-reveal>
+          {copy.hero.intro}
+        </p>
+        <div class="hero-actions" data-reveal>
+          <a
+            class="metal-button"
+            href={`mailto:${profile.email}`}
+            aria-label={`${copy.actions.contact} — get in touch`}
+          >
+            {copy.actions.contact}
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a class="resume-link" href={asset(profile.resume)}>
+            {copy.actions.resume}
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+      <div class="shelter-bottom">
+        <span class="eyebrow">
+          {profile.tools.map((tool, index) => (
+            <>
+              {index > 0 && <span aria-hidden="true">/</span>}
+              {tool}
+            </>
+          ))}
+        </span>
+        <p class="art-caption">
+          <span class="lamp-dot" aria-hidden="true"></span>
+          {copy.art.caption}
+        </p>
+      </div>
+    </section>
+    <section class="practice" aria-labelledby="metro-practice">
+      <div class="record-heading">
+        <span class="eyebrow">{copy.about.label}</span>
+        <span class="record-stamp" aria-hidden="true">
+          {copy.about.stamp}
+        </span>
+      </div>
+      <div class="practice-grid">
+        <div class="capabilities">
+          <h2 id="metro-practice">
+            {copy.about.heading[0]}
+            <br />
+            {copy.about.heading[1]}
+          </h2>
+          <p>{copy.about.body}</p>
+          <ul>
+            {profile.capabilities.map((capability) => (
+              <li>
+                <span aria-hidden="true">+</span>
+                {copy.capabilities[capability.id]}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="experience">
+          <h3 class="eyebrow">{copy.experienceHeading}</h3>
+          {profile.experience.map((job) => (
+            <article class="job">
+              <p class="job-period">{job.period}</p>
+              <div>
+                <h4>{job.company}</h4>
+                <p class="job-role">{job.role}</p>
+                <p>{copy.experience[job.id].summary}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+    <section class="work" aria-labelledby="metro-work">
+      <div class="work-heading">
+        <div>
+          <p class="eyebrow">{copy.work.label}</p>
+          <h2 id="metro-work">{copy.work.heading}</h2>
+        </div>
+        <span class="eyebrow work-count">
+          {String(profile.projects.length).padStart(2, '0')}{' '}
+          {copy.work.countLabel}
+        </span>
+      </div>
+      {profile.projects
+        .filter((project) => project.featured)
+        .map((project, index) => (
+          <article class="project-record">
+            <a
+              class="project-image"
+              href={project.url}
+              aria-label={`${copy.actions.explore} — ${project.name}`}
+            >
+              <img
+                data-lazy-src={asset(project.image!)}
+                width="800"
+                height="450"
+                alt={`${project.name} website preview`}
+                loading="lazy"
+              />
+            </a>
+            <div class="project-copy">
+              <p class="eyebrow">
+                0{index + 1} / {copy.projects[project.id].category}
+              </p>
+              <h3>
+                <a href={project.url}>{project.name}</a>
+              </h3>
+              <p>{copy.projects[project.id].description}</p>
+              <p class="stack">{project.stack}</p>
+              <div class="project-links">
+                <a href={project.url}>
+                  {copy.actions.explore}
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  href={project.source}
+                  aria-label={`${copy.actions.source} — ${project.name} source code`}
+                >
+                  {copy.actions.source}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      <div class="small-projects">
+        <p class="eyebrow">{copy.work.experiments}</p>
+        {profile.projects
+          .filter((project) => !project.featured)
+          .map((project) => (
+            <a href={project.url}>
+              <span>
+                {project.name}
+                <small>{copy.projects[project.id].description}</small>
+              </span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div>
+      <span class="eyebrow">{copy.footer.heading}</span>
+      <a
+        class="footer-contact"
+        href={`mailto:${profile.email}`}
+        aria-label={`${copy.actions.email} — email`}
+      >
+        {copy.actions.email}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <nav aria-label="Social links">
+      {profile.socials.map((social) => (
+        <a href={social.url}>{social.name} ↗</a>
+      ))}
+      <a href="#metro-home">{copy.actions.backToTop} ↑</a>
+    </nav>
+  </footer>
+</article>

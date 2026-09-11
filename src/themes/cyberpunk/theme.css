@@ -1196,3 +1196,19 @@
     display: none;
   }
 }
+@media (max-width: 760px) {
+  .signal-header {
+    flex-wrap: wrap;
+    padding-block: 20px;
+    row-gap: 24px;
+  }
+  .cyberpunk-controls {
+    width: 100%;
+  }
+  .cyberpunk-controls .world-picker {
+    flex: 1;
+  }
+  .cyberpunk-controls .world-picker button {
+    flex: 1;
+  }
+}

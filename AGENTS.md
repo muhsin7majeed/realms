@@ -4,7 +4,7 @@
 
 This is Muhsin’s personal portfolio: memorable, eye-catching, and easy to understand. Visitors must be able to find who he is, what he does, what he can do, proof of his work, his résumé, and contact details without learning an unusual navigation system.
 
-**The central requirement is complete art-style changes, not color themes.** Medieval and Cyberpunk are independently designed websites sharing facts, with their own narrative voices. Preserve their different layouts, imagery, SVGs, typography (including sizes and weights), surfaces, borders, controls, hover/focus/press effects, cursors, and entrance/idle/exit motion. Future themes should have equal freedom.
+**The central requirement is complete art-style changes, not color themes.** Medieval, Cyberpunk, and Metro are independently designed websites sharing facts, with their own narrative voices. Preserve their different layouts, imagery, SVGs, typography (including sizes and weights), surfaces, borders, controls, hover/focus/press effects, cursors, and entrance/idle/exit motion. Future themes should have equal freedom.
 
 ## Start here
 
@@ -23,7 +23,7 @@ Read `README.md`, the relevant source files, and any active plan in `.scratch/pl
 - `src/styles/global.css` contains fonts and the small shared baseline. Do not turn it into a universal component design system.
 - `public/themes/` holds original artwork; `public/projects/` holds real project screenshots. Résumé and social-preview files are independently replaceable assets.
 
-Both worlds render at build time, but only one is visually and accessibility-exposed. The medieval default must remain usable without JavaScript. Keep IDs unique across scenes. The controller currently maps reading position by the ordered `main > section` regions: introduction, capabilities/experience, and work. Preserve that contract, or explicitly update and test the mapping when changing it.
+All three worlds render at build time, but only one is visually and accessibility-exposed. The medieval default must remain usable without JavaScript. Keep IDs unique across scenes. The controller currently maps reading position by the ordered `main > section` regions: introduction, capabilities/experience, and work. Preserve that contract, or explicitly update and test the mapping when changing it.
 
 See the README’s theme-addition checklist when introducing another world. Keep registration explicit and small; do not build a theme/plugin framework speculatively.
 
@@ -32,7 +32,7 @@ See the README’s theme-addition checklist when introducing another world. Keep
 - Share facts and useful semantics, not mandatory component geometry. A little theme-specific markup is better than an abstraction that makes all worlds look alike.
 - A grayscale comparison with the switcher hidden should still reveal clearly different typography, composition, shapes, and artwork.
 - Keep the selector recognizable and easy to find. Thematic CTAs such as “Send word” and “Open a channel” are intentional, but their purpose must remain clear. Accessible names must include the visible label and recognizable contact/résumé/motion purpose. Keep real job titles, names and dates literal.
-- Medieval prose is original, grounded Witcher-inspired dark fantasy: terse, weathered, craft-focused, with dry restraint. No copied franchise quotes, faux-Shakespeare, or fictional achievements. Cyberpunk prose is clipped, technical, and independently minded; avoid incomprehensible slang and fake system claims.
+- Medieval prose is original, grounded Witcher-inspired dark fantasy: terse, weathered, craft-focused, with dry restraint. No copied franchise quotes, faux-Shakespeare, or fictional achievements. Cyberpunk prose is clipped, technical, and independently minded; avoid incomprehensible slang and fake system claims. Metro prose is practical and maintenance-minded: useful work, sound foundations, and a lived-in workshop, without fictional survival claims.
 - Update each theme’s narrative accurately when shared responsibilities or project facts change. Copy resources are authored prose, not automatically rewritten from the factual data. Keep each theme’s descriptions meaningfully distinct.
 - Preserve a compact page. Allow normal scrolling on short and narrow screens; do not force all content into `100vh`, lock scrolling, or hide essentials behind dialogs, games, or terminal commands.
 - Project screenshots must remain truthful. Theme their presentation, not the actual product UI shown as evidence.
@@ -59,12 +59,12 @@ npm run format:check
 npm run check
 ```
 
-`check` runs Astro/TypeScript diagnostics, a production build, and browser tests. Chromium defaults to `/usr/bin/chromium`; set `CHROMIUM_PATH` on other systems. `npm test` alone expects an existing build. An already-running preview must serve the correct build and base path; Astro permits only one preview process per project. Never stop an unfamiliar process merely to make tests pass.
+`check` runs Astro/TypeScript diagnostics, a production build, and browser tests. Chromium defaults to `/usr/bin/chromium`; set `CHROMIUM_PATH` on other systems. `npm test` alone expects an existing build. Set `PREVIEW_PORT` to an unused port when a dev server is already running. An already-running preview must serve the correct build and base path; Astro permits only one preview process per project. Never stop an unfamiliar process merely to make tests pass.
 
 For visual or motion changes, additionally inspect:
 
-- Both themes at narrow mobile (360px), mobile (~390px), tablet, desktop (~1440px), and short desktop heights; check overflow, copy wrapping, and readable text. After changing an emulated viewport, let Chromium apply its media-query/layout frames before measuring; do not weaken the overflow assertion to hide real layout defects.
-- Hover, press, keyboard focus, theme switching in both directions, rapid selection, and reduced-motion behavior.
+- All three themes at narrow mobile (360px), mobile (~390px), tablet, desktop (~1440px), and short desktop heights; check overflow, copy wrapping, and readable text. After changing an emulated viewport, let Chromium apply its media-query/layout frames before measuring; do not weaken the overflow assertion to hide real layout defects.
+- Hover, press, keyboard focus, all six directed theme switches, rapid selection, and reduced-motion behavior.
 - Grayscale screenshots and interaction recordings when changing art direction. Static screenshots cannot prove smooth animation.
 - No-JavaScript content, deferred assets, and hidden-scene accessibility when changing rendering or loading.
 

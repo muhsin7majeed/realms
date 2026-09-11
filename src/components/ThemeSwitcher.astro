@@ -1,7 +1,7 @@
 ---
 import type { ThemeCopy } from '../data/theme-copy';
 interface Props {
-  theme: 'medieval' | 'cyberpunk';
+  theme: 'medieval' | 'cyberpunk' | 'metro';
   copy: ThemeCopy['controls'];
 }
 const { theme, copy } = Astro.props;
@@ -23,6 +23,13 @@ const { theme, copy } = Astro.props;
       aria-pressed={theme === 'cyberpunk'}
     >
       <span aria-hidden="true">⌁</span> Cyberpunk
+    </button>
+    <button
+      type="button"
+      data-theme-choice="metro"
+      aria-pressed={theme === 'metro'}
+    >
+      <span aria-hidden="true">▰</span> Metro
     </button>
   </fieldset>
   <button

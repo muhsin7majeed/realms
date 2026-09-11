@@ -52,7 +52,8 @@ button:disabled {
   display: none;
 }
 html[data-theme='medieval'] [data-scene='medieval'],
-html[data-theme='cyberpunk'] [data-scene='cyberpunk'] {
+html[data-theme='cyberpunk'] [data-scene='cyberpunk'],
+html[data-theme='metro'] [data-scene='metro'] {
   display: block;
 }
 .world-controls {
@@ -154,4 +155,18 @@ html[data-js] .world-controls {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+@font-face {
+  font-family: 'Russo One';
+  src: url('../../public/fonts/russo-one.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+html[data-theme='metro'] {
+  background: #151b17;
+  color-scheme: dark;
+}
+.world-transition-bulkhead {
+  display: none;
 }
