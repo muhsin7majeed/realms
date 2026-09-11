@@ -91,7 +91,7 @@ test('switch preserves facts, keyboard focus and chosen theme across reload', as
     page.getByRole('heading', { name: 'Springworks', exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole('link', { name: 'Open project — Kadha', exact: true }),
+    page.getByRole('link', { name: 'Explore Kadha', exact: true }),
   ).toBeVisible();
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'cyberpunk');

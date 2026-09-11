@@ -1,20 +1,17 @@
 ---
 import profile from '../../data/profile.json';
-import type { ThemeCopy } from '../../data/theme-copy';
-import content from './copy.json';
 import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
 import './theme.css';
-const copy: typeof content & ThemeCopy = content;
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 ---
 
 <article
   class="metro"
   data-scene="metro"
-  aria-label={copy.world.title}
-  data-world-name={copy.world.name}
-  data-world-title={copy.world.title}
-  data-world-transition={copy.world.transition}
+  aria-label="The Last Workshop"
+  data-world-name="Metro"
+  data-world-title="The Last Workshop"
+  data-world-transition="Through the bulkhead. Back to the work."
 >
   <header class="site-header">
     <a class="wordmark" href="#metro-home" aria-label={`${profile.name}, home`}>
@@ -24,10 +21,10 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
       </span>
       <span>
         {profile.fullName}
-        <small>{copy.header.identifier}</small>
+        <small>Personal portfolio</small>
       </span>
     </a>
-    <ThemeSwitcher theme="metro" copy={copy.controls} />
+    <ThemeSwitcher theme="metro" />
   </header>
   <main id="metro-home">
     <section class="shelter" aria-labelledby="metro-name">
@@ -36,7 +33,7 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
           data-lazy-src={asset('themes/metro/workshop.svg')}
           width="1440"
           height="760"
-          alt={copy.art.alt}
+          alt="An original underground shelter illustration: a warm hanging lamp lights a radio, mug and papers on a repaired workbench beside a deep railway tunnel."
         />
         <div
           class="workshop-light"
@@ -47,10 +44,10 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
       <div class="shelter-topline">
         <p class="eyebrow">
           <span class="small-square" aria-hidden="true"></span>
-          {copy.world.title}
+          The Last Workshop
         </p>
         <span class="eyebrow shelter-index" aria-hidden="true">
-          {copy.hero.level}
+          Lower level / 01
         </span>
       </div>
       <div class="intro">
@@ -63,30 +60,24 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
           <h1 id="metro-name">{profile.name}</h1>
           <div class="plate-baseline">
             <span>{profile.location}</span>
-            <span>
-              {copy.hero.since} {profile.careerStart}
-            </span>
+            <span>Building since {profile.careerStart}</span>
           </div>
         </div>
         <h2 class="hero-statement" data-reveal>
-          {copy.hero.heading[0]}
+          Keep the useful
           <br />
-          {copy.hero.heading[1]}
+          things running.
         </h2>
         <p class="intro-copy" data-reveal>
-          {copy.hero.intro}
+          {profile.intro}
         </p>
         <div class="hero-actions" data-reveal>
-          <a
-            class="metal-button"
-            href={`mailto:${profile.email}`}
-            aria-label={`${copy.actions.contact} — get in touch`}
-          >
-            {copy.actions.contact}
+          <a class="metal-button" href={`mailto:${profile.email}`}>
+            Get in touch
             <span aria-hidden="true">↗</span>
           </a>
           <a class="resume-link" href={asset(profile.resume)}>
-            {copy.actions.resume}
+            The résumé
             <span aria-hidden="true">↓</span>
           </a>
         </div>
@@ -101,44 +92,44 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
           ))}
         </span>
         <p class="art-caption">
-          <span class="lamp-dot" aria-hidden="true"></span>
-          {copy.art.caption}
+          <span class="lamp-dot" aria-hidden="true"></span>A small corner. A
+          working light.
         </p>
       </div>
     </section>
     <section class="practice" aria-labelledby="metro-practice">
       <div class="record-heading">
-        <span class="eyebrow">{copy.about.label}</span>
+        <span class="eyebrow">01 / The work</span>
         <span class="record-stamp" aria-hidden="true">
-          {copy.about.stamp}
+          Made to be useful
         </span>
       </div>
       <div class="practice-grid">
         <div class="capabilities">
           <h2 id="metro-practice">
-            {copy.about.heading[0]}
+            Good work.
             <br />
-            {copy.about.heading[1]}
+            No loose ends.
           </h2>
-          <p>{copy.about.body}</p>
+          <p>{profile.about}</p>
           <ul>
             {profile.capabilities.map((capability) => (
               <li>
                 <span aria-hidden="true">+</span>
-                {copy.capabilities[capability.id]}
+                {capability}
               </li>
             ))}
           </ul>
         </div>
         <div class="experience">
-          <h3 class="eyebrow">{copy.experienceHeading}</h3>
+          <h3 class="eyebrow">Experience</h3>
           {profile.experience.map((job) => (
             <article class="job">
               <p class="job-period">{job.period}</p>
               <div>
                 <h4>{job.company}</h4>
                 <p class="job-role">{job.role}</p>
-                <p>{copy.experience[job.id].summary}</p>
+                <p>{job.summary}</p>
               </div>
             </article>
           ))}
@@ -148,12 +139,11 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
     <section class="work" aria-labelledby="metro-work">
       <div class="work-heading">
         <div>
-          <p class="eyebrow">{copy.work.label}</p>
-          <h2 id="metro-work">{copy.work.heading}</h2>
+          <p class="eyebrow">02 / Out of the workshop</p>
+          <h2 id="metro-work">Projects. Not promises.</h2>
         </div>
         <span class="eyebrow work-count">
-          {String(profile.projects.length).padStart(2, '0')}{' '}
-          {copy.work.countLabel}
+          {String(profile.projects.length).padStart(2, '0')} Records
         </span>
       </div>
       {profile.projects
@@ -163,7 +153,7 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
             <a
               class="project-image"
               href={project.url}
-              aria-label={`${copy.actions.explore} — ${project.name}`}
+              aria-label={`Explore ${project.name}`}
             >
               <img
                 data-lazy-src={asset(project.image!)}
@@ -175,23 +165,23 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
             </a>
             <div class="project-copy">
               <p class="eyebrow">
-                0{index + 1} / {copy.projects[project.id].category}
+                0{index + 1} / {project.category}
               </p>
               <h3>
                 <a href={project.url}>{project.name}</a>
               </h3>
-              <p>{copy.projects[project.id].description}</p>
+              <p>{project.description}</p>
               <p class="stack">{project.stack}</p>
               <div class="project-links">
                 <a href={project.url}>
-                  {copy.actions.explore}
+                  Explore the work
                   <span aria-hidden="true">↗</span>
                 </a>
                 <a
                   href={project.source}
-                  aria-label={`${copy.actions.source} — ${project.name} source code`}
+                  aria-label={`${project.name} source code`}
                 >
-                  {copy.actions.source}
+                  Source
                   <span aria-hidden="true">↗</span>
                 </a>
               </div>
@@ -199,14 +189,14 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
           </article>
         ))}
       <div class="small-projects">
-        <p class="eyebrow">{copy.work.experiments}</p>
+        <p class="eyebrow">Smaller builds</p>
         {profile.projects
           .filter((project) => !project.featured)
           .map((project) => (
             <a href={project.url}>
               <span>
                 {project.name}
-                <small>{copy.projects[project.id].description}</small>
+                <small>{project.description}</small>
               </span>
               <span aria-hidden="true">↗</span>
             </a>
@@ -216,13 +206,9 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
   </main>
   <footer class="site-footer">
     <div>
-      <span class="eyebrow">{copy.footer.heading}</span>
-      <a
-        class="footer-contact"
-        href={`mailto:${profile.email}`}
-        aria-label={`${copy.actions.email} — email`}
-      >
-        {copy.actions.email}
+      <span class="eyebrow">There’s always something worth making.</span>
+      <a class="footer-contact" href={`mailto:${profile.email}`}>
+        Email
         <span aria-hidden="true">↗</span>
       </a>
     </div>
@@ -230,7 +216,7 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
       {profile.socials.map((social) => (
         <a href={social.url}>{social.name} ↗</a>
       ))}
-      <a href="#metro-home">{copy.actions.backToTop} ↑</a>
+      <a href="#metro-home">Back to top ↑</a>
     </nav>
   </footer>
 </article>

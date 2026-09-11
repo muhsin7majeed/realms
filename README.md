@@ -1,6 +1,6 @@
 # Muhsin — three worlds, one portfolio
 
-A static Astro portfolio with independently art-directed **Medieval**, **Cyberpunk**, and **Metro** experiences. Shared personal facts, theme-owned narrative copy, and separate layouts, type systems, illustrations, controls, cursor treatments, and GSAP motion.
+A static Astro portfolio with independently art-directed **Medieval**, **Cyberpunk**, and **Metro** experiences. Shared personal content, separate layouts, type systems, illustrations, controls, cursor treatments, and GSAP motion.
 
 ## Goal
 
@@ -32,14 +32,9 @@ Browser tests use `/usr/bin/chromium` by default on this machine. On another sys
 
 ## Edit your information
 
-Content has two layers, both rendered at build time:
+**`src/data/profile.json` is the single source of personal content.** It contains name, role, location, career start, email, intro/about prose, capabilities, tools, experience summaries, project descriptions/categories, assets, and social links. All three worlds render the same content at build time. The shared intro also supplies the neutral search/social description.
 
-- **`src/data/profile.json` owns shared facts:** identity, contact details, capabilities, employers, dates, project names, technologies, assets, and links. Its `metadataDescription` is the neutral search/social description, independent of the selected world.
-- **`src/themes/<world>/copy.json` owns that theme’s voice:** introductions, capability wording, employment narratives, project descriptions/categories, headings, button labels, captions, footer, motion labels, and transition text.
-
-Medieval uses original, grounded Witcher-inspired language: craft, contracts, roads, and hard-earned reliability. Cyberpunk uses a concise independent-engineer voice: signals, systems, and builds. Metro uses practical workshop language: maintenance, dependable foundations, and useful things. Names, job titles, dates, and destinations stay factual; accessibility messages retain recognizable contact/résumé/motion purposes.
-
-To rewrite a theme, edit its `copy.json`, not its component or the shared profile. Experience, capabilities, and projects are matched through stable IDs. When adding or removing a record in `profile.json`, update its entry in **every** theme’s copy maps. `npm run check` checks complete ID coverage and rendered copy. Changes to factual responsibilities should also be reflected accurately in each narrative; there is no automatic prose generator or silent fallback to another theme.
+Edit personal copy once in `profile.json`, not in theme components. Decorative headings, artwork captions, and world labels live in each scene’s markup; they do not replace the shared biography or project descriptions. `npm run check` verifies the original shared wording across all three worlds alongside plain contact, résumé, and motion controls.
 
 - Keep asset paths relative, without a leading slash: `projects/kadha.png`.
 - Replace `public/resume.pdf` to update the downloadable résumé.
@@ -50,9 +45,7 @@ To rewrite a theme, edit its `copy.json`, not its component or the shared profil
 ## How themes work
 
 ```text
-src/data/profile.json             Shared facts and neutral metadata
-src/data/theme-copy.ts            Common required copy fields
-src/themes/<world>/copy.json      Theme-owned narrative and UI text
+src/data/profile.json             Shared personal content and metadata
 src/layouts/Portfolio.astro        Static shell, metadata, switch overlay
 src/themes/medieval/               Folio composition, styles, motion
 src/themes/cyberpunk/              Signal composition, styles, motion
@@ -71,8 +64,8 @@ GSAP owns the coordinated world transition and each theme’s ambient timeline. 
 
 ### Add another art direction
 
-1. Add `src/themes/<name>/Scene.astro`, `theme.css`, `motion.ts`, and `copy.json`. Import shared `profile.json` and your theme’s copy; check it against `ThemeCopy`. Supply every project, experience, and capability ID. Design an independent composition and voice rather than reskinning an existing scene.
-2. Give the scene `data-scene="<name>"` and the copy-derived `data-world-name`, `data-world-title`, and `data-world-transition` attributes. Pass `copy.controls` into `ThemeSwitcher`. Use unique heading/anchor IDs and the same three semantic content regions (introduction, capabilities/experience, work), which preserve reading position during switches.
+1. Add `src/themes/<name>/Scene.astro`, `theme.css`, and `motion.ts`. Import shared `profile.json`; render its personal content unchanged in an independent composition rather than reskinning an existing scene.
+2. Give the scene `data-scene="<name>"`, `data-world-name`, `data-world-title`, and `data-world-transition` attributes. Pass its theme name into `ThemeSwitcher`. Use unique heading/anchor IDs and the same three semantic content regions (introduction, capabilities/experience, work), which preserve reading position during switches.
 3. Add original artwork under `public/themes/<name>/`. Use `data-lazy-src` for inactive images, and `loading="lazy"` for below-the-fold images. Resolve paths through `import.meta.env.BASE_URL`.
 4. Export `ambient(scene)` and `enter(scene)` GSAP timelines. Mark entrance targets `data-reveal` and ambient targets `data-ambient`. Keep essential content visible without animations.
 5. Render the scene in `src/pages/index.astro`; add its visible-state selector to `global.css`; register its motion and fonts in `themes.ts`; extend the switcher choices and early preference validation in `Portfolio.astro`.
@@ -80,7 +73,7 @@ GSAP owns the coordinated world transition and each theme’s ambient timeline. 
 
 The registry is deliberately small and explicit, not a plugin system. Existing theme presentations do not need rewriting to add a world.
 
-Copy resources contain plain text and structured lines, never HTML or interpolation scripts. `ThemeCopy` checks the common fields while each theme can add its own decorative fields. Scenes retain their own markup and compose text with shared facts. World titles and transition text are emitted as scene data attributes; motion labels are emitted on the control. The controller reads those attributes instead of bundling a second copy of the editorial content.
+Scenes retain their own markup while reading the same personal content. World titles and transition text are emitted as scene data attributes for the controller. The shared switcher and controller use plain “Motion on/off” labels; each theme styles those controls independently.
 
 ## GitHub Pages
 
@@ -105,7 +98,7 @@ No workflow, push, deployment, or custom-domain change has been performed.
 
 See [`AGENTS.md`](AGENTS.md) for contributor and coding-agent guidance, architectural constraints, and the verification checklist.
 
-- Share facts and necessary behavior, not a universal visual design or a universal voice. Keep prose and presentation scoped to their theme.
+- Share personal content and necessary behavior, not a universal visual design. Keep presentation scoped to its theme.
 - Keep changes focused; add packages or abstractions only for a demonstrated need.
 - Write a failing regression test before changing behavior, then run `npm run check` and `npm run format:check`.
 - Inspect all three themes visually after presentation changes, including mobile layouts, keyboard focus, reduced motion, and all six directed transitions between them. Passing tests alone does not establish visual quality.

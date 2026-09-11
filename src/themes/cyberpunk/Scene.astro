@@ -1,8 +1,5 @@
 ---
 import profile from '../../data/profile.json';
-import type { ThemeCopy } from '../../data/theme-copy';
-import content from './copy.json';
-const copy: typeof content & ThemeCopy = content;
 import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
 import './theme.css';
 const base = import.meta.env.BASE_URL;
@@ -12,10 +9,10 @@ const asset = (path: string) => `${base}${path}`;
 <article
   data-scene="cyberpunk"
   class="signal"
-  aria-label={copy.world.title}
-  data-world-name={copy.world.name}
-  data-world-title={copy.world.title}
-  data-world-transition={copy.world.transition}
+  aria-label="The independent signal"
+  data-world-name="Cyberpunk"
+  data-world-title="The independent signal"
+  data-world-transition="ENTERING ANOTHER WORLD"
 >
   <div class="signal-shell">
     <header class="signal-header">
@@ -30,10 +27,9 @@ const asset = (path: string) => `${base}${path}`;
         <span aria-hidden="true">]</span>
       </a>
       <span class="signal-header-id">
-        {copy.header.name}
-        <span>{copy.header.identifier}</span>
+        Independent signal<span>PERSONAL INTERFACE / 001</span>
       </span>
-      <ThemeSwitcher theme="cyberpunk" copy={copy.controls} />
+      <ThemeSwitcher theme="cyberpunk" />
     </header>
     <main id="cyberpunk-home">
       <section class="signal-hero" aria-labelledby="cyberpunk-name">
@@ -41,8 +37,8 @@ const asset = (path: string) => `${base}${path}`;
           <span>
             <i aria-hidden="true"></i> {profile.location}
           </span>
-          <span>{copy.hero.rail}</span>
-          <span aria-hidden="true">{copy.hero.identity}</span>
+          <span>ENGINEERING × EXPERIMENTATION</span>
+          <span aria-hidden="true">SYS.01 / HUMAN</span>
         </div>
         <div class="signal-intro">
           <p class="signal-eyebrow" data-reveal>
@@ -55,40 +51,39 @@ const asset = (path: string) => `${base}${path}`;
             </span>
           </h1>
           <p class="signal-manifesto" data-reveal>
-            {copy.hero.manifesto.lead}
+            BUILD WITH INTENT.
             <br />
-            <span>{copy.hero.manifesto.accent}</span>
+            <span>BREAK THE ORDINARY.</span>
           </p>
           <p class="signal-lede" data-reveal>
-            {copy.hero.intro}
+            {profile.intro}
           </p>
           <div class="signal-actions" data-reveal>
-            <a
-              class="signal-button"
-              href={`mailto:${profile.email}`}
-              aria-label={`${copy.actions.contact} — get in touch`}
-            >
-              <span>{copy.actions.contact}</span>
+            <a class="signal-button" href={`mailto:${profile.email}`}>
+              <span>Get in touch</span>
               <span aria-hidden="true">↗</span>
             </a>
             <a class="signal-resume" href={asset(profile.resume)}>
-              {copy.actions.resume} <span aria-hidden="true">↓</span>
+              Access résumé <span aria-hidden="true">↓</span>
             </a>
           </div>
           <div class="signal-tools" data-reveal>
-            <span>{copy.hero.toolsLabel}</span>
+            <span>CORE STACK</span>
             {profile.tools.map((tool) => (
               <span>{tool}</span>
             ))}
           </div>
         </div>
-        <figure class="signal-art" aria-label={copy.art.label}>
+        <figure
+          class="signal-art"
+          aria-label="An original illustration of a neon-lit city and transmission tower"
+        >
           <div class="signal-art-grid" aria-hidden="true"></div>
           <img
             data-lazy-src={asset('themes/cyberpunk/city.svg')}
             width="720"
             height="760"
-            alt={copy.art.alt}
+            alt="A futuristic vertical city with a central transmission tower and suspended signal rings."
           />
           <div
             class="signal-ring signal-ring-one"
@@ -97,66 +92,64 @@ const asset = (path: string) => `${base}${path}`;
           ></div>
           <div class="signal-scan" data-ambient="scan" aria-hidden="true"></div>
           <span class="signal-art-tag">
-            {copy.art.tag.lead}
+            NO TEMPLATE.
             <br />
-            {copy.art.tag.accent}
+            JUST POSSIBILITY.
           </span>
           <figcaption>
             <span>
-              <i aria-hidden="true"></i> {copy.art.caption}
+              <i aria-hidden="true"></i> SIGNAL FOUND
             </span>
-            <span aria-hidden="true">{copy.art.coordinates}</span>
+            <span aria-hidden="true">10.85° N / 76.27° E</span>
           </figcaption>
         </figure>
         <div class="signal-hero-index" aria-hidden="true">
-          <span>{copy.hero.scroll}</span>
+          <span>SCROLL TO EXPLORE</span>
           <span>↓</span>
-          <span>{copy.hero.index}</span>
+          <span>NOT ANOTHER DEFAULT.</span>
         </div>
       </section>
       <section class="signal-record" aria-label="Capabilities and experience">
         <div class="signal-record-label">
-          <span>{copy.about.label}</span>
+          <span>01 / CAPABILITIES</span>
           <h2>
-            {copy.about.heading.lead}
+            More than
             <br />
-            <span>{copy.about.heading.accent}</span>
+            <span>the interface.</span>
           </h2>
         </div>
         <div class="signal-capabilities">
-          <p>{copy.about.body}</p>
+          <p>{profile.about}</p>
           <ul>
             {profile.capabilities.map((capability, index) => (
               <li>
                 <span>0{index + 1}</span>
-                {copy.capabilities[capability.id]}
+                {capability}
                 <span aria-hidden="true">↗</span>
               </li>
             ))}
           </ul>
         </div>
         <div class="signal-experience">
-          <p class="signal-section-label">{copy.experienceHeading}</p>
+          <p class="signal-section-label">EXPERIENCE.LOG</p>
           {profile.experience.map((job) => (
             <div class="signal-job">
               <span>{job.period}</span>
               <h3>{job.company}</h3>
               <p class="signal-job-role">{job.role}</p>
-              <p>{copy.experience[job.id].summary}</p>
+              <p>{job.summary}</p>
             </div>
           ))}
         </div>
       </section>
       <section class="signal-work" aria-labelledby="cyberpunk-work">
         <div class="signal-work-heading">
-          <span class="signal-section-label">{copy.work.kicker}</span>
+          <span class="signal-section-label">02 / PROOF OF WORK</span>
           <h2 id="cyberpunk-work">
-            {copy.work.heading.lead}
-            <span>{copy.work.heading.accent}</span>
+            BUILT.<span>SHIPPED.</span>
           </h2>
           <span class="signal-work-count" aria-hidden="true">
-            [ {String(profile.projects.length).padStart(2, '0')}{' '}
-            {copy.work.countLabel} ]
+            [ 04 RECORDS ]
           </span>
         </div>
         <div class="signal-projects">
@@ -168,14 +161,14 @@ const asset = (path: string) => `${base}${path}`;
               >
                 <div class="signal-project-top">
                   <span>
-                    0{index + 1} / {copy.projects[project.id].category}
+                    0{index + 1} / {project.category}
                   </span>
                   <span aria-hidden="true">↗</span>
                 </div>
                 <a
                   class="signal-project-image"
                   href={project.url}
-                  aria-label={`${copy.actions.explore} — ${project.name}`}
+                  aria-label={`Explore ${project.name}`}
                 >
                   <img
                     data-lazy-src={asset(project.image!)}
@@ -185,21 +178,21 @@ const asset = (path: string) => `${base}${path}`;
                     loading="lazy"
                   />
                   <span class="signal-image-action" aria-hidden="true">
-                    {copy.actions.explore} ↗
+                    OPEN PROJECT ↗
                   </span>
                 </a>
                 <div class="signal-project-body">
                   <h3>
                     <a href={project.url}>{project.name}</a>
                   </h3>
-                  <p>{copy.projects[project.id].description}</p>
+                  <p>{project.description}</p>
                   <div class="signal-project-meta">
                     <span>{project.stack}</span>
                     <a
                       href={project.source}
-                      aria-label={`${copy.actions.source} — ${project.name} source code`}
+                      aria-label={`${project.name} source code`}
                     >
-                      {copy.actions.source} ↗
+                      SOURCE ↗
                     </a>
                   </div>
                 </div>
@@ -208,7 +201,7 @@ const asset = (path: string) => `${base}${path}`;
         </div>
         <div class="signal-experiments">
           <span>
-            {copy.work.experiments} <span aria-hidden="true">↘</span>
+            SMALLER SIGNALS <span aria-hidden="true">↘</span>
           </span>
           {profile.projects
             .filter((project) => !project.featured)
@@ -217,7 +210,7 @@ const asset = (path: string) => `${base}${path}`;
                 <span class="signal-experiment-number">0{index + 3}</span>
                 <span>
                   {project.name}
-                  <small>{copy.projects[project.id].description}</small>
+                  <small>{project.description}</small>
                 </span>
                 <span aria-hidden="true">↗</span>
               </a>
@@ -227,7 +220,7 @@ const asset = (path: string) => `${base}${path}`;
     </main>
     <footer class="signal-footer">
       <span>
-        {copy.footer.transmission}
+        END OF TRANSMISSION
         <span class="signal-footer-block" aria-hidden="true">
           ■
         </span>
@@ -236,19 +229,9 @@ const asset = (path: string) => `${base}${path}`;
         {profile.socials.map((social) => (
           <a href={social.url}>{social.name} ↗</a>
         ))}
-        <a
-          href={`mailto:${profile.email}`}
-          aria-label={`${copy.actions.email} — email`}
-        >
-          {copy.actions.email} ↗
-        </a>
+        <a href={`mailto:${profile.email}`}>Email ↗</a>
       </nav>
-      <a
-        href="#cyberpunk-home"
-        aria-label={`${copy.actions.backToTop} — back to top`}
-      >
-        {copy.actions.backToTop} ↑
-      </a>
+      <a href="#cyberpunk-home">RETURN TO TOP ↑</a>
     </footer>
   </div>
 </article>

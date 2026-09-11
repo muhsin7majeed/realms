@@ -4,7 +4,7 @@
 
 This is Muhsin’s personal portfolio: memorable, eye-catching, and easy to understand. Visitors must be able to find who he is, what he does, what he can do, proof of his work, his résumé, and contact details without learning an unusual navigation system.
 
-**The central requirement is complete art-style changes, not color themes.** Medieval, Cyberpunk, and Metro are independently designed websites sharing facts, with their own narrative voices. Preserve their different layouts, imagery, SVGs, typography (including sizes and weights), surfaces, borders, controls, hover/focus/press effects, cursors, and entrance/idle/exit motion. Future themes should have equal freedom.
+**The central requirement is complete art-style changes, not color themes.** Medieval, Cyberpunk, and Metro are independently designed websites sharing personal content. Preserve their different layouts, imagery, SVGs, typography (including sizes and weights), surfaces, borders, controls, hover/focus/press effects, cursors, and entrance/idle/exit motion. Future themes should have equal freedom.
 
 ## Start here
 
@@ -13,10 +13,8 @@ Read `README.md`, the relevant source files, and any active plan in `.scratch/pl
 ## Architecture
 
 - **Astro static output**, TypeScript, custom CSS/SVG, GSAP. No React runtime or backend is required.
-- `src/data/profile.json` owns shared personal facts, capability IDs/labels, employment records, project names/technologies, assets, and links. `metadataDescription` stays neutral for search/social previews. Do not invent claims or move factual identity/URLs into theme copy.
-- `src/themes/<world>/copy.json` owns the theme’s hero/about prose, capability wording, job summaries, project descriptions/categories, headings, CTA labels, captions, footer, selector legend, visible motion labels, and transition text. Do not scatter editorial strings in components or theme conditionals. Keep capability/experience/project maps keyed by stable profile IDs, never positions or display names.
-- `src/data/theme-copy.ts` defines a small common copy contract. Theme-specific decorative fields may differ; content structure must not force shared layouts. Use plain text/structured lines, not HTML strings or a generic interpolation engine. Missing ID coverage must fail checks, not silently reuse neutral prose or another theme’s content.
-- `src/themes/<world>/Scene.astro`, `theme.css`, and `motion.ts` own each world’s presentation and animation. Scene data attributes carry copy-derived world names/titles/transition captions; `ThemeSwitcher` receives `copy.controls` and emits motion labels for the controller to read. Avoid shipping a second editorial-data bundle to the browser.
+- `src/data/profile.json` is the single source of personal facts, intro/about prose, capabilities, experience summaries, project descriptions/categories, assets, and links. All themes render the same personal content; do not duplicate or rewrite it in theme components. The shared intro also supplies neutral search/social descriptions.
+- `src/themes/<world>/Scene.astro`, `theme.css`, and `motion.ts` own each world’s presentation and animation. Decorative headings, artwork captions, and world labels may remain in scene markup. Scene data attributes carry world names/titles/transition captions for the controller.
 - `src/scripts/themes.ts` handles theme preparation, selection/persistence, focus/reading position, and animation lifecycle.
 - `src/components/ThemeSwitcher.astro` shares accessible controls; each theme owns their visual treatment.
 - `src/layouts/Portfolio.astro` owns the document shell, metadata, early preference selection, and transition overlay.
@@ -31,9 +29,8 @@ See the README’s theme-addition checklist when introducing another world. Keep
 
 - Share facts and useful semantics, not mandatory component geometry. A little theme-specific markup is better than an abstraction that makes all worlds look alike.
 - A grayscale comparison with the switcher hidden should still reveal clearly different typography, composition, shapes, and artwork.
-- Keep the selector recognizable and easy to find. Thematic CTAs such as “Send word” and “Open a channel” are intentional, but their purpose must remain clear. Accessible names must include the visible label and recognizable contact/résumé/motion purpose. Keep real job titles, names and dates literal.
-- Medieval prose is original, grounded Witcher-inspired dark fantasy: terse, weathered, craft-focused, with dry restraint. No copied franchise quotes, faux-Shakespeare, or fictional achievements. Cyberpunk prose is clipped, technical, and independently minded; avoid incomprehensible slang and fake system claims. Metro prose is practical and maintenance-minded: useful work, sound foundations, and a lived-in workshop, without fictional survival claims.
-- Update each theme’s narrative accurately when shared responsibilities or project facts change. Copy resources are authored prose, not automatically rewritten from the factual data. Keep each theme’s descriptions meaningfully distinct.
+- Keep the selector recognizable and easy to find. Keep essential labels understandable: “Get in touch”, résumé links, and “Motion on/off” should retain their plain purpose. Keep real job titles, names and dates literal.
+- Change art direction, not personal narrative. Update shared responsibilities and project descriptions once in `profile.json`; preserve each theme’s independent composition.
 - Preserve a compact page. Allow normal scrolling on short and narrow screens; do not force all content into `100vh`, lock scrolling, or hide essentials behind dialogs, games, or terminal commands.
 - Project screenshots must remain truthful. Theme their presentation, not the actual product UI shown as evidence.
 - Self-host fonts and assets; retain license notices. Do not add tracking, external runtime services, or a backend without an explicit requirement.
@@ -52,7 +49,7 @@ See the README’s theme-addition checklist when introducing another world. Keep
 
 Use npm and commit `package-lock.json`. Follow existing TypeScript/Astro patterns and Prettier formatting. Keep each change focused; avoid unrelated refactors.
 
-For behavior changes, write and run the failing regression test before the fix. Tests live in `tests/` and exercise the built site with Playwright and axe. Content tests verify required ID coverage, distinct voices, rendered descriptions, CTA names, runtime labels, and neutral metadata; extend them when adding a world.
+For behavior changes, write and run the failing regression test before the fix. Tests live in `tests/` and exercise the built site with Playwright and axe. Content tests verify original shared wording across all scenes, existing decorative labels, CTA names, runtime labels, and neutral metadata; extend them when adding a world.
 
 ```sh
 npm run format:check

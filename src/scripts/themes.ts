@@ -87,9 +87,7 @@ function updateMotion() {
         'aria-pressed',
         String(userPaused || reducedMotion.matches),
       );
-      const label = paused
-        ? button.dataset.motionPaused!
-        : button.dataset.motionRunning!;
+      const label = paused ? 'Motion off' : 'Motion on';
       const purpose = reducedMotion.matches
         ? 'Ambient motion disabled by reduced-motion preference'
         : userPaused
@@ -214,7 +212,7 @@ async function switchWorld(next: World) {
   }
   overlay.dataset.destination = next;
   overlay.querySelector('[data-world-label]')!.textContent =
-    scenes[next].dataset.worldTitle!;
+    scenes[next].dataset.worldTitle!.toUpperCase();
   overlay.querySelector('[data-world-caption]')!.textContent =
     scenes[next].dataset.worldTransition!;
   if (next === 'metro') {
