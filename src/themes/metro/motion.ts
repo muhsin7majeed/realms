@@ -1,7 +1,24 @@
 import { gsap } from 'gsap';
 
+function setupSwing(scene: HTMLElement) {
+  const hit = scene.querySelector<HTMLElement>('[data-lamp-hit]')!;
+  const visual = scene.querySelector<HTMLElement>('[data-lamp-visual]')!;
+  if (hit.dataset.lampReady) return;
+  hit.dataset.lampReady = 'true';
+  hit.addEventListener('pointerenter', () => {
+    if (document.documentElement.dataset.motion !== 'running') return;
+    visual.classList.remove('is-swinging');
+    void visual.offsetWidth;
+    visual.classList.add('is-swinging');
+  });
+  visual.addEventListener('animationend', () => {
+    visual.classList.remove('is-swinging');
+  });
+}
+
 export function ambient(scene: HTMLElement) {
-  const glow = scene.querySelector('[data-ambient="lamp-glow"]');
+  setupSwing(scene);
+  const glow = scene.querySelectorAll('[data-ambient="lamp-glow"]');
   return gsap
     .timeline({ repeat: -1 })
     .set(glow, { opacity: 1 })

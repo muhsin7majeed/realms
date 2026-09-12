@@ -173,12 +173,27 @@ test('Metro lamp visibly flickers, swings only on direct hover, and obeys motion
   await expect(page.locator('.world-transition')).not.toBeVisible();
 
   const fixture = scene(page).locator('[data-lamp-fixture]');
-  const glow = scene(page).locator('[data-ambient="lamp-glow"]');
+  const glows = scene(page).locator('[data-ambient="lamp-glow"]');
+  const glow = glows.first();
   const hitTarget = scene(page).locator('[data-lamp-hit]');
   const visual = scene(page).locator('[data-lamp-visual]');
+  const foreground = scene(page).locator('.workshop-foreground');
   await expect(fixture).toHaveCount(1);
-  await expect(glow).toHaveCount(1);
+  await expect(glows).toHaveCount(2);
   await expect(hitTarget).toHaveCount(1);
+  await expect(foreground).toHaveCount(1);
+  expect(
+    await foreground.evaluate((element) =>
+      element.previousElementSibling?.hasAttribute('data-lamp-visual'),
+    ),
+  ).toBeTruthy();
+  expect(
+    await fixture.evaluate(
+      (element) =>
+        element.previousElementSibling?.classList.contains('lamp-pool') &&
+        element.nextElementSibling?.classList.contains('lamp-glow'),
+    ),
+  ).toBeTruthy();
   const hitBox = await hitTarget.boundingBox();
   expect(hitBox).not.toBeNull();
 
@@ -204,28 +219,117 @@ test('Metro lamp visibly flickers, swings only on direct hover, and obeys motion
   ).toBeTruthy();
 
   await hitTarget.hover();
-  await expect
-    .poll(() =>
-      visual.evaluate((element) => getComputedStyle(element).transform),
-    )
-    .not.toBe('none');
+  await page.waitForTimeout(250);
+  await expect(visual).not.toHaveCSS('transform', 'none');
   await page.mouse.move(
     hitBox!.x + hitBox!.width + 20,
     hitBox!.y + hitBox!.height / 2,
   );
+  await expect(visual).not.toHaveCSS('transform', 'none');
   await expect(visual).toHaveCSS('transform', 'none');
 
-  await scene(page).locator('[data-motion-toggle]').click();
-  const pausedOpacity = await glow.evaluate(
-    (element) => getComputedStyle(element).opacity,
-  );
-  await page.waitForTimeout(300);
-  await expect(glow).toHaveCSS('opacity', pausedOpacity);
+  let pausedDuringDip = false;
+  const dipDeadline = Date.now() + 7000;
+  while (Date.now() < dipDeadline) {
+    if (
+      (await glow.evaluate((element) =>
+        Number.parseFloat(getComputedStyle(element).opacity),
+      )) < 0.4
+    ) {
+      await scene(page).locator('[data-motion-toggle]').click();
+      pausedDuringDip = true;
+      break;
+    }
+    await page.waitForTimeout(20);
+  }
+  expect(pausedDuringDip).toBeTruthy();
+  await expect
+    .poll(() =>
+      glows.evaluateAll((elements) =>
+        elements.every((element) => getComputedStyle(element).opacity === '1'),
+      ),
+    )
+    .toBeTruthy();
   await page.mouse.move(
     hitBox!.x + hitBox!.width / 2,
     hitBox!.y + hitBox!.height / 2,
   );
   await expect(visual).toHaveCSS('transform', 'none');
+});
+
+test('Metro lamp hover target tracks the visible fixture at each responsive crop', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await scene(page).locator('[data-theme-choice="metro"]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'metro');
+  await expect(page.locator('.world-transition')).not.toBeVisible();
+
+  for (const viewport of [
+    { width: 1440, height: 900 },
+    { width: 768, height: 900 },
+    { width: 390, height: 844 },
+    { width: 360, height: 740 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        ),
+    );
+    const hitTarget = scene(page).locator('[data-lamp-hit]');
+    await hitTarget.scrollIntoViewIfNeeded();
+    const lamp = await page.evaluate(() => {
+      const art = document.querySelector<HTMLElement>(
+        '[data-scene="metro"] .workshop-art',
+      )!;
+      const image = document.querySelector<HTMLImageElement>(
+        '[data-scene="metro"] .workshop-background',
+      )!;
+      const hit = document.querySelector<HTMLElement>(
+        '[data-scene="metro"] [data-lamp-hit]',
+      )!;
+      const artRect = art.getBoundingClientRect();
+      const hitRect = hit.getBoundingClientRect();
+      const style = getComputedStyle(image);
+      const scale = Math.max(artRect.width / 1440, artRect.height / 760);
+      const renderedWidth = 1440 * scale;
+      const renderedHeight = 760 * scale;
+      const [xPosition, yPosition] = style.objectPosition
+        .split(' ')
+        .map((value) => Number.parseFloat(value) / 100);
+      const x =
+        artRect.left +
+        884 * scale +
+        (artRect.width - renderedWidth) * xPosition;
+      const y =
+        artRect.top +
+        220 * scale +
+        (artRect.height - renderedHeight) * yPosition;
+      return {
+        x,
+        y,
+        nearX: hitRect.right + 15,
+        nearY: hitRect.top + hitRect.height / 2,
+        contains:
+          x >= hitRect.left &&
+          x <= hitRect.right &&
+          y >= hitRect.top &&
+          y <= hitRect.bottom,
+      };
+    });
+    expect(lamp.contains).toBeTruthy();
+    const visual = scene(page).locator('[data-lamp-visual]');
+    await page.mouse.move(lamp.nearX, lamp.nearY);
+    await expect(visual).toHaveCSS('animation-name', 'none');
+    await page.mouse.move(lamp.x, lamp.y);
+    await expect(visual).toHaveCSS('animation-name', 'metro-lamp-swing');
+    await page.mouse.move(lamp.nearX, lamp.nearY);
+    await page.waitForTimeout(200);
+    await expect(visual).toHaveCSS('animation-name', 'metro-lamp-swing');
+    await expect(visual).toHaveCSS('animation-name', 'none');
+  }
 });
 
 test('Metro reduced motion, pause mid-transition, visibility and blocked storage', async ({
@@ -247,7 +351,8 @@ test('Metro reduced motion, pause mid-transition, visibility and blocked storage
   await expect(page.locator('html')).toHaveAttribute('data-motion', 'paused');
   await expect(page.locator('.world-transition')).not.toBeVisible();
   await scene(page).locator('[data-motion-toggle]').click();
-  const light = scene(page).locator('[data-ambient="lamp-glow"]');
+  const lights = scene(page).locator('[data-ambient="lamp-glow"]');
+  const light = lights.first();
   await page.evaluate(() => {
     Object.defineProperty(document, 'hidden', {
       configurable: true,
@@ -275,6 +380,23 @@ test('Metro reduced motion, pause mid-transition, visibility and blocked storage
   await scene(page).locator('[data-theme-choice="metro"]').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'metro');
   await expect(page.locator('.world-transition')).not.toBeVisible();
+  await expect
+    .poll(() =>
+      lights.evaluateAll((elements) =>
+        elements.every((element) => getComputedStyle(element).opacity === '1'),
+      ),
+    )
+    .toBeTruthy();
+  const reducedHit = await scene(page).locator('[data-lamp-hit]').boundingBox();
+  expect(reducedHit).not.toBeNull();
+  await page.mouse.move(
+    reducedHit!.x + reducedHit!.width / 2,
+    reducedHit!.y + reducedHit!.height / 2,
+  );
+  await expect(scene(page).locator('[data-lamp-visual]')).toHaveCSS(
+    'animation-name',
+    'none',
+  );
 });
 
 test('all scenes have unique IDs and base-safe local assets without failed requests', async ({

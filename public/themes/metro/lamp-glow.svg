@@ -3,7 +3,6 @@
     <linearGradient id="cone" x1=".5" x2=".5" y2="1"><stop stop-color="#ecc27e" stop-opacity=".12"/><stop offset=".7" stop-color="#e9ba71" stop-opacity=".035"/><stop offset="1" stop-color="#e9ba71" stop-opacity="0"/></linearGradient>
     <radialGradient id="warm"><stop stop-color="#edb76e" stop-opacity=".38"/><stop offset="1" stop-color="#d7a969" stop-opacity="0"/></radialGradient>
   </defs>
-  <ellipse cx="870" cy="490" rx="335" ry="320" fill="url(#warm)"/>
   <ellipse cx="884" cy="233" rx="33" ry="3" fill="#e9bf7e"/>
   <path d="M863 239L666 633H1114L905 239Z" fill="url(#cone)"/>
   <ellipse cx="884" cy="236" rx="65" ry="23" fill="url(#warm)"/>

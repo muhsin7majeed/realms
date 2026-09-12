@@ -39,6 +39,14 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
         />
         <div class="lamp-visual" data-lamp-visual aria-hidden="true">
           <img
+            class="lamp-glow lamp-pool"
+            data-ambient="lamp-glow"
+            data-lazy-src={asset('themes/metro/lamp-pool.svg')}
+            width="1440"
+            height="760"
+            alt=""
+          />
+          <img
             class="lamp-fixture"
             data-lamp-fixture
             data-lazy-src={asset('themes/metro/lamp-fixture.svg')}
@@ -55,6 +63,14 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
             alt=""
           />
         </div>
+        <img
+          class="workshop-foreground"
+          data-lazy-src={asset('themes/metro/workshop-foreground.svg')}
+          width="1440"
+          height="760"
+          alt=""
+          aria-hidden="true"
+        />
       </div>
       <div class="shelter-topline">
         <p class="eyebrow">
