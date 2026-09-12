@@ -1077,15 +1077,23 @@
   object-fit: cover;
   object-position: center bottom;
 }
-.metro .workshop-light {
+.metro .workshop-background,
+.metro .lamp-visual,
+.metro .lamp-visual img {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse 23% 45% at 62% 58%,
-    #e9bf7e12,
-    transparent
-  );
+}
+.metro .lamp-visual {
+  transform-origin: 61.4% 0;
   pointer-events: none;
+}
+.metro .lamp-hit {
+  position: absolute;
+  z-index: 1;
+  top: 145px;
+  left: calc(61.4% - 55px);
+  width: 110px;
+  height: 105px;
 }
 .metro .world-picker button {
   transition:
@@ -1122,10 +1130,28 @@
   .metro .workshop-art img {
     object-position: 58% bottom;
   }
+  .metro .lamp-visual {
+    transform-origin: 63% 0;
+  }
+  .metro .lamp-hit {
+    top: 155px;
+    left: calc(63% - 50px);
+    width: 100px;
+    height: 90px;
+  }
 }
 @media (max-width: 760px) {
   .metro .workshop-art img {
     object-position: 76% bottom;
+  }
+  .metro .lamp-visual {
+    transform-origin: 40% 0;
+  }
+  .metro .lamp-hit {
+    top: 95px;
+    left: calc(40% - 40px);
+    width: 80px;
+    height: 70px;
   }
 }
 @media (pointer: fine) {

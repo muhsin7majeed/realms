@@ -164,6 +164,60 @@ test('Metro bulkhead covers the swap without orbit artwork', async ({
   await expect(page.locator('.world-transition svg')).not.toBeVisible();
 });
 
+test('Metro lamp visibly flickers, swings only on direct hover, and obeys motion pause', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await scene(page).locator('[data-theme-choice="metro"]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'metro');
+  await expect(page.locator('.world-transition')).not.toBeVisible();
+
+  const fixture = scene(page).locator('[data-lamp-fixture]');
+  const glow = scene(page).locator('[data-ambient="lamp-glow"]');
+  const hitTarget = scene(page).locator('[data-lamp-hit]');
+  const visual = scene(page).locator('[data-lamp-visual]');
+  await expect(fixture).toHaveCount(1);
+  await expect(glow).toHaveCount(1);
+  await expect(hitTarget).toHaveCount(1);
+
+  const opacities: number[] = [];
+  for (let index = 0; index < 25; index += 1) {
+    opacities.push(
+      await glow.evaluate((element) =>
+        Number.parseFloat(getComputedStyle(element).opacity),
+      ),
+    );
+    await page.waitForTimeout(80);
+  }
+  expect(Math.max(...opacities) - Math.min(...opacities)).toBeGreaterThan(0.45);
+  expect(
+    opacities.some(
+      (opacity, index) => index > 0 && opacity < opacities[index - 1] - 0.1,
+    ),
+  ).toBeTruthy();
+  expect(
+    opacities.some(
+      (opacity, index) => index > 0 && opacity > opacities[index - 1] + 0.1,
+    ),
+  ).toBeTruthy();
+
+  await hitTarget.hover();
+  await expect
+    .poll(() => visual.evaluate((element) => getComputedStyle(element).transform))
+    .not.toBe('none');
+  await page.mouse.move(10, 10);
+  await expect(visual).toHaveCSS('transform', 'none');
+
+  await scene(page).locator('[data-motion-toggle]').click();
+  const pausedOpacity = await glow.evaluate((element) =>
+    getComputedStyle(element).opacity,
+  );
+  await page.waitForTimeout(300);
+  await expect(glow).toHaveCSS('opacity', pausedOpacity);
+  await hitTarget.hover();
+  await expect(visual).toHaveCSS('transform', 'none');
+});
+
 test('Metro reduced motion, pause mid-transition, visibility and blocked storage', async ({
   page,
 }) => {

@@ -41,15 +41,6 @@
 <g fill="none" stroke="#111b15" stroke-width="3" opacity=".7"><path d="M803 235l38 21M878 158l23 31M978 128l7 34M1080 119v36M1180 132l-8 32M1280 166l-24 29M1356 246l-37 12M779 426h40M1342 425h40"/></g>
 <g transform="translate(783 178)"><circle r="5" fill="#111715"/><circle cy="-1" r="3" fill="#657066"/><path d="M-2 -2L2 0" stroke="#202822"/></g><g transform="translate(1369 178)"><circle r="5" fill="#111715"/><circle cy="-1" r="3" fill="#657066"/><path d="M-2 -2L2 0" stroke="#202822"/></g><g transform="translate(784 558)"><circle r="5" fill="#111715"/><circle cy="-1" r="3" fill="#657066"/><path d="M-2 -2L2 0" stroke="#202822"/></g><g transform="translate(1370 558)"><circle r="5" fill="#111715"/><circle cy="-1" r="3" fill="#657066"/><path d="M-2 -2L2 0" stroke="#202822"/></g><g transform="translate(769 665)"><circle r="5" fill="#111715"/><circle cy="-1" r="3" fill="#657066"/><path d="M-2 -2L2 0" stroke="#202822"/></g><g transform="translate(1382 665)"><circle r="5" fill="#111715"/><circle cy="-1" r="3" fill="#657066"/><path d="M-2 -2L2 0" stroke="#202822"/></g>
 <path d="M1400 0h40v760h-40z" fill="#111b16"/><path d="M1398 0v760" stroke="#6b6e57" stroke-width="3" opacity=".4"/>
-<!-- A human-scale pool of task light, not a global screen glow. -->
-<ellipse cx="870" cy="490" rx="335" ry="320" fill="url(#warm)"/>
-<path d="M882 0V180" stroke="#0a130e" stroke-width="8"/><path d="M884 0V177" stroke="#777a5d" stroke-width="1"/>
-<path d="M875 175h18v20h-18z" fill="#3c4433"/>
-<path d="M875 193L839 230Q884 245 930 230L893 193Z" fill="url(#iron)" stroke="#111c14" stroke-width="3"/>
-<ellipse cx="884" cy="231" rx="43" ry="7" fill="#191e14"/><ellipse cx="884" cy="233" rx="33" ry="3" fill="#e9bf7e"/>
-<path d="M863 239L666 633H1114L905 239Z" fill="url(#cone)"/>
-<ellipse cx="884" cy="236" rx="65" ry="23" fill="url(#warm)"/>
-<g fill="#d5bf88" opacity=".35"><circle cx="838" cy="343" r="1"/><circle cx="926" cy="402" r="1.2"/><circle cx="818" cy="471" r=".8"/><circle cx="937" cy="546" r="1"/><circle cx="788" cy="530" r=".7"/></g>
 <!-- Station electrical cabinet and a repaired cable. -->
 <path d="M646 349h117v188H646z" fill="#0d1711"/>
 <path d="M640 342h116v186H640z" fill="url(#iron)" stroke="#63624d" stroke-width="2"/>
