@@ -150,6 +150,48 @@ test('existing worlds retain main decorative wording, categories and project con
   ).toBeVisible();
 });
 
+test('social links sit by the contact action and footers offer the repository', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('./');
+
+  for (const world of ['medieval', 'cyberpunk', 'metro'] as const) {
+    await page
+      .locator(`[data-scene]:visible [data-theme-choice="${world}"]`)
+      .click();
+    const scene = page.locator(`[data-scene="${world}"]`);
+    const socials = scene.locator('.hero-socials');
+
+    await expect(socials.getByRole('link')).toHaveText([
+      'GitHub ↗',
+      'LinkedIn ↗',
+      'Mastodon ↗',
+    ]);
+    await expect(
+      socials.getByRole('link', { name: 'GitHub ↗' }),
+    ).toHaveAttribute('href', 'https://github.com/muhsin7majeed/');
+    await expect(
+      socials.getByRole('link', { name: 'LinkedIn ↗' }),
+    ).toHaveAttribute('href', 'https://www.linkedin.com/in/muhsin7majeed/');
+    await expect(
+      socials.getByRole('link', { name: 'Mastodon ↗' }),
+    ).toHaveAttribute('href', 'https://mastodon.social/@unbaked_potato');
+
+    const footer = scene.locator('footer');
+    await expect(
+      footer.getByRole('link', { name: 'Fork this ↗' }),
+    ).toHaveAttribute('href', 'https://github.com/muhsin7majeed/realms');
+    await expect(footer.getByRole('link', { name: /Email/ })).toHaveAttribute(
+      'href',
+      'mailto:me@muhsi.in',
+    );
+    await expect(
+      footer.getByRole('link', { name: /top|beginning/i }),
+    ).toHaveAttribute('href', `#${world}-home`);
+  }
+});
+
 test('destination transition labels and neutral metadata retain main wording', async ({
   page,
 }) => {

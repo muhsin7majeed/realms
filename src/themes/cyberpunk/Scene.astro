@@ -67,6 +67,11 @@ const asset = (path: string) => `${base}${path}`;
               Access résumé <span aria-hidden="true">↓</span>
             </a>
           </div>
+          <nav class="hero-socials" aria-label="Social links" data-reveal>
+            {profile.socials.map((social) => (
+              <a href={social.url}>{social.name} ↗</a>
+            ))}
+          </nav>
           <div class="signal-tools" data-reveal>
             <span>CORE STACK</span>
             {profile.tools.map((tool) => (
@@ -225,10 +230,8 @@ const asset = (path: string) => `${base}${path}`;
           ■
         </span>
       </span>
-      <nav aria-label="Social links">
-        {profile.socials.map((social) => (
-          <a href={social.url}>{social.name} ↗</a>
-        ))}
+      <nav aria-label="Footer links">
+        <a href="https://github.com/muhsin7majeed/realms">Fork this ↗</a>
         <a href={`mailto:${profile.email}`}>Email ↗</a>
       </nav>
       <a href="#cyberpunk-home">RETURN TO TOP ↑</a>

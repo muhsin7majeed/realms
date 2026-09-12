@@ -55,6 +55,11 @@ const asset = (path: string) => `${base}${path}`;
               The résumé <span aria-hidden="true">↓</span>
             </a>
           </div>
+          <nav class="hero-socials" aria-label="Social links" data-reveal>
+            {profile.socials.map((social) => (
+              <a href={social.url}>{social.name} ↗</a>
+            ))}
+          </nav>
           <div class="folio-location" data-reveal>
             <svg viewBox="0 0 20 20" aria-hidden="true">
               <path d="M10 17s6-6 6-10A6 6 0 0 0 4 7c0 4 6 10 6 10Z" />
@@ -206,10 +211,8 @@ const asset = (path: string) => `${base}${path}`;
       <p>
         Made with care <span aria-hidden="true">✦</span> Built to be explored.
       </p>
-      <nav aria-label="Social links">
-        {profile.socials.map((social) => (
-          <a href={social.url}>{social.name} ↗</a>
-        ))}
+      <nav aria-label="Footer links">
+        <a href="https://github.com/muhsin7majeed/realms">Fork this ↗</a>
         <a href={`mailto:${profile.email}`}>Email ↗</a>
       </nav>
       <a href="#medieval-home" aria-label="Back to top">

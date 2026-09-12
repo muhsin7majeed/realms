@@ -60,7 +60,7 @@
 }
 .signal-header-id > span {
   display: block;
-  font-size: 8px;
+  font-size: 9px;
   color: #849497;
   margin-top: 7px;
 }
@@ -82,7 +82,7 @@
   top: -20px;
   left: 0;
   text-transform: uppercase;
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 0.15em;
   color: #8d9d9e;
 }
@@ -130,7 +130,7 @@
   background: none;
   padding: 8px 0 8px 8px;
   color: #9aabad;
-  font-size: 9px;
+  font-size: 10px;
   text-transform: uppercase;
 }
 .cyberpunk-controls .motion-toggle > span:first-child {
@@ -154,7 +154,7 @@
   justify-content: space-between;
   gap: 20px;
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
   color: #95a6a6;
   letter-spacing: 0.07em;
@@ -226,6 +226,15 @@
   display: flex;
   align-items: center;
   gap: 29px;
+}
+.signal .hero-socials {
+  margin-top: 17px;
+  font:
+    10px 'IBM Plex Mono',
+    monospace;
+  color: #9bacae;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 .signal-button {
   display: flex;
@@ -323,12 +332,12 @@
   margin-top: 29px;
   color: #a0adae;
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
 }
 .signal-tools span:first-child {
   color: #849393;
-  font-size: 8px;
+  font-size: 9px;
   padding-right: 10px;
   border-right: 1px solid #3e5055;
 }
@@ -401,7 +410,7 @@
   background: #0d191feb;
   border-top: 1px solid #355052;
   font:
-    8px 'IBM Plex Mono',
+    9px 'IBM Plex Mono',
     monospace;
   color: #a7b8b5;
 }
@@ -445,7 +454,7 @@
   width: calc(53% - 16px);
   gap: 15px;
   font:
-    8px 'IBM Plex Mono',
+    9px 'IBM Plex Mono',
     monospace;
   color: #839497;
   letter-spacing: 0.08em;
@@ -464,7 +473,7 @@
 .signal-record-label > span,
 .signal-section-label {
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
   letter-spacing: 0.08em;
   color: #91a3a5;
@@ -500,7 +509,7 @@
 }
 .signal-capabilities li span {
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
   color: var(--acid);
 }
@@ -521,7 +530,7 @@
 }
 .signal-job > span {
   font:
-    8px 'IBM Plex Mono',
+    9px 'IBM Plex Mono',
     monospace;
   color: var(--cyan);
   display: block;
@@ -569,7 +578,7 @@
 }
 .signal-work-count {
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
   color: #8d9c9e;
   padding-bottom: 7px;
@@ -595,7 +604,7 @@
   justify-content: space-between;
   gap: 15px;
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -680,7 +689,7 @@
   bottom: 0;
   right: 0;
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
   padding: 10px 14px;
   color: var(--black);
@@ -723,7 +732,7 @@
   border-top: 1px solid var(--signal-rule);
   padding-top: 13px;
   font:
-    8px 'IBM Plex Mono',
+    9px 'IBM Plex Mono',
     monospace;
   color: #9dacb0;
 }
@@ -746,7 +755,7 @@
 }
 .signal-experiments > span {
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
   color: #91a7aa;
 }
@@ -791,7 +800,7 @@
   gap: 20px;
   min-height: 88px;
   font:
-    8px 'IBM Plex Mono',
+    9px 'IBM Plex Mono',
     monospace;
   letter-spacing: 0.05em;
   color: #9bacae;
@@ -800,12 +809,14 @@
   color: var(--acid);
   margin-left: 10px;
 }
-.signal-footer nav {
+.signal-footer nav,
+.signal .hero-socials {
   display: flex;
   gap: 26px;
   text-transform: uppercase;
 }
-.signal-footer a:hover {
+.signal-footer a:hover,
+.signal .hero-socials a:hover {
   color: var(--acid);
 }
 @media (pointer: fine) {
@@ -842,7 +853,7 @@
     gap: 18px;
   }
   .signal-header-id {
-    font-size: 9px;
+    font-size: 10px;
   }
   .cyberpunk-controls {
     gap: 8px;
@@ -879,7 +890,7 @@
     gap: 20px;
   }
   .signal-resume {
-    font-size: 9px;
+    font-size: 10px;
   }
   .signal-hero-index {
     width: 48%;
@@ -903,7 +914,7 @@
     grid-row: 1 / 3;
   }
   .signal-project-meta {
-    font-size: 8px;
+    font-size: 9px;
   }
   .signal-experiments {
     grid-template-columns: 0.65fr 1fr 1fr;
@@ -940,14 +951,14 @@
   }
   .cyberpunk-controls .world-picker button {
     padding: 8px;
-    font-size: 8px;
+    font-size: 9px;
   }
   .cyberpunk-controls .world-picker button span {
     margin-right: 3px;
   }
   .cyberpunk-controls legend {
     top: -15px;
-    font-size: 7px;
+    font-size: 9px;
   }
   .cyberpunk-controls .motion-toggle {
     padding: 6px;
@@ -959,7 +970,7 @@
   }
   .signal-hero-rail {
     top: 16px;
-    font-size: 8px;
+    font-size: 9px;
   }
   .signal-hero-rail span:nth-child(2) {
     display: none;
@@ -991,12 +1002,15 @@
   .signal-actions {
     gap: 23px;
   }
+  .signal .hero-socials {
+    gap: 20px;
+  }
   .signal-resume {
-    font-size: 9px;
+    font-size: 10px;
   }
   .signal-tools {
     gap: 12px;
-    font-size: 8px;
+    font-size: 9px;
     margin-top: 24px;
   }
   .signal-art {
@@ -1011,7 +1025,7 @@
   .signal-art-tag {
     top: 15px;
     left: 15px;
-    font-size: 7px;
+    font-size: 9px;
   }
   .signal-art::before {
     top: 7px;
@@ -1022,7 +1036,7 @@
   }
   .signal-art figcaption {
     padding: 10px;
-    font-size: 7px;
+    font-size: 9px;
   }
   .signal-ring {
     width: 65%;
@@ -1032,7 +1046,7 @@
   .signal-hero-index {
     width: 100%;
     bottom: 13px;
-    font-size: 7px;
+    font-size: 9px;
   }
   .signal-hero-index span:last-child {
     display: inline;
@@ -1077,7 +1091,7 @@
     font-size: 18px;
   }
   .signal-job > span {
-    font-size: 9px;
+    font-size: 10px;
   }
   .signal-job .signal-job-role {
     font-size: 11px;
@@ -1112,14 +1126,14 @@
     font-size: 36px;
   }
   .signal-project-top {
-    font-size: 8px;
+    font-size: 9px;
     padding: 11px 13px;
   }
   .signal-project-body > p {
     font-size: 13px;
   }
   .signal-project-meta {
-    font-size: 8px;
+    font-size: 9px;
   }
   .signal-experiments {
     grid-template-columns: 1fr;
@@ -1140,7 +1154,7 @@
     justify-content: flex-start;
     gap: 21px 27px;
     padding: 26px 0;
-    font-size: 8px;
+    font-size: 9px;
   }
   .signal-footer > span {
     width: 100%;

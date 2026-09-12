@@ -81,6 +81,11 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
             <span aria-hidden="true">↓</span>
           </a>
         </div>
+        <nav class="hero-socials" aria-label="Social links" data-reveal>
+          {profile.socials.map((social) => (
+            <a href={social.url}>{social.name} ↗</a>
+          ))}
+        </nav>
       </div>
       <div class="shelter-bottom">
         <span class="eyebrow">
@@ -212,10 +217,8 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
         <span aria-hidden="true">↗</span>
       </a>
     </div>
-    <nav aria-label="Social links">
-      {profile.socials.map((social) => (
-        <a href={social.url}>{social.name} ↗</a>
-      ))}
+    <nav aria-label="Footer links">
+      <a href="https://github.com/muhsin7majeed/realms">Fork this ↗</a>
       <a href="#metro-home">Back to top ↑</a>
     </nav>
   </footer>

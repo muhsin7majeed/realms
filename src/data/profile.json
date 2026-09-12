@@ -15,8 +15,9 @@
   "tools": ["React", "TypeScript", "JavaScript", "Node.js"],
   "resume": "resume.pdf",
   "socials": [
-    { "name": "GitHub", "url": "https://github.com/muhsin7majeed" },
-    { "name": "LinkedIn", "url": "https://www.linkedin.com/in/muhsin7majeed/" }
+    { "name": "GitHub", "url": "https://github.com/muhsin7majeed/" },
+    { "name": "LinkedIn", "url": "https://www.linkedin.com/in/muhsin7majeed/" },
+    { "name": "Mastodon", "url": "https://mastodon.social/@unbaked_potato" }
   ],
   "experience": [
     {

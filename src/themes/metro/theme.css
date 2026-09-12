@@ -88,7 +88,7 @@
 .metro .wordmark small {
   display: block;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.14em;
   color: var(--muted);
   margin-top: 1px;
@@ -136,7 +136,7 @@
   top: -20px;
   left: 0;
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -167,7 +167,7 @@
 }
 .metro .world-picker [aria-pressed='true'] span {
   color: #625b2a;
-  font-size: 9px;
+  font-size: 10px;
 }
 .metro .world-picker button:focus-visible {
   outline-offset: -4px;
@@ -278,7 +278,7 @@
   border-top: 1px solid #7d866b;
   padding-top: 10px;
   font:
-    9px 'IBM Plex Mono',
+    10px 'IBM Plex Mono',
     monospace;
   text-transform: uppercase;
   letter-spacing: 0.035em;
@@ -338,6 +338,15 @@
   align-items: center;
   gap: 30px;
   margin-top: 24px;
+}
+.metro .hero-socials {
+  display: flex;
+  gap: 22px;
+  margin-top: 18px;
+  color: var(--muted);
+  font:
+    11px 'IBM Plex Mono',
+    monospace;
 }
 .metro .metal-button {
   display: inline-flex;
@@ -682,7 +691,7 @@
   background: #181f17;
 }
 .metro .site-footer .eyebrow {
-  font-size: 9px;
+  font-size: 10px;
   color: #b8c2a4;
 }
 .metro .footer-contact {
@@ -703,7 +712,8 @@
     11px 'IBM Plex Mono',
     monospace;
 }
-.metro .site-footer a:hover {
+.metro .site-footer a:hover,
+.metro .hero-socials a:hover {
   color: var(--amber);
 }
 @media (min-width: 1600px) {
@@ -731,7 +741,7 @@
     font-size: 7vw;
   }
   .metro .plate-baseline {
-    font-size: 8px;
+    font-size: 9px;
   }
   .metro .shelter {
     min-height: 720px;
@@ -790,7 +800,7 @@
     gap: 12px;
   }
   .metro .wordmark small {
-    font-size: 8px;
+    font-size: 9px;
   }
   .metro .rail-symbol {
     height: 31px;
@@ -807,7 +817,7 @@
     flex: 1;
   }
   .metro .world-picker legend {
-    font-size: 8px;
+    font-size: 9px;
     top: -17px;
   }
   .metro .world-picker button {
@@ -856,7 +866,7 @@
     padding: 8px 0;
   }
   .metro .plate-baseline {
-    font-size: 7px;
+    font-size: 9px;
     letter-spacing: 0;
     gap: 8px;
     padding-top: 8px;
@@ -872,6 +882,9 @@
   }
   .metro .hero-actions {
     margin-top: 23px;
+  }
+  .metro .hero-socials {
+    gap: 18px;
   }
   .metro .metal-button {
     min-height: 47px;
@@ -904,7 +917,7 @@
     align-items: flex-start;
   }
   .metro .shelter-bottom .eyebrow {
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0;
   }
   .metro .shelter-bottom .eyebrow span {
@@ -921,7 +934,7 @@
     font-size: 10px;
   }
   .metro .record-stamp {
-    font-size: 8px;
+    font-size: 9px;
     padding: 4px 6px;
   }
   .metro .practice-grid {
@@ -976,7 +989,7 @@
     line-height: 1.15;
   }
   .metro .work-heading .eyebrow {
-    font-size: 9px;
+    font-size: 10px;
   }
   .metro .work-count {
     display: none;
@@ -994,7 +1007,7 @@
     padding: 21px 10px 15px;
   }
   .metro .project-copy .eyebrow {
-    font-size: 9px;
+    font-size: 10px;
   }
   .metro .project-copy h3 {
     font-size: 29px;
@@ -1019,7 +1032,7 @@
     margin-top: 29px;
   }
   .metro .small-projects > p {
-    font-size: 9px;
+    font-size: 10px;
     margin-bottom: 8px;
   }
   .metro .small-projects > a {
@@ -1036,7 +1049,7 @@
     padding-bottom: 26px;
   }
   .metro .site-footer .eyebrow {
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 0.06em;
   }
   .metro .footer-contact {

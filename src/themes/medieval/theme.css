@@ -179,6 +179,11 @@
   align-items: center;
   gap: 28px;
 }
+.folio .hero-socials {
+  margin-top: 17px;
+  font-size: 13px;
+  color: var(--faded-ink);
+}
 .ink-button {
   display: inline-flex;
   align-items: center;
@@ -634,11 +639,13 @@
   margin: 0 10px;
   color: #9b7750;
 }
-.folio-footer nav {
+.folio-footer nav,
+.folio .hero-socials {
   display: flex;
   gap: 22px;
 }
-.folio-footer a:hover {
+.folio-footer a:hover,
+.folio .hero-socials a:hover {
   color: #914c39;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -783,6 +790,9 @@
   }
   .folio-actions {
     gap: 22px;
+  }
+  .folio .hero-socials {
+    gap: 20px;
   }
   .ink-button {
     padding: 14px 20px;
