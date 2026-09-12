@@ -228,6 +228,15 @@ test('Metro lamp visibly flickers, swings only on direct hover, and obeys motion
   await expect(visual).not.toHaveCSS('transform', 'none');
   await expect(visual).toHaveCSS('transform', 'none');
 
+  await hitTarget.hover();
+  await page.waitForTimeout(250);
+  await expect(visual).toHaveCSS('animation-name', 'metro-lamp-swing');
+  await scene(page).locator('[data-motion-toggle]').click();
+  await expect(visual).not.toHaveClass(/is-swinging/);
+  await expect(visual).toHaveCSS('animation-name', 'none');
+  await scene(page).locator('[data-motion-toggle]').click();
+  await expect(visual).toHaveCSS('animation-name', 'none');
+
   let pausedDuringDip = false;
   const dipDeadline = Date.now() + 7000;
   while (Date.now() < dipDeadline) {
