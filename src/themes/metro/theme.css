@@ -1094,6 +1094,25 @@
   left: calc(61.4% - 55px);
   width: 110px;
   height: 105px;
+  pointer-events: none;
+}
+@keyframes metro-lamp-swing {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  18% {
+    transform: rotate(2deg);
+  }
+  40% {
+    transform: rotate(-1.4deg);
+  }
+  62% {
+    transform: rotate(0.8deg);
+  }
+  80% {
+    transform: rotate(-0.35deg);
+  }
 }
 .metro .world-picker button {
   transition:
@@ -1148,13 +1167,23 @@
     transform-origin: 40% 0;
   }
   .metro .lamp-hit {
-    top: 95px;
+    top: calc(100% - 434px);
     left: calc(40% - 40px);
     width: 80px;
     height: 70px;
   }
 }
-@media (pointer: fine) {
+@media (hover: hover) and (pointer: fine) {
+  html[data-motion='running'] .metro .lamp-hit {
+    pointer-events: auto;
+  }
+  html[data-motion='running']
+    .metro
+    .lamp-hit:hover
+    + .workshop-art
+    .lamp-visual {
+    animation: metro-lamp-swing 1.3s ease-out;
+  }
   .metro {
     cursor:
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 2v18l5-5 4 7 4-2-4-7h7Z' fill='%23cec9b5' stroke='%23242b24' stroke-width='1.5'/%3E%3Cpath d='M6 8v6l3-3' fill='none' stroke='%239f583b'/%3E%3C/svg%3E")

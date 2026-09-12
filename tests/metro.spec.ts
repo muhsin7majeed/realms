@@ -71,7 +71,7 @@ test('Metro art and display font are deferred, repeated three-way requests await
     await page.goto('./');
     await page.waitForLoadState('networkidle');
     expect(
-      requests.some((url) => /metro\/workshop|russo-one/.test(url)),
+      requests.some((url) => /metro\/(workshop|lamp-)|russo-one/.test(url)),
     ).toBeFalsy();
     await scene(page).locator('[data-theme-choice="metro"]').click();
     await expect
@@ -92,7 +92,7 @@ test('Metro art and display font are deferred, repeated three-way requests await
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'metro');
     expect(
       await scene(page)
-        .locator('.workshop-art img')
+        .locator('.workshop-background')
         .evaluate((el) => (el as HTMLImageElement).naturalWidth),
     ).toBeGreaterThan(0);
   } finally {
@@ -179,6 +179,8 @@ test('Metro lamp visibly flickers, swings only on direct hover, and obeys motion
   await expect(fixture).toHaveCount(1);
   await expect(glow).toHaveCount(1);
   await expect(hitTarget).toHaveCount(1);
+  const hitBox = await hitTarget.boundingBox();
+  expect(hitBox).not.toBeNull();
 
   const opacities: number[] = [];
   for (let index = 0; index < 25; index += 1) {
@@ -203,18 +205,26 @@ test('Metro lamp visibly flickers, swings only on direct hover, and obeys motion
 
   await hitTarget.hover();
   await expect
-    .poll(() => visual.evaluate((element) => getComputedStyle(element).transform))
+    .poll(() =>
+      visual.evaluate((element) => getComputedStyle(element).transform),
+    )
     .not.toBe('none');
-  await page.mouse.move(10, 10);
+  await page.mouse.move(
+    hitBox!.x + hitBox!.width + 20,
+    hitBox!.y + hitBox!.height / 2,
+  );
   await expect(visual).toHaveCSS('transform', 'none');
 
   await scene(page).locator('[data-motion-toggle]').click();
-  const pausedOpacity = await glow.evaluate((element) =>
-    getComputedStyle(element).opacity,
+  const pausedOpacity = await glow.evaluate(
+    (element) => getComputedStyle(element).opacity,
   );
   await page.waitForTimeout(300);
   await expect(glow).toHaveCSS('opacity', pausedOpacity);
-  await hitTarget.hover();
+  await page.mouse.move(
+    hitBox!.x + hitBox!.width / 2,
+    hitBox!.y + hitBox!.height / 2,
+  );
   await expect(visual).toHaveCSS('transform', 'none');
 });
 
@@ -237,7 +247,7 @@ test('Metro reduced motion, pause mid-transition, visibility and blocked storage
   await expect(page.locator('html')).toHaveAttribute('data-motion', 'paused');
   await expect(page.locator('.world-transition')).not.toBeVisible();
   await scene(page).locator('[data-motion-toggle]').click();
-  const light = scene(page).locator('[data-ambient="light"]');
+  const light = scene(page).locator('[data-ambient="lamp-glow"]');
   await page.evaluate(() => {
     Object.defineProperty(document, 'hidden', {
       configurable: true,
