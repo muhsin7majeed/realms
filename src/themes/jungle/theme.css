@@ -152,6 +152,11 @@
     transparent 72%
   );
 }
+.jungle .jg-ray,
+.jungle .jg-mist {
+  /* GSAP animates these every frame; keep them off the raster path. */
+  will-change: transform, opacity;
+}
 .jungle .jg-mist-a {
   top: 44%;
 }
