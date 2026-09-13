@@ -42,6 +42,12 @@ const worlds = {
     resume: 'The résumé',
     transition: 'Through the bulkhead. Back to the work.',
   },
+  jungle: {
+    title: 'The Understory',
+    legend: 'Part the leaves',
+    resume: 'The résumé',
+    transition: 'Down into the understory.',
+  },
 };
 
 for (const [world, labels] of Object.entries(worlds)) {
@@ -156,7 +162,7 @@ test('social links sit by the contact action and footers offer the repository', 
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
 
-  for (const world of ['medieval', 'cyberpunk', 'metro'] as const) {
+  for (const world of ['medieval', 'cyberpunk', 'metro', 'jungle'] as const) {
     await page
       .locator(`[data-scene]:visible [data-theme-choice="${world}"]`)
       .click();
@@ -196,7 +202,7 @@ test('destination transition labels and neutral metadata retain main wording', a
   page,
 }) => {
   await page.goto('./');
-  for (const world of ['cyberpunk', 'metro', 'medieval'] as const) {
+  for (const world of ['cyberpunk', 'metro', 'jungle', 'medieval'] as const) {
     await page
       .locator(`[data-scene]:visible [data-theme-choice="${world}"]`)
       .click();

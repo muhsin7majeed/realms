@@ -35,7 +35,12 @@ const canonical = new URL(base, Astro.site);
     <script is:inline>
       try {
         const theme = localStorage.getItem('portfolio-world');
-        if (theme === 'cyberpunk' || theme === 'medieval' || theme === 'metro')
+        if (
+          theme === 'cyberpunk' ||
+          theme === 'medieval' ||
+          theme === 'metro' ||
+          theme === 'jungle'
+        )
           document.documentElement.dataset.theme = theme;
       } catch {}
     </script>

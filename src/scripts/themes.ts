@@ -2,6 +2,7 @@ import { gsap } from 'gsap';
 import * as medieval from '../themes/medieval/motion';
 import * as metro from '../themes/metro/motion';
 import * as cyberpunk from '../themes/cyberpunk/motion';
+import * as jungle from '../themes/jungle/motion';
 
 const worlds = {
   metro: {
@@ -29,6 +30,16 @@ const worlds = {
       '700 32px "Barlow Condensed"',
       '600 24px "Barlow Condensed"',
       '400 12px "IBM Plex Mono"',
+      '400 16px "DM Sans"',
+    ],
+  },
+  jungle: {
+    ...jungle,
+    color: '#04110a',
+    fonts: [
+      '300 32px Fraunces',
+      'italic 400 32px Fraunces',
+      '600 32px Fraunces',
       '400 16px "DM Sans"',
     ],
   },

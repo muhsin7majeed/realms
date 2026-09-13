@@ -1,0 +1,1146 @@
+.jungle {
+  --night: #04110a;
+  --moss: #0a2416;
+  --text: #e9e5d2;
+  --muted: #a9b89d;
+  --sun: #e9c975;
+  --fern: #8cc47c;
+  --line: #22412c;
+  --page-pad: clamp(22px, 5vw, 84px);
+  --column: 880px;
+  --jg-min-scale: 0.5;
+  color-scheme: dark;
+  position: relative;
+  overflow-x: clip;
+  background:
+    radial-gradient(
+      120% 70% at 50% -10%,
+      #1a4a2c 0%,
+      #0d2b19 32%,
+      #061a0f 60%,
+      transparent 80%
+    ),
+    var(--night);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+.jungle * {
+  box-sizing: border-box;
+}
+.jungle a {
+  color: inherit;
+  text-decoration: none;
+}
+.jungle h1,
+.jungle h2,
+.jungle h3,
+.jungle h4,
+.jungle p {
+  margin: 0;
+}
+.jungle em {
+  font-style: italic;
+  color: var(--sun);
+}
+.jungle a:focus-visible,
+.jungle button:focus-visible {
+  outline: 3px solid var(--sun);
+  outline-offset: 4px;
+}
+.jungle .eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fern);
+  line-height: 1.7;
+}
+
+/* ------------------------------------------------------------- foliage */
+.jungle .jg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.jungle .jg-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.jungle .jg-stage-front {
+  z-index: 3;
+}
+.jungle .jg-stage *,
+.jungle .jg-sprig * {
+  pointer-events: none;
+}
+.jungle .jg-layer {
+  position: absolute;
+  inset: -8% -6%;
+  will-change: transform;
+}
+.jungle .jg-layer-inner {
+  position: absolute;
+  inset: 0;
+}
+.jungle .jg-layer-canopy img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+.jungle .jg-layer-light {
+  opacity: calc(1 - var(--jg-descent, 0) * 0.6);
+}
+.jungle .jg-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    46% 40% at 52% 14%,
+    rgba(222, 240, 180, 0.22),
+    rgba(140, 190, 120, 0.07) 55%,
+    transparent 76%
+  );
+}
+.jungle .jg-ray {
+  position: absolute;
+  top: -16%;
+  height: 136%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(246, 234, 186, 0.17) 42%,
+    rgba(246, 234, 186, 0.17) 58%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.95),
+    rgba(0, 0, 0, 0.4) 55%,
+    transparent 84%
+  );
+  transform: skewX(-14deg);
+}
+.jungle .jg-ray-a {
+  left: 34%;
+  width: 16%;
+}
+.jungle .jg-ray-b {
+  left: 50%;
+  width: 8%;
+  opacity: 0.8;
+}
+.jungle .jg-ray-c {
+  left: 58%;
+  width: 13%;
+  opacity: 0.6;
+}
+.jungle .jg-mist {
+  position: absolute;
+  left: -20%;
+  width: 140%;
+  height: 24%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(120, 170, 130, 0.14),
+    rgba(120, 170, 130, 0.05) 45%,
+    transparent 72%
+  );
+}
+.jungle .jg-mist-a {
+  top: 44%;
+}
+.jungle .jg-mist-b {
+  top: 68%;
+  height: 20%;
+  opacity: 0.7;
+}
+.jungle .jg-mote {
+  position: absolute;
+  border-radius: 50%;
+  background: #f5e6a8;
+  box-shadow: 0 0 8px 2px rgba(233, 201, 117, 0.45);
+  opacity: 0;
+}
+.jungle .jg-cluster,
+.jungle .jg-vine {
+  position: absolute;
+  width: max(var(--jg-pct), calc(var(--jg-w) * var(--jg-min-scale) * 1px));
+  will-change: transform;
+}
+.jungle .jg-vine {
+  top: -14px;
+  translate: -50% 0;
+  transform-origin: 50% 0;
+}
+.jungle .jg-cluster svg,
+.jungle .jg-vine svg,
+.jungle .jg-sprig svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  max-width: none;
+}
+.jungle .jg-vein {
+  fill: none;
+  stroke: rgba(196, 228, 176, 0.16);
+  stroke-width: 1.6;
+}
+.jungle .jg-rachis {
+  fill: none;
+  stroke: #143221;
+  stroke-width: 3;
+}
+.jungle .jg-hole {
+  fill: #061509;
+}
+.jungle .jg-vine-stem {
+  fill: none;
+  stroke: url(#jg-g-deep);
+  stroke-width: 4.5;
+}
+.jungle .jg-blade {
+  transform-box: view-box;
+  transform-origin: 0 0;
+}
+.jungle .jg-sprig {
+  position: absolute;
+  z-index: 2;
+  will-change: transform;
+}
+.jungle .jg-sprig svg {
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.45));
+}
+@keyframes jg-rustle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  14% {
+    transform: rotate(4.6deg);
+  }
+  34% {
+    transform: rotate(-3.2deg);
+  }
+  55% {
+    transform: rotate(1.9deg);
+  }
+  76% {
+    transform: rotate(-0.8deg);
+  }
+}
+@keyframes jg-rustle-soft {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  16% {
+    transform: rotate(1.8deg);
+  }
+  38% {
+    transform: rotate(-1.3deg);
+  }
+  60% {
+    transform: rotate(0.7deg);
+  }
+  80% {
+    transform: rotate(-0.3deg);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  html[data-motion='running'] .jungle .jg-leaf path {
+    pointer-events: visiblePainted;
+  }
+  html[data-motion='running'] .jungle .jg-blade.is-rustling {
+    animation: jg-rustle 1.15s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  html[data-motion='running'] .jungle .jg-blade.is-rustling-soft {
+    animation: jg-rustle-soft 1.05s cubic-bezier(0.22, 0.61, 0.36, 1) 0.09s;
+  }
+  .jungle {
+    cursor:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 2v18l5-5 4 7 4-2-4-7h7Z' fill='%23e9e5d2' stroke='%230b1f11' stroke-width='1.5'/%3E%3Cpath d='M20 4c-6 0-9 3-9 9 6 0 9-3 9-9Z' fill='%238cc47c' stroke='%230b1f11' stroke-width='.8'/%3E%3C/svg%3E")
+        3 2,
+      auto;
+  }
+  .jungle a,
+  .jungle button {
+    cursor: pointer;
+  }
+  .jungle p,
+  .jungle h1,
+  .jungle h2,
+  .jungle h3,
+  .jungle h4,
+  .jungle li {
+    cursor: text;
+  }
+}
+
+/* -------------------------------------------------------------- header */
+.jungle .site-header {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 26px var(--page-pad) 0;
+  min-height: 96px;
+}
+.jungle .wordmark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+.jungle .wordmark-leaf {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+.jungle .wordmark small {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.jungle .world-controls {
+  align-items: center;
+  gap: 22px;
+}
+.jungle .world-picker {
+  position: relative;
+  display: flex;
+  gap: 3px;
+  padding: 4px;
+  margin: 0;
+  border: 1px solid rgba(140, 196, 124, 0.28);
+  border-radius: 999px;
+  background: rgba(4, 17, 10, 0.72);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.jungle .world-picker legend {
+  position: absolute;
+  top: -19px;
+  left: 16px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fern);
+}
+.jungle .world-picker button {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #c9d6bd;
+  padding: 9px 15px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  min-height: 38px;
+  transition:
+    background 0.18s,
+    color 0.18s,
+    transform 0.18s;
+}
+.jungle .world-picker button span {
+  margin-right: 6px;
+  color: var(--fern);
+}
+.jungle .world-picker button:not([aria-pressed='true']):hover {
+  background: rgba(140, 196, 124, 0.14);
+  color: #f0f4e4;
+}
+.jungle .world-picker button:active {
+  transform: translateY(1px);
+}
+.jungle .world-picker [aria-pressed='true'] {
+  background: linear-gradient(135deg, #f0d48a, #d9b25e);
+  color: #1b2a15;
+}
+.jungle .world-picker [aria-pressed='true'] span {
+  color: #4e5a2a;
+}
+.jungle .world-picker button:focus-visible {
+  outline-offset: -3px;
+}
+.jungle .world-picker [aria-pressed='true']:focus-visible {
+  outline-color: #1b2a15;
+}
+.jungle .motion-toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 36px;
+  padding: 10px 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.jungle .motion-toggle:hover {
+  color: var(--sun);
+}
+.jungle .motion-toggle:focus-visible {
+  outline-offset: -2px;
+}
+
+/* ---------------------------------------------------------------- hero */
+.jungle main,
+.jungle .site-footer {
+  position: relative;
+  z-index: 2;
+}
+.jungle main > section {
+  position: relative;
+  padding-left: var(--page-pad);
+  padding-right: var(--page-pad);
+}
+.jungle .glade-hero {
+  display: flex;
+  flex-direction: column;
+  min-height: min(760px, 86vh);
+  padding-top: 26px;
+  padding-bottom: 20px;
+}
+.jungle .hero-topline,
+.jungle .hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  max-width: var(--column);
+  width: 100%;
+  margin: 0 auto;
+}
+.jungle .leaf-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 12px;
+  background: var(--fern);
+  border-radius: 100% 0;
+  transform: rotate(45deg) translateY(1px);
+}
+.jungle .intro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: var(--column);
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 0 44px;
+}
+.jungle .hero-role {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.1vw, 28px);
+  color: var(--sun);
+}
+.jungle h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(72px, 12.5vw, 176px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  margin: 6px 0 14px -0.04em;
+  color: #f3f0dd;
+  text-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+.jungle .hero-baseline {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.jungle .hero-statement {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.12;
+  margin-top: 40px;
+  color: #dfe7c9;
+}
+.jungle .intro-copy {
+  font-size: 18px;
+  line-height: 1.7;
+  max-width: 520px;
+  margin-top: 18px;
+  color: #cdd6bd;
+}
+.jungle .hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 30px;
+}
+.jungle .leaf-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 52px;
+  padding: 14px 30px;
+  border-radius: 40px 10px;
+  background: linear-gradient(135deg, #9dd08b, #4f9a55);
+  color: #0b1f11;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s,
+    filter 0.18s;
+}
+.jungle .leaf-button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.jungle .leaf-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+.jungle .resume-link {
+  display: inline-flex;
+  gap: 16px;
+  padding: 12px 0;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(140, 196, 124, 0.5);
+  transition:
+    color 0.18s,
+    border-color 0.18s;
+}
+.jungle .resume-link:hover {
+  color: var(--sun);
+  border-color: var(--sun);
+}
+.jungle .hero-socials {
+  display: flex;
+  gap: 22px;
+  margin-top: 22px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.jungle .hero-socials a:hover,
+.jungle .site-footer a:hover {
+  color: var(--sun);
+}
+.jungle .hero-bottom {
+  padding-top: 18px;
+  border-top: 1px solid rgba(140, 196, 124, 0.18);
+  color: var(--muted);
+}
+.jungle .tools {
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.jungle .tools span {
+  margin: 0 9px;
+  color: #5f7a5a;
+}
+.jungle .art-caption {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #b8c7a6;
+}
+
+/* -------------------------------------------------------------- sprigs */
+.jungle .jg-sprig-a {
+  right: calc(var(--page-pad) - 60px);
+  top: 90px;
+  width: min(30vw, 420px);
+}
+.jungle .jg-sprig-c {
+  left: calc(var(--page-pad) - 120px);
+  bottom: -70px;
+  width: min(26vw, 360px);
+}
+.jungle .jg-sprig-d {
+  right: calc(var(--page-pad) - 90px);
+  top: -60px;
+  width: min(24vw, 340px);
+}
+.jungle .jg-sprig-b {
+  left: -90px;
+  bottom: -80px;
+  width: 36%;
+}
+
+/* --------------------------------------------------------------- roots */
+.jungle .roots {
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
+.jungle .roots-panel {
+  max-width: var(--column);
+  margin: 0 auto;
+  padding: 40px clamp(24px, 4vw, 56px) 48px;
+  border: 1px solid rgba(140, 196, 124, 0.16);
+  border-radius: 48px 14px;
+  background: linear-gradient(
+    170deg,
+    rgba(10, 36, 22, 0.86),
+    rgba(5, 20, 12, 0.92)
+  );
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45);
+}
+.jungle .section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(140, 196, 124, 0.18);
+}
+.jungle .section-note {
+  color: var(--muted);
+  white-space: nowrap;
+}
+.jungle .roots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 8%;
+  margin-top: 34px;
+}
+.jungle .capabilities h2,
+.jungle .grove-heading h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+.jungle .capabilities > p {
+  margin-top: 22px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #cdd6bd;
+}
+.jungle .capabilities ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  margin: 26px 0 0;
+  list-style: none;
+}
+.jungle .capabilities li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px 9px 13px;
+  border: 1px solid rgba(140, 196, 124, 0.32);
+  border-radius: 30px 8px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #d8e3c8;
+}
+.jungle .leaf-mark {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 100% 0;
+  background: linear-gradient(135deg, #9dd08b, #4f9a55);
+  transform: rotate(45deg);
+}
+.jungle .experience > h3 {
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(140, 196, 124, 0.18);
+}
+.jungle .job {
+  position: relative;
+  padding: 18px 0 18px 28px;
+  border-left: 2px solid rgba(140, 196, 124, 0.32);
+}
+.jungle .job:first-of-type {
+  margin-top: 8px;
+}
+.jungle .job::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 26px;
+  width: 12px;
+  height: 12px;
+  border-radius: 100% 0;
+  background: linear-gradient(135deg, #f0d48a, #d9b25e);
+  transform: rotate(45deg);
+}
+.jungle .job-period {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sun);
+}
+.jungle .job h4 {
+  margin-top: 6px;
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.2;
+}
+.jungle .job-role {
+  margin: 4px 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.jungle .job > p:last-child {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #cdd6bd;
+}
+
+/* --------------------------------------------------------------- grove */
+.jungle .grove {
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+.jungle .grove-heading,
+.jungle .grove-project,
+.jungle .seedlings {
+  max-width: var(--column);
+  margin-left: auto;
+  margin-right: auto;
+}
+.jungle .grove-heading h2 {
+  margin-top: 12px;
+}
+.jungle .grove-project {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 44px;
+  margin-top: 54px;
+}
+.jungle .grove-project:nth-of-type(even) .project-frame {
+  order: 2;
+}
+.jungle .grove-project:nth-of-type(even) .jg-sprig-b {
+  left: auto;
+  right: -90px;
+  scale: -1 1;
+}
+.jungle .project-frame {
+  position: relative;
+}
+.jungle .project-image {
+  display: block;
+  overflow: hidden;
+  border-radius: 40px 12px;
+  border: 1px solid rgba(140, 196, 124, 0.28);
+  background: #0a1a10;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.55),
+    0 0 0 8px rgba(5, 20, 12, 0.7);
+  transition:
+    transform 0.25s,
+    border-color 0.25s;
+}
+.jungle .project-image img {
+  width: 100%;
+  height: auto;
+}
+.jungle .project-image:hover {
+  border-color: var(--sun);
+  transform: translateY(-3px);
+}
+.jungle .project-copy .eyebrow {
+  color: var(--muted);
+}
+.jungle .project-copy h3 {
+  margin: 12px 0 12px;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(34px, 3.3vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.jungle .project-copy h3 a:hover {
+  color: var(--sun);
+}
+.jungle .project-copy > p:not(.eyebrow):not(.stack) {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #cdd6bd;
+  max-width: 420px;
+}
+.jungle .project-copy .stack {
+  margin-top: 18px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fern);
+}
+.jungle .project-links {
+  display: flex;
+  gap: 26px;
+  margin-top: 22px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.jungle .project-links a {
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(140, 196, 124, 0.45);
+}
+.jungle .project-links a:hover {
+  color: var(--sun);
+  border-color: var(--sun);
+}
+.jungle .project-links span {
+  margin-left: 8px;
+}
+.jungle .seedlings {
+  margin-top: 64px;
+  padding: 26px 0 8px;
+  border-top: 1px solid rgba(140, 196, 124, 0.18);
+}
+.jungle .seedlings > p {
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+.jungle .seedlings > a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(140, 196, 124, 0.12);
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 19px;
+}
+.jungle .seedlings > a > span:nth-child(2) {
+  flex: 1;
+}
+.jungle .seedlings small {
+  display: block;
+  margin-top: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--muted);
+}
+.jungle .seedlings > a:hover {
+  color: var(--sun);
+}
+
+/* -------------------------------------------------------------- footer */
+.jungle .site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  max-width: var(--column);
+  margin: 0 auto;
+  padding: 56px var(--page-pad) 64px;
+}
+.jungle .site-footer .eyebrow {
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.jungle .footer-contact {
+  display: block;
+  margin-top: 8px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 34px;
+}
+.jungle .footer-contact span {
+  margin-left: 16px;
+  color: var(--sun);
+}
+.jungle .site-footer nav {
+  display: flex;
+  gap: 22px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------- responsive */
+@media (max-width: 1100px) {
+  .jungle .world-controls {
+    gap: 14px;
+  }
+  .jungle .motion-toggle .motion-label {
+    display: none;
+  }
+  .jungle .world-picker button {
+    padding: 9px 12px;
+  }
+  .jungle .jg-sprig-a {
+    right: -70px;
+    top: 60px;
+  }
+}
+@media (max-width: 900px) {
+  .jungle .roots-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+  .jungle .grove-project {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .jungle .grove-project:nth-of-type(even) .project-frame {
+    order: 0;
+  }
+}
+@media (max-width: 760px) {
+  .jungle {
+    --page-pad: 22px;
+    --jg-min-scale: 0.4;
+  }
+  .jungle .site-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 30px;
+    padding-top: 22px;
+    min-height: 0;
+  }
+  .jungle .wordmark {
+    font-size: 18px;
+    gap: 12px;
+  }
+  .jungle .world-controls {
+    width: 100%;
+    gap: 12px;
+  }
+  .jungle .world-picker {
+    flex: 1;
+    padding: 3px;
+    gap: 0;
+  }
+  .jungle .world-picker legend {
+    left: 14px;
+    top: -18px;
+    font-size: 9px;
+  }
+  .jungle .world-picker button {
+    flex: 1;
+    padding: 8px 4px;
+    font-size: 10.5px;
+    letter-spacing: 0;
+    min-height: 38px;
+  }
+  .jungle .world-picker button span {
+    display: none;
+  }
+  .jungle .motion-toggle {
+    font-size: 13px;
+    padding: 9px 4px;
+  }
+  .jungle .glade-hero {
+    min-height: 0;
+    padding-top: 30px;
+  }
+  .jungle .intro {
+    padding: 34px 0 40px;
+  }
+  .jungle h1 {
+    font-size: clamp(64px, 21vw, 96px);
+  }
+  .jungle .hero-baseline {
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    font-size: 11px;
+  }
+  .jungle .hero-statement {
+    margin-top: 30px;
+    font-size: 26px;
+  }
+  .jungle .intro-copy {
+    font-size: 16px;
+  }
+  .jungle .hero-actions {
+    gap: 20px;
+  }
+  .jungle .leaf-button {
+    padding: 13px 24px;
+    min-height: 48px;
+    font-size: 12px;
+  }
+  .jungle .hero-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .jungle .tools {
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+  .jungle .tools span {
+    margin: 0 5px;
+  }
+  .jungle .art-caption {
+    font-size: 14px;
+  }
+  .jungle .jg-sprig-a {
+    width: 46vw;
+    right: -22vw;
+    top: 40px;
+  }
+  .jungle .jg-sprig-c {
+    width: 44vw;
+    left: -22vw;
+    bottom: -40px;
+  }
+  .jungle .jg-sprig-d {
+    width: 40vw;
+    right: -18vw;
+    top: -30px;
+  }
+  .jungle .jg-sprig-b {
+    width: 48%;
+    left: -46px;
+    bottom: -48px;
+  }
+  .jungle .grove-project:nth-of-type(even) .jg-sprig-b {
+    right: -46px;
+  }
+  .jungle .roots {
+    padding-top: 26px;
+    padding-bottom: 40px;
+  }
+  .jungle .roots-panel {
+    padding: 28px 22px 34px;
+    border-radius: 34px 10px;
+  }
+  .jungle .section-heading {
+    align-items: start;
+  }
+  .jungle .section-note {
+    display: none;
+  }
+  .jungle .roots-grid {
+    margin-top: 26px;
+  }
+  .jungle .capabilities h2,
+  .jungle .grove-heading h2 {
+    font-size: 36px;
+  }
+  .jungle .capabilities > p {
+    font-size: 15px;
+  }
+  .jungle .job {
+    padding-left: 22px;
+  }
+  .jungle .grove {
+    padding-top: 30px;
+  }
+  .jungle .grove-project {
+    margin-top: 40px;
+  }
+  .jungle .project-image {
+    border-radius: 28px 10px;
+  }
+  .jungle .project-copy h3 {
+    font-size: 34px;
+  }
+  .jungle .project-copy > p:not(.eyebrow):not(.stack) {
+    font-size: 15px;
+  }
+  .jungle .project-links {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  .jungle .seedlings {
+    margin-top: 48px;
+  }
+  .jungle .seedlings > a {
+    font-size: 17px;
+  }
+  .jungle .site-footer {
+    display: block;
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+  .jungle .footer-contact {
+    font-size: 28px;
+  }
+  .jungle .site-footer nav {
+    justify-content: space-between;
+    margin-top: 28px;
+    font-size: 11px;
+  }
+  .jungle .jg-vine[data-vine='1'],
+  .jungle .jg-vine[data-vine='2'],
+  .jungle .jg-edge-l,
+  .jungle .jg-edge-r {
+    display: none;
+  }
+  .jungle .jg-layer-fore {
+    --jg-min-scale: 0.28;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jungle * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+/* ---------------------------------------------------------- transition */
+.world-transition[data-destination='jungle'] .world-transition-shutter {
+  background: linear-gradient(160deg, #123822, #061a0f);
+}
+.world-transition[data-destination='jungle'] svg {
+  color: #8cc47c;
+}
+.world-transition[data-destination='jungle'] .world-transition-label {
+  color: #e9e5d2;
+}
+.world-transition[data-destination='jungle'] .world-transition-label strong {
+  font:
+    italic 300 clamp(22px, 4vw, 40px) 'Fraunces',
+    serif;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+.world-transition[data-destination='jungle'] .world-transition-label span {
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.16em;
+  opacity: 0.8;
+}

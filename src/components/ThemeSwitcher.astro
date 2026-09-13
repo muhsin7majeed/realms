@@ -1,19 +1,19 @@
 ---
 interface Props {
-  theme: 'medieval' | 'cyberpunk' | 'metro';
+  theme: 'medieval' | 'cyberpunk' | 'metro' | 'jungle';
 }
 const { theme } = Astro.props;
+const legends = {
+  medieval: 'Turn the page',
+  cyberpunk: 'Switch frequency',
+  metro: 'Choose a world',
+  jungle: 'Part the leaves',
+};
 ---
 
 <div class:list={['world-controls', `${theme}-controls`]}>
   <fieldset class="world-picker" aria-label="Choose a visual world">
-    <legend>
-      {theme === 'medieval'
-        ? 'Turn the page'
-        : theme === 'cyberpunk'
-          ? 'Switch frequency'
-          : 'Choose a world'}
-    </legend>
+    <legend>{legends[theme]}</legend>
     <button
       type="button"
       data-theme-choice="medieval"
@@ -34,6 +34,13 @@ const { theme } = Astro.props;
       aria-pressed={theme === 'metro'}
     >
       <span aria-hidden="true">▰</span> Metro
+    </button>
+    <button
+      type="button"
+      data-theme-choice="jungle"
+      aria-pressed={theme === 'jungle'}
+    >
+      <span aria-hidden="true">❦</span> Jungle
     </button>
   </fieldset>
   <button
