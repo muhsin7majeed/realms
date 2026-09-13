@@ -3,6 +3,7 @@ import * as medieval from '../themes/medieval/motion';
 import * as metro from '../themes/metro/motion';
 import * as cyberpunk from '../themes/cyberpunk/motion';
 import * as jungle from '../themes/jungle/motion';
+import * as space from '../themes/space/motion';
 
 const worlds = {
   metro: {
@@ -41,6 +42,16 @@ const worlds = {
       'italic 400 32px Fraunces',
       '600 32px Fraunces',
       '400 16px "DM Sans"',
+    ],
+  },
+  space: {
+    ...space,
+    color: '#05030f',
+    fonts: [
+      '300 32px "Space Grotesk"',
+      '500 32px "Space Grotesk"',
+      '700 32px "Space Grotesk"',
+      '400 16px "Space Grotesk"',
     ],
   },
 };

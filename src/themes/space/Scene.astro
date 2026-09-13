@@ -1,0 +1,319 @@
+---
+import profile from '../../data/profile.json';
+import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
+import defs from './art/defs.svg?raw';
+import mid from './art/mid.html?raw';
+import fore from './art/fore.html?raw';
+import constellationA from './art/constellation-a.svg?raw';
+import constellationB from './art/constellation-b.svg?raw';
+import constellationC from './art/constellation-c.svg?raw';
+import constellationD from './art/constellation-d.svg?raw';
+import './theme.css';
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+// Dust drifting through the nebula. Deterministic spread, no runtime randomness.
+const dust = Array.from({ length: 16 }, (_, index) => ({
+  left: 6 + ((index * 41) % 88),
+  top: 8 + ((index * 59) % 80),
+  size: 2 + (index % 3),
+}));
+const comets = [
+  { left: 8, top: 12, angle: 22 },
+  { left: 55, top: 4, angle: 34 },
+  { left: 30, top: 58, angle: 14 },
+];
+---
+
+<article
+  class="space"
+  data-scene="space"
+  aria-label="The Deep Field"
+  data-world-name="Space"
+  data-world-title="The Deep Field"
+  data-world-transition="Leaving atmosphere. Entering the deep field."
+>
+  <Fragment set:html={defs} />
+  <div class="sp-stage sp-stage-back" aria-hidden="true">
+    <div class="sp-layer sp-layer-stars" data-depth="0.04">
+      <div class="sp-layer-inner" data-reveal>
+        <img
+          data-lazy-src={asset('themes/space/starfield.svg')}
+          width="1600"
+          height="1000"
+          alt=""
+        />
+      </div>
+    </div>
+    <div class="sp-layer sp-layer-light" data-depth="0.08">
+      <div class="sp-layer-inner" data-reveal>
+        <i class="sp-nebula sp-nebula-a" data-ambient="nebula"></i>
+        <i class="sp-nebula sp-nebula-b" data-ambient="nebula"></i>
+        <i class="sp-nebula sp-nebula-c" data-ambient="nebula"></i>
+        <i class="sp-horizon"></i>
+        {comets.map((comet, index) => (
+          <i
+            class="sp-comet"
+            data-ambient="comet"
+            data-comet={index}
+            style={`left:${comet.left}%;top:${comet.top}%;--sp-angle:${comet.angle}deg`}
+          />
+        ))}
+        {dust.map((mote) => (
+          <i
+            class="sp-dust"
+            data-ambient="dust"
+            style={`left:${mote.left}%;top:${mote.top}%;width:${mote.size}px;height:${mote.size}px`}
+          />
+        ))}
+      </div>
+    </div>
+    <div class="sp-layer sp-layer-mid" data-depth="0.16">
+      <div class="sp-layer-inner" data-reveal>
+        <Fragment set:html={mid} />
+      </div>
+    </div>
+  </div>
+  <header class="site-header">
+    <a class="wordmark" href="#space-home" aria-label={`${profile.name}, home`}>
+      <svg
+        class="wordmark-orbit"
+        viewBox="0 0 32 32"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle cx="16" cy="16" r="6" fill="url(#sp-g-violet)"></circle>
+        <ellipse
+          cx="16"
+          cy="16"
+          rx="14"
+          ry="5"
+          fill="none"
+          stroke="#ffd27a"
+          stroke-width="1.2"
+          transform="rotate(-24 16 16)"
+        ></ellipse>
+        <circle cx="27" cy="9" r="1.6" fill="#6ee7ff"></circle>
+      </svg>
+      <span>
+        {profile.fullName}
+        <small>Personal portfolio</small>
+      </span>
+    </a>
+    <ThemeSwitcher theme="space" />
+  </header>
+  <main id="space-home">
+    <section class="field-hero" aria-labelledby="space-name">
+      <span
+        class="sp-constellation sp-constellation-a"
+        aria-hidden="true"
+        data-ambient="drift"
+      >
+        <Fragment set:html={constellationA} />
+      </span>
+      <div class="hero-topline">
+        <p class="eyebrow">
+          <span class="orbit-dot" aria-hidden="true"></span>
+          Deep field · Observation 01
+        </p>
+      </div>
+      <div class="intro">
+        <p class="hero-role" data-reveal>
+          {profile.role}
+        </p>
+        <h1 id="space-name" data-reveal>
+          {profile.name}
+        </h1>
+        <div class="hero-telemetry" data-reveal>
+          <span>{profile.location}</span>
+          <span aria-hidden="true">✦</span>
+          <span>In orbit since {profile.careerStart}</span>
+        </div>
+        <h2 class="hero-statement" data-reveal>
+          Small signals.
+          <br />
+          Long distances.
+        </h2>
+        <p class="intro-copy" data-reveal>
+          {profile.intro}
+        </p>
+        <div class="hero-actions" data-reveal>
+          <a class="launch-button" href={`mailto:${profile.email}`}>
+            Get in touch
+            <span aria-hidden="true">→</span>
+          </a>
+          <a class="resume-link" href={asset(profile.resume)}>
+            The résumé
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+        <nav class="hero-socials" aria-label="Social links" data-reveal>
+          {profile.socials.map((social) => (
+            <a href={social.url}>{social.name} ↗</a>
+          ))}
+        </nav>
+      </div>
+      <div class="hero-bottom">
+        <span class="eyebrow tools">
+          {profile.tools.map((tool, index) => (
+            <>
+              {index > 0 && <span aria-hidden="true">·</span>}
+              {tool}
+            </>
+          ))}
+        </span>
+        <p class="art-caption">
+          Every star is plotted in code. Hover a planet.
+        </p>
+      </div>
+    </section>
+    <section class="orbit" aria-labelledby="space-orbit">
+      <span
+        class="sp-constellation sp-constellation-b"
+        aria-hidden="true"
+        data-ambient="drift"
+      >
+        <Fragment set:html={constellationB} />
+      </span>
+      <div class="orbit-panel">
+        <div class="section-heading">
+          <span class="eyebrow">01 / Orbit</span>
+          <span class="eyebrow section-note" aria-hidden="true">
+            What keeps it turning
+          </span>
+        </div>
+        <div class="orbit-grid">
+          <div class="capabilities">
+            <h2 id="space-orbit">
+              Steady in
+              <br />
+              <em>orbit.</em>
+            </h2>
+            <p>{profile.about}</p>
+            <ul>
+              {profile.capabilities.map((capability, index) => (
+                <li>
+                  <span
+                    class={`orbit-dot orbit-dot-${index}`}
+                    aria-hidden="true"
+                  ></span>
+                  {capability}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="experience">
+            <h3 class="eyebrow">Mission log</h3>
+            {profile.experience.map((job) => (
+              <article class="job">
+                <p class="job-period">{job.period}</p>
+                <h4>{job.company}</h4>
+                <p class="job-role">{job.role}</p>
+                <p>{job.summary}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="transmissions" aria-labelledby="space-signals">
+      <div class="section-heading transmissions-heading">
+        <div>
+          <span class="eyebrow">02 / Signals received</span>
+          <h2 id="space-signals">
+            Signals that <em>reached home.</em>
+          </h2>
+        </div>
+        <span class="eyebrow section-note" aria-hidden="true">
+          {String(profile.projects.length).padStart(2, '0')} transmissions
+        </span>
+      </div>
+      {profile.projects
+        .filter((project) => project.featured)
+        .map((project, index) => (
+          <article class="transmission">
+            <div class="transmission-frame">
+              <a
+                class="project-image"
+                href={project.url}
+                aria-label={`Explore ${project.name}`}
+              >
+                <img
+                  data-lazy-src={asset(project.image!)}
+                  width="800"
+                  height="450"
+                  alt={`${project.name} website preview`}
+                  loading="lazy"
+                />
+              </a>
+              <span
+                class="sp-constellation sp-constellation-card"
+                aria-hidden="true"
+                data-ambient="drift"
+              >
+                <Fragment
+                  set:html={index % 2 ? constellationD : constellationC}
+                />
+              </span>
+            </div>
+            <div class="transmission-copy">
+              <p class="eyebrow">
+                0{index + 1} / {project.category}
+              </p>
+              <h3>
+                <a href={project.url}>{project.name}</a>
+              </h3>
+              <p>{project.description}</p>
+              <p class="stack">{project.stack}</p>
+              <div class="project-links">
+                <a href={project.url}>
+                  Explore the work
+                  <span aria-hidden="true">→</span>
+                </a>
+                <a
+                  href={project.source}
+                  aria-label={`${project.name} source code`}
+                >
+                  Source
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      <div class="faint-signals">
+        <p class="eyebrow">Faint signals</p>
+        {profile.projects
+          .filter((project) => !project.featured)
+          .map((project) => (
+            <a href={project.url}>
+              <span class="orbit-dot" aria-hidden="true" />
+              <span>
+                {project.name}
+                <small>{project.description}</small>
+              </span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div>
+      <span class="eyebrow">Transmission open on every frequency.</span>
+      <a class="footer-contact" href={`mailto:${profile.email}`}>
+        Email
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <nav aria-label="Footer links">
+      <a href="https://github.com/muhsin7majeed/realms">Fork this ↗</a>
+      <a href="#space-home">Back to the top ↑</a>
+    </nav>
+  </footer>
+  <div class="sp-stage sp-stage-front" aria-hidden="true">
+    <div class="sp-layer sp-layer-fore" data-depth="0.38">
+      <div class="sp-layer-inner" data-reveal>
+        <Fragment set:html={fore} />
+      </div>
+    </div>
+  </div>
+</article>

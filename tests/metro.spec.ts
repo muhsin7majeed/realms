@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const worlds = ['medieval', 'cyberpunk', 'metro', 'jungle'];
+const worlds = ['medieval', 'cyberpunk', 'metro', 'jungle', 'space'];
 const scene = (page: import('@playwright/test').Page) =>
   page.locator('[data-scene]:visible');
 

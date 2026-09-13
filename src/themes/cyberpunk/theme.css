@@ -1209,3 +1209,8 @@
     flex: 1;
   }
 }
+@media (max-width: 420px) {
+  .cyberpunk-controls .world-picker button span {
+    display: none;
+  }
+}

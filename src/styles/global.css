@@ -10,6 +10,10 @@
 @import '@fontsource/fraunces/latin-300.css';
 @import '@fontsource/fraunces/latin-400-italic.css';
 @import '@fontsource/fraunces/latin-600.css';
+@import '@fontsource/space-grotesk/latin-300.css';
+@import '@fontsource/space-grotesk/latin-400.css';
+@import '@fontsource/space-grotesk/latin-500.css';
+@import '@fontsource/space-grotesk/latin-700.css';
 
 * {
   box-sizing: border-box;
@@ -57,7 +61,8 @@ button:disabled {
 html[data-theme='medieval'] [data-scene='medieval'],
 html[data-theme='cyberpunk'] [data-scene='cyberpunk'],
 html[data-theme='metro'] [data-scene='metro'],
-html[data-theme='jungle'] [data-scene='jungle'] {
+html[data-theme='jungle'] [data-scene='jungle'],
+html[data-theme='space'] [data-scene='space'] {
   display: block;
 }
 .world-controls {
@@ -173,6 +178,10 @@ html[data-theme='metro'] {
 }
 html[data-theme='jungle'] {
   background: #04110a;
+  color-scheme: dark;
+}
+html[data-theme='space'] {
+  background: #05030f;
   color-scheme: dark;
 }
 .world-transition-bulkhead {

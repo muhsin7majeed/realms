@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 const currentScene = (page: import('@playwright/test').Page) =>
   page.locator('[data-scene]:visible');
 
-for (const theme of ['medieval', 'cyberpunk', 'metro', 'jungle']) {
+for (const theme of ['medieval', 'cyberpunk', 'metro', 'jungle', 'space']) {
   test(`${theme}: responsive, accessible, and complete`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('./');
@@ -46,6 +46,9 @@ for (const theme of ['medieval', 'cyberpunk', 'metro', 'jungle']) {
       ).toBeInViewport();
       await expect(
         currentScene(page).getByRole('button', { name: /jungle/i }),
+      ).toBeInViewport();
+      await expect(
+        currentScene(page).getByRole('button', { name: /space/i }),
       ).toBeInViewport();
     }
     await page.evaluate(() => document.fonts.ready);

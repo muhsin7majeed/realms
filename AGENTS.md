@@ -4,7 +4,7 @@
 
 Realms is a general, customizable multi-theme portfolio: memorable, eye-catching, and easy to understand. Visitors must be able to find who the portfolio owner is, what they do, what they can do, proof of their work, their résumé, and contact details without learning an unusual navigation system.
 
-**The central requirement is complete art-style changes, not color themes.** Medieval, Cyberpunk, Metro, and Jungle are independently designed websites sharing portfolio content. Preserve their different layouts, imagery, SVGs, typography (including sizes and weights), surfaces, borders, controls, hover/focus/press effects, cursors, and entrance/idle/exit motion. Future themes should have equal freedom.
+**The central requirement is complete art-style changes, not color themes.** Medieval, Cyberpunk, Metro, Jungle, and Space are independently designed websites sharing portfolio content. Preserve their different layouts, imagery, SVGs, typography (including sizes and weights), surfaces, borders, controls, hover/focus/press effects, cursors, and entrance/idle/exit motion. Future themes should have equal freedom.
 
 ## Start here
 
@@ -21,7 +21,7 @@ Read `README.md`, the relevant source files, and any active plan in `.scratch/pl
 - `src/styles/global.css` contains fonts and the small shared baseline. Do not turn it into a universal component design system.
 - `public/themes/` holds original artwork; `public/projects/` holds real project screenshots. Résumé and social-preview files are independently replaceable assets.
 
-All four worlds render at build time, but only one is visually and accessibility-exposed. The medieval default must remain usable without JavaScript. Keep IDs unique across scenes. The controller currently maps reading position by the ordered `main > section` regions: introduction, capabilities/experience, and work. Preserve that contract, or explicitly update and test the mapping when changing it.
+All five worlds render at build time, but only one is visually and accessibility-exposed. The medieval default must remain usable without JavaScript. Keep IDs unique across scenes. The controller currently maps reading position by the ordered `main > section` regions: introduction, capabilities/experience, and work. Preserve that contract, or explicitly update and test the mapping when changing it.
 
 See the README’s theme-addition checklist when introducing another world. Keep registration explicit and small; do not build a theme/plugin framework speculatively.
 
@@ -60,8 +60,8 @@ npm run check
 
 For visual or motion changes, additionally inspect:
 
-- All four themes at narrow mobile (360px), mobile (~390px), tablet, desktop (~1440px), and short desktop heights; check overflow, copy wrapping, and readable text. After changing an emulated viewport, let Chromium apply its media-query/layout frames before measuring; do not weaken the overflow assertion to hide real layout defects.
-- Hover, press, keyboard focus, all twelve directed theme switches, rapid selection, and reduced-motion behavior.
+- All five themes at narrow mobile (360px), mobile (~390px), tablet, desktop (~1440px), and short desktop heights; check overflow, copy wrapping, and readable text. After changing an emulated viewport, let Chromium apply its media-query/layout frames before measuring; do not weaken the overflow assertion to hide real layout defects.
+- Hover, press, keyboard focus, all twenty directed theme switches, rapid selection, and reduced-motion behavior.
 - Grayscale screenshots and interaction recordings when changing art direction. Static screenshots cannot prove smooth animation.
 - No-JavaScript content, deferred assets, and hidden-scene accessibility when changing rendering or loading.
 

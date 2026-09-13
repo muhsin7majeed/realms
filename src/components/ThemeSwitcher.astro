@@ -1,6 +1,6 @@
 ---
 interface Props {
-  theme: 'medieval' | 'cyberpunk' | 'metro' | 'jungle';
+  theme: 'medieval' | 'cyberpunk' | 'metro' | 'jungle' | 'space';
 }
 const { theme } = Astro.props;
 const legends = {
@@ -8,6 +8,7 @@ const legends = {
   cyberpunk: 'Switch frequency',
   metro: 'Choose a world',
   jungle: 'Part the leaves',
+  space: 'Choose your orbit',
 };
 ---
 
@@ -41,6 +42,13 @@ const legends = {
       aria-pressed={theme === 'jungle'}
     >
       <span aria-hidden="true">❦</span> Jungle
+    </button>
+    <button
+      type="button"
+      data-theme-choice="space"
+      aria-pressed={theme === 'space'}
+    >
+      <span aria-hidden="true">✧</span> Space
     </button>
   </fieldset>
   <button
