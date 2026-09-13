@@ -4,6 +4,7 @@ import * as metro from '../themes/metro/motion';
 import * as cyberpunk from '../themes/cyberpunk/motion';
 import * as jungle from '../themes/jungle/motion';
 import * as space from '../themes/space/motion';
+import * as sky from '../themes/sky/motion';
 
 const worlds = {
   metro: {
@@ -52,6 +53,16 @@ const worlds = {
       '500 32px "Space Grotesk"',
       '700 32px "Space Grotesk"',
       '400 16px "Space Grotesk"',
+    ],
+  },
+  sky: {
+    ...sky,
+    color: '#a9cdee',
+    fonts: [
+      '300 32px Outfit',
+      '500 32px Outfit',
+      '700 32px Outfit',
+      '400 16px Outfit',
     ],
   },
 };

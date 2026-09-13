@@ -54,6 +54,12 @@ const worlds = {
     resume: 'The résumé',
     transition: 'Leaving atmosphere. Entering the deep field.',
   },
+  sky: {
+    title: 'Above the Clouds',
+    legend: 'Change altitude',
+    resume: 'The résumé',
+    transition: 'Climbing out of the haze.',
+  },
 };
 
 for (const [world, labels] of Object.entries(worlds)) {
@@ -174,6 +180,7 @@ test('social links sit by the contact action and footers offer the repository', 
     'metro',
     'jungle',
     'space',
+    'sky',
   ] as const) {
     await page
       .locator(`[data-scene]:visible [data-theme-choice="${world}"]`)
@@ -219,6 +226,7 @@ test('destination transition labels and neutral metadata retain main wording', a
     'metro',
     'jungle',
     'space',
+    'sky',
     'medieval',
   ] as const) {
     await page

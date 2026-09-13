@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const worlds = ['medieval', 'cyberpunk', 'metro', 'jungle', 'space'];
+const worlds = ['medieval', 'cyberpunk', 'metro', 'jungle', 'space', 'sky'];
 const scene = (page: import('@playwright/test').Page) =>
   page.locator('[data-scene]:visible');
 
@@ -237,21 +237,25 @@ test('Metro lamp visibly flickers, swings only on direct hover, and obeys motion
   await scene(page).locator('[data-motion-toggle]').click();
   await expect(visual).toHaveCSS('animation-name', 'none');
 
-  let pausedDuringDip = false;
-  // The flicker timeline repeats every 13.5s; wait a full period for a dip.
-  const dipDeadline = Date.now() + 14000;
-  while (Date.now() < dipDeadline) {
-    if (
-      (await glow.evaluate((element) =>
-        Number.parseFloat(getComputedStyle(element).opacity),
-      )) < 0.4
-    ) {
-      await scene(page).locator('[data-motion-toggle]').click();
-      pausedDuringDip = true;
-      break;
-    }
-    await page.waitForTimeout(20);
-  }
+  // The flicker repeats every 13.5s and its dips last ~100ms, so watch for
+  // one inside the page and pause from there; runner round-trips would miss it.
+  const pausedDuringDip = await glow.evaluate(
+    (element) =>
+      new Promise<boolean>((resolve) => {
+        const toggle = element
+          .closest('[data-scene]')!
+          .querySelector<HTMLButtonElement>('[data-motion-toggle]')!;
+        const deadline = performance.now() + 14000;
+        const watch = () => {
+          if (Number.parseFloat(getComputedStyle(element).opacity) < 0.4) {
+            toggle.click();
+            resolve(true);
+          } else if (performance.now() > deadline) resolve(false);
+          else requestAnimationFrame(watch);
+        };
+        watch();
+      }),
+  );
   expect(pausedDuringDip).toBeTruthy();
   await expect
     .poll(() =>
@@ -448,9 +452,11 @@ test('all scenes have unique IDs and base-safe local assets without failed reque
     expect((await request.get(resume!)).status()).toBe(200);
     for (const image of await scene(page).locator('img').all()) {
       await image.scrollIntoViewIfNeeded();
+      // Six worlds of lazy images under a parallel run need more than 5s.
       await expect
-        .poll(() =>
-          image.evaluate((el) => (el as HTMLImageElement).naturalWidth),
+        .poll(
+          () => image.evaluate((el) => (el as HTMLImageElement).naturalWidth),
+          { timeout: 10000 },
         )
         .toBeGreaterThan(0);
     }
