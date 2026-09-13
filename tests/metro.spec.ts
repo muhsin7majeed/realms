@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const worlds = ['medieval', 'cyberpunk', 'metro'];
+const worlds = ['medieval', 'cyberpunk', 'metro', 'jungle'];
 const scene = (page: import('@playwright/test').Page) =>
   page.locator('[data-scene]:visible');
 
@@ -238,7 +238,8 @@ test('Metro lamp visibly flickers, swings only on direct hover, and obeys motion
   await expect(visual).toHaveCSS('animation-name', 'none');
 
   let pausedDuringDip = false;
-  const dipDeadline = Date.now() + 7000;
+  // The flicker timeline repeats every 13.5s; wait a full period for a dip.
+  const dipDeadline = Date.now() + 14000;
   while (Date.now() < dipDeadline) {
     if (
       (await glow.evaluate((element) =>
